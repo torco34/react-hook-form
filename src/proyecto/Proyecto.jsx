@@ -12,37 +12,36 @@ const cursos = [
 export const Proyecto = () => {
   const [selectedCursos, setSelectedCursos] = useState([]);
   const [cursosDisponibles, setCursosDisponibles] = useState(cursos);
-  const [selectedItems, setSelectedItems] = useState({});
   const [selectVisible, setSelectVisible] = useState(false);
 
-  const { control, handleSubmit, register, getValues, reset, setValue } =
-    useForm({
-      defaultValues: {
-        items: [],
-      },
-    });
+  const { control, handleSubmit, getValues, reset, setValue } = useForm({
+    defaultValues: {
+      items: [],
+      cursosSeleccionados: [],
+    },
+  });
   const { fields, append, remove } = useFieldArray({
     control,
     name: "items",
   });
-  const { remove: remove2 } = useFieldArray({
-    control,
-    name: "items2",
-  });
+
   const handleSelectChange = (e, index) => {
     // a qui selected capsula el curso seleccionado
     const selected = e.target.value;
 
     setSelectVisible(false);
-
+    const selectedCourses =
+      getValues(`items[${index}].cursosDisponibles`) || [];
+    selectedCourses.push(selected);
+    setValue(`items[${index}].cursosDisponibles`, selectedCourses);
     // a qui se agrega a la array  el curso seleccionado
     setSelectedCursos([...selectedCursos, selected]);
     // a qui creamos una nueva array sin el cuso seleccionado
+
     const cursosRestantes = cursosDisponibles.filter(
       (curso) => curso !== selected
     );
     setCursosDisponibles(cursosRestantes);
- 
   };
   const appendAgregar = () => {
     const existingEmptyItem = getValues("items").find((item) => !item.items);
@@ -55,19 +54,30 @@ export const Proyecto = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+    // reset();
+    // setSelectedCursos([""]);
   };
 
   return (
-    <div>
+    <div
+      className="border"
+      style={{
+        width: "100%",
+        background: "#F5F5F5",
+        padding: "20px",
+        borderRadius: "10px",
+      }}
+    >
+      <br></br>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div style={{ width: "100%" }}>
+        <div>
           <label>Nombre </label>
           <Controller
             name={"name"}
             control={control}
             defaultValue=""
             rules={{
-              required: "Nombre es requerido",
+              required: "Este campo  requiere apellido",
               minLength: {
                 value: 2,
                 message: "Nombre debe tener al menos 2 caracteres",
@@ -75,7 +85,7 @@ export const Proyecto = () => {
             }}
             render={({ field, fieldState }) => (
               <div>
-                <Input {...field} />
+                <Input {...field} placeholder="Nombre" />
                 {fieldState.invalid && (
                   <p style={{ color: "red" }}>{fieldState.error?.message}</p>
                 )}
@@ -88,7 +98,7 @@ export const Proyecto = () => {
             control={control}
             defaultValue=""
             rules={{
-              required: "Este campo es requerido",
+              required: "Este campo  requiere apellido",
               minLength: {
                 value: 2,
                 message: "Nombre debe tener al menos 2 caracteres",
@@ -96,7 +106,7 @@ export const Proyecto = () => {
             }}
             render={({ field, fieldState }) => (
               <div>
-                <Input {...field} />
+                <Input {...field} placeholder="Apellido" />
                 {fieldState.invalid && (
                   <p style={{ color: "red" }}>{fieldState.error?.message}</p>
                 )}
@@ -109,7 +119,7 @@ export const Proyecto = () => {
             control={control}
             defaultValue=""
             rules={{
-              required: "Este campo es requerido",
+              required: "Este campo  require correo ",
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                 message: "Dirección de correo electrónico no válida",
@@ -117,7 +127,7 @@ export const Proyecto = () => {
             }}
             render={({ field, fieldState }) => (
               <div>
-                <Input {...field} />
+                <Input {...field} placeholder="Correo" />
                 {fieldState.invalid && (
                   <p style={{ color: "red" }}>{fieldState.error?.message}</p>
                 )}
@@ -125,10 +135,41 @@ export const Proyecto = () => {
             )}
           />
         </div>
+        <br></br>
+        <div style={{ width: "100%" }}>
+          {selectedCursos.map((cursoSelect, index) => (
+            <div key={index} style={{ display: "flex", width: "100%" }}>
+              {/* Se muestran los cursos seleccionados */}
+              <p>
+                {cursoSelect}
 
-        {/* {show && <p>{show}</p>} */}
+                <Button
+                  onClick={() => {
+                    const cursoEliminado = selectedCursos[index];
+                    console.log(cursoEliminado);
+                    const cursoFil = selectedCursos.filter(
+                      (c, i) => i !== index
+                    );
+                    remove(index);
+                    setSelectedCursos(cursoFil);
+                    setCursosDisponibles([
+                      ...cursosDisponibles,
+                      cursoEliminado,
+                    ]);
+                    // reset()
+                  }}
+                >
+                  <DeleteFilled
+                    style={{ fontSize: "14px", color: "#b91010cc" }}
+                  />
+                </Button>
+              </p>
+            </div>
+          ))}
+        </div>
+
         {fields.map((item, index) => (
-          <div key={item.id}>
+          <div key={index.id}>
             <Controller
               name={`items[${index}].cursosDisponibles`}
               control={control}
@@ -145,18 +186,18 @@ export const Proyecto = () => {
                   : false,
               }}
               render={({ field, fieldState }) => (
-                <div>
+                <div key={index}>
                   {selectVisible && (
-                    <div style={{ display: "flex", width: "100%" }}>
+                    <div style={{ display: "flex" }}>
                       <select
-                        {...field}
-                        // {...register(`items[${index}].cursosDisponibles`)}
-                        style={{ width: "50%" }}
+                        multiple={false}
+                        // {...field}
+                        style={{ width: "100%" }}
                         onChange={(e) => {
                           handleSelectChange(e, index);
                         }}
                       >
-                        <option value="">Selecciona cursos..</option>
+                        <option value="">Seleccione un cursos</option>
                         {cursosDisponibles.map((curso, index) => (
                           <>
                             {/*  input con las carrera */}
@@ -172,7 +213,9 @@ export const Proyecto = () => {
                           remove(index);
                         }}
                       >
-                        <DeleteFilled />
+                        <DeleteFilled
+                          style={{ fontSize: "20px", color: "#b91010cc" }}
+                        />
                       </Button>
                     </div>
                   )}
@@ -185,49 +228,28 @@ export const Proyecto = () => {
             />
           </div>
         ))}
-        <div>
-          {selectedCursos.map((cursoSelect, index) => (
-            <div style={{ display: "flex", width: "100%" }}>
-              {/* Se muestran los cursos seleccionados */}
-              <p>
-                {cursoSelect}
 
-                <Button
-                  onClick={() => {
-                    const cursoEliminado = selectedCursos[index];
-                    console.log(cursoEliminado);
-                    {
-                      ("aquino");
-                    }
-                    const cursoFil = selectedCursos.filter(
-                      (c, i) => i !== index
-                    );
-                    remove2(index);
-                    setSelectedCursos(cursoFil);
-                    setCursosDisponibles([
-                      ...cursosDisponibles,
-                      cursoEliminado,
-                    ]);
-                  }}
-                >
-                  <DeleteFilled />
-                </Button>
-              </p>
-            </div>
-          ))}
-        </div>
         {selectedCursos.length === 5 ? (
-          "No hay mas carreras"
+          "No hay más carreras"
         ) : (
-          <div>
-            <button type="button" onClick={appendAgregar}>
-              Seleccionar curso
-            </button>
+          <div
+            style={{
+              marginTop: "20px",
+              width: "100%",
+            }}
+          >
+            <Button type="button" onClick={appendAgregar}>
+              Seleccionar cursos
+            </Button>
           </div>
         )}
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
+        <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={selectedCursos.length === 0}
+          >
             Submit
           </Button>
         </Form.Item>
