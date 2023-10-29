@@ -1,7 +1,23 @@
 import React, { useState } from "react";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { DeleteFilled } from "@ant-design/icons";
-import { Button, Form, Input, Select } from "antd";
+
+import {
+  Button,
+  Cascader,
+  Checkbox,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Radio,
+  Select,
+  Slider,
+  Switch,
+  TreeSelect,
+  Upload,
+} from "antd";
+
 const cursos = [
   "Ingles",
   "Informática",
@@ -13,18 +29,27 @@ export const Proyecto = () => {
   const [selectedCursos, setSelectedCursos] = useState([]);
   const [cursosDisponibles, setCursosDisponibles] = useState(cursos);
   const [selectVisible, setSelectVisible] = useState(false);
-
-  const { control, handleSubmit, getValues, reset, setValue } = useForm({
-    defaultValues: {
-      items: [],
-      cursosSeleccionados: [],
-    },
-  });
+  const [cursoSelect, setCursoSelect] = useState({});
+  const [numeroSelect, setNumeroSelect] = useState({});
+  const { control, handleSubmit, getValues, reset, setValue, register } =
+    useForm({
+      defaultValues: {
+        items: [],
+        cursosSeleccionados: [],
+      },
+    });
   const { fields, append, remove } = useFieldArray({
     control,
     name: "items",
   });
-
+  const {
+    fields: fields2,
+    append: append2,
+    remove: remove2,
+  } = useFieldArray({
+    control,
+    name: "items2",
+  });
   const handleSelectChange = (e, index) => {
     // a qui selected capsula el curso seleccionado
     const selected = e.target.value;
@@ -43,6 +68,7 @@ export const Proyecto = () => {
     );
     setCursosDisponibles(cursosRestantes);
   };
+  // Agregar primer input
   const appendAgregar = () => {
     const existingEmptyItem = getValues("items").find((item) => !item.items);
     // console.log(existingEmptyItem);
@@ -51,10 +77,18 @@ export const Proyecto = () => {
     }
     setSelectVisible(true);
   };
-
+  const handleSelect2Change = (value, index) => {
+    const carreraSeleccionada = value;
+    const newSelectedHours = { ...cursoSelect };
+    newSelectedHours[index] = carreraSeleccionada;
+    setCursoSelect(newSelectedHours);
+    console.log(carreraSeleccionada);
+    console.log("este es el evento");
+    // alert("hola");
+  };
   const onSubmit = (data) => {
     console.log(data);
-    // reset();
+    reset();
     // setSelectedCursos([""]);
   };
 
@@ -169,7 +203,7 @@ export const Proyecto = () => {
         </div>
 
         {fields.map((item, index) => (
-          <div key={index.id}>
+          <div key={item.id}>
             <Controller
               name={`items[${index}].cursosDisponibles`}
               control={control}
@@ -186,12 +220,13 @@ export const Proyecto = () => {
                   : false,
               }}
               render={({ field, fieldState }) => (
-                <div key={index}>
+                <div>
+                  {/* lógica para   mostrar el input */}
                   {selectVisible && (
                     <div style={{ display: "flex" }}>
                       <select
                         multiple={false}
-                        // {...field}
+                        {...field}
                         style={{ width: "100%" }}
                         onChange={(e) => {
                           handleSelectChange(e, index);
@@ -243,7 +278,108 @@ export const Proyecto = () => {
             </Button>
           </div>
         )}
+        {fields2.map((field2, index) => (
+          <div key={field2.id}>
+            <div>
+              <Controller
+                name={`items2.${index}.corsos`}
+                control={control}
+                render={({ field }) => (
+                  <>
+                    <Select
+                      {...field2}
+                      style={{ width: "100%" }}
+                      value={selectedCursos}
+                      onChange={(value) => {
+                        handleSelect2Change(value, index);
+                      }}
+                    >
+                      {selectedCursos.map((curso2, index2) => (
+                        <Select.Option key={index2} value={curso2}>
+                          {curso2}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </>
+                )}
+              />
+              <Controller
+                name={`items2[${index}].hours`}
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <div>
+                    <div>
+                      <InputNumber
+                        {...field}
+                        placeholder="Horas"
+                        onChange={(value) => {
+                          field.onChange(value);
+                          // Aquí puedes realizar cualquier lógica adicional con el valor
+                          // por ejemplo, actualizar el estado o mostrar la información fuera del campo
+                          // En este ejemplo, lo mostramos fuera del campo
+                          setNumeroSelect({
+                            ...numeroSelect,
+                            [index]: value,
+                          });
+                        }}
+                      />
+                    </div>
+                    {cursoSelect[index]}  {numeroSelect[index]}  horas <button>guardar</button>
+                    {/* {cursoSelect[index] ? (
+                      <div>
+                       
+                        horas
+                      </div>
+                    ) : null} */}
+                  </div>
+                )}
+              />
 
+              <button type="button" onClick={() => remove2(index)}>
+                Remove
+              </button>
+
+              <hr></hr>
+              {/* {selectedCursos && (
+                <Controller
+                  control={control}
+                  name={`horas${selectedCursos}`}
+                  render={({ field }) => (
+                    <Form.Item label={`Horas de `}>
+                      {selectedCursos.map((selected, index) => (
+                        <div key={index}>
+                          {selected} <InputNumber />
+                        </div>
+                      ))}
+                    </Form.Item>
+                  )}
+                />
+              )} */}
+            </div>
+          </div>
+        ))}
+        <button type="button" onClick={() => append({})}>
+          cursossssss
+        </button>
+
+        {selectedCursos.length === 5 ? (
+          "No hay más carreras"
+        ) : (
+          <div
+            style={{
+              marginTop: "20px",
+              width: "100%",
+            }}
+          >
+            <Button
+              type="button"
+              onClick={() => append2({ subject: "", hours: 0 })}
+            >
+              Seleccionar horario
+            </Button>
+          </div>
+        )}
         <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
           <Button
             type="primary"

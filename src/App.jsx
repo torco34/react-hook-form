@@ -13,6 +13,7 @@ import { PagesCurso } from "./components/Curso-react-hook-from/PagesCurso";
 import { Proyecto } from "./proyecto/Proyecto";
 import Bor from "./RetoTwo/Bor";
 import Borrador from "./RetoTwo/Borrador";
+import { PonerleHoras } from "./RetoTwo/PonerleHoras";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -33,6 +34,7 @@ function App() {
         <Route path="/proyecto" element={<Proyecto />}></Route>
         <Route path="/bor" element={<Bor />}></Route>
         <Route path="/borrador" element={<Borrador />}></Route>
+        <Route path="/horas" element={<PonerleHoras />}></Route>
       </Routes>
     </Router>
   );
