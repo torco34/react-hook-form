@@ -30,8 +30,8 @@ export const Proyecto = () => {
   //
   const [cursosDisponibles, setCursosDisponibles] = useState(cursos);
   const [selectVisible, setSelectVisible] = useState(false);
-  const [carrerasEliminadas, setCarrerasEliminadas] = useState([]);
-  const [sederVariable, setSederVariable] = useState([]);
+  const [carrerasEliminadas, setCarrerasEliminadas] = useState("");
+  const [pasarValor, setPasarValor] = useState([]);
   const { control, handleSubmit, getValues, reset, setValue, register } =
     useForm({
       defaultValues: {
@@ -54,7 +54,6 @@ export const Proyecto = () => {
   const handleSelectChange = (e, index) => {
     // a qui selected capsula el curso seleccionado
     const selected = e.target.value;
-
     setSelectVisible(false);
     const selectedCourses =
       getValues(`items[${index}].cursosDisponibles`) || [];
@@ -63,12 +62,12 @@ export const Proyecto = () => {
     // a qui se agrega a la array  el curso seleccionado
     setSelectedCursos([...selectedCursos, selected]);
     // a qui creamos una nueva array sin el cuso seleccionado
-
     const cursosRestantes = cursosDisponibles.filter(
       (curso) => curso !== selected
     );
     setCursosDisponibles(cursosRestantes);
   };
+
   // Agregar primer input
   const appendAgregar = () => {
     const existingEmptyItem = getValues("items").find((item) => !item.items);
@@ -80,13 +79,12 @@ export const Proyecto = () => {
   };
   const handleSelect2Change = (value) => {
     const carreraSeleccionada = value;
-    setSederVariable(value);
+    setCarrerasEliminadas(...carrerasEliminadas, carreraSeleccionada);
     console.log(carreraSeleccionada, "el value");
     setSelectedCursos([...selectedCursos, carreraSeleccionada]);
     const cursoSinHora = selectedCursos.filter(
       (c) => c !== carreraSeleccionada
     );
-
     if (cursoSinHora.length > 0) {
       append2({ items2: "", hours: "" });
     }
@@ -94,20 +92,24 @@ export const Proyecto = () => {
   };
 
   // guardar
-  const handleGuardarClick = (index2, carreraSeleccionada) => {
-    const cursoEliminado = sederVariable;
-    console.log(cursoEliminado, "curso eliminado");
-    console.log(sederVariable, "variable");
+  const handleGuardarClick = (index) => {
+    const cursoEliminado = getValues(`items2[${index}].corsos`);
+    console.log(cursoEliminado);
+    // Remueve el curso de selectedCursos
+    if (typeof cursoEliminado !== "undefined") {
+      // Agrega el curso eliminado nuevamente a cursosDisponibles
+      setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
 
-    const cursoFil = selectedCursos.filter((c, i) => i !== index2);
-    console.log(cursoFil);
-    remove2(index2);
-    // setSelectedCursos(cursoFil);
-    setSederVariable(cursoFil);
-    setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
-    // Guarda la carrera eliminada en carrerasEliminadas
-    setCarrerasEliminadas([...carrerasEliminadas, cursoEliminado]);
+      // Remueve el curso de selectedCursos
+      const nuevosCursos = [...selectedCursos];
+      nuevosCursos.splice(index, 1);
+      setSelectedCursos(nuevosCursos);
+    }
+
+    // Remueve el curso de selectedCursos
+    remove2(index);
   };
+
   const onSubmit = (data) => {
     console.log(data);
     reset();
@@ -207,12 +209,14 @@ export const Proyecto = () => {
                     const cursoFil = selectedCursos.filter(
                       (c, i) => i !== index
                     );
+                    console.log(cursoFil, "cursofil");
                     remove(index);
                     setSelectedCursos(cursoFil);
                     setCursosDisponibles([
                       ...cursosDisponibles,
                       cursoEliminado,
                     ]);
+
                     // reset()
                   }}
                 >
@@ -300,11 +304,11 @@ export const Proyecto = () => {
             </Button>
           </div>
         )}
-        {fields2.map((field2, index2) => (
+        {fields2.map((field2, index) => (
           <div key={field2.id}>
             <div style={{ display: "flex", width: "100%", margin: "10px" }}>
               <Controller
-                name={`items2.${index2}.corsos`}
+                name={`items2.${index}.corsos`}
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
@@ -315,11 +319,11 @@ export const Proyecto = () => {
                       value={field.value}
                       onChange={(value) => {
                         field.onChange(value);
-                        handleSelect2Change(value, index2);
+                        handleSelect2Change(value, index);
                       }}
                     >
-                      {selectedCursos.map((curso2, index2) => (
-                        <Select.Option key={index2} value={curso2}>
+                      {selectedCursos.map((curso2, index) => (
+                        <Select.Option key={index} value={curso2}>
                           {curso2}
                         </Select.Option>
                       ))}
@@ -329,7 +333,7 @@ export const Proyecto = () => {
               />
 
               <Controller
-                name={`items2[${index2}].horas`}
+                name={`items2[${index}].horas`}
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
@@ -339,7 +343,7 @@ export const Proyecto = () => {
                 )}
               />
 
-              <Button type="button" onClick={() => handleGuardarClick(index2)}>
+              <Button type="button" onClick={() => handleGuardarClick(index)}>
                 <DeleteFilled
                   style={{ fontSize: "14px", color: "#b91010cc" }}
                 />
@@ -360,14 +364,7 @@ export const Proyecto = () => {
               marginTop: "20px",
               width: "100%",
             }}
-          >
-            {/* <Button
-              type="button"
-              onClick={() => append2({ items2: "", hours: "" })}
-            >
-              
-            </Button> */}
-          </div>
+          ></div>
         )}
         <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
           <Button
