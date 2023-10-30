@@ -27,10 +27,11 @@ const cursos = [
 ];
 export const Proyecto = () => {
   const [selectedCursos, setSelectedCursos] = useState([]);
+  //
   const [cursosDisponibles, setCursosDisponibles] = useState(cursos);
   const [selectVisible, setSelectVisible] = useState(false);
-  const [cursoSelect, setCursoSelect] = useState({});
-  const [numeroSelect, setNumeroSelect] = useState({});
+  const [carrerasEliminadas, setCarrerasEliminadas] = useState([]);
+  const [sederVariable, setSederVariable] = useState([]);
   const { control, handleSubmit, getValues, reset, setValue, register } =
     useForm({
       defaultValues: {
@@ -77,14 +78,35 @@ export const Proyecto = () => {
     }
     setSelectVisible(true);
   };
-  const handleSelect2Change = (value, index) => {
+  const handleSelect2Change = (value) => {
     const carreraSeleccionada = value;
-    const newSelectedHours = { ...cursoSelect };
-    newSelectedHours[index] = carreraSeleccionada;
-    setCursoSelect(newSelectedHours);
-    console.log(carreraSeleccionada);
-    console.log("este es el evento");
-    // alert("hola");
+    setSederVariable(value);
+    console.log(carreraSeleccionada, "el value");
+    setSelectedCursos([...selectedCursos, carreraSeleccionada]);
+    const cursoSinHora = selectedCursos.filter(
+      (c) => c !== carreraSeleccionada
+    );
+
+    if (cursoSinHora.length > 0) {
+      append2({ items2: "", hours: "" });
+    }
+    setSelectedCursos(cursoSinHora);
+  };
+
+  // guardar
+  const handleGuardarClick = (index2, carreraSeleccionada) => {
+    const cursoEliminado = sederVariable;
+    console.log(cursoEliminado, "curso eliminado");
+    console.log(sederVariable, "variable");
+
+    const cursoFil = selectedCursos.filter((c, i) => i !== index2);
+    console.log(cursoFil);
+    remove2(index2);
+    // setSelectedCursos(cursoFil);
+    setSederVariable(cursoFil);
+    setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
+    // Guarda la carrera eliminada en carrerasEliminadas
+    setCarrerasEliminadas([...carrerasEliminadas, cursoEliminado]);
   };
   const onSubmit = (data) => {
     console.log(data);
@@ -170,9 +192,10 @@ export const Proyecto = () => {
           />
         </div>
         <br></br>
+        <hr></hr>
         <div style={{ width: "100%" }}>
           {selectedCursos.map((cursoSelect, index) => (
-            <div key={index} style={{ display: "flex", width: "100%" }}>
+            <div key={index.id} style={{ display: "flex", width: "100%" }}>
               {/* Se muestran los cursos seleccionados */}
               <p>
                 {cursoSelect}
@@ -201,7 +224,6 @@ export const Proyecto = () => {
             </div>
           ))}
         </div>
-
         {fields.map((item, index) => (
           <div key={item.id}>
             <Controller
@@ -278,20 +300,22 @@ export const Proyecto = () => {
             </Button>
           </div>
         )}
-        {fields2.map((field2, index) => (
+        {fields2.map((field2, index2) => (
           <div key={field2.id}>
-            <div>
+            <div style={{ display: "flex", width: "100%", margin: "10px" }}>
               <Controller
-                name={`items2.${index}.corsos`}
+                name={`items2.${index2}.corsos`}
                 control={control}
+                defaultValue=""
                 render={({ field }) => (
                   <>
                     <Select
-                      {...field2}
-                      style={{ width: "100%" }}
-                      value={selectedCursos}
+                      {...field}
+                      style={{ width: "40%" }}
+                      value={field.value}
                       onChange={(value) => {
-                        handleSelect2Change(value, index);
+                        field.onChange(value);
+                        handleSelect2Change(value, index2);
                       }}
                     >
                       {selectedCursos.map((curso2, index2) => (
@@ -303,64 +327,29 @@ export const Proyecto = () => {
                   </>
                 )}
               />
+
               <Controller
-                name={`items2[${index}].hours`}
+                name={`items2[${index2}].horas`}
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
                   <div>
-                    <div>
-                      <InputNumber
-                        {...field}
-                        placeholder="Horas"
-                        onChange={(value) => {
-                          field.onChange(value);
-                          // Aquí puedes realizar cualquier lógica adicional con el valor
-                          // por ejemplo, actualizar el estado o mostrar la información fuera del campo
-                          // En este ejemplo, lo mostramos fuera del campo
-                          setNumeroSelect({
-                            ...numeroSelect,
-                            [index]: value,
-                          });
-                        }}
-                      />
-                    </div>
-                    {cursoSelect[index]}  {numeroSelect[index]}  horas <button>guardar</button>
-                    {/* {cursoSelect[index] ? (
-                      <div>
-                       
-                        horas
-                      </div>
-                    ) : null} */}
+                    <InputNumber {...field} placeholder="Horas" />
                   </div>
                 )}
               />
 
-              <button type="button" onClick={() => remove2(index)}>
-                Remove
-              </button>
-
-              <hr></hr>
-              {/* {selectedCursos && (
-                <Controller
-                  control={control}
-                  name={`horas${selectedCursos}`}
-                  render={({ field }) => (
-                    <Form.Item label={`Horas de `}>
-                      {selectedCursos.map((selected, index) => (
-                        <div key={index}>
-                          {selected} <InputNumber />
-                        </div>
-                      ))}
-                    </Form.Item>
-                  )}
+              <Button type="button" onClick={() => handleGuardarClick(index2)}>
+                <DeleteFilled
+                  style={{ fontSize: "14px", color: "#b91010cc" }}
                 />
-              )} */}
+              </Button>
             </div>
           </div>
         ))}
-        <button type="button" onClick={() => append({})}>
-          cursossssss
+
+        <button type="button" onClick={() => append2({ items2: "" })}>
+          Agregar horario
         </button>
 
         {selectedCursos.length === 5 ? (
@@ -372,12 +361,12 @@ export const Proyecto = () => {
               width: "100%",
             }}
           >
-            <Button
+            {/* <Button
               type="button"
-              onClick={() => append2({ subject: "", hours: 0 })}
+              onClick={() => append2({ items2: "", hours: "" })}
             >
-              Seleccionar horario
-            </Button>
+              
+            </Button> */}
           </div>
         )}
         <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
