@@ -27,11 +27,10 @@ const cursos = [
 ];
 export const Proyecto = () => {
   const [selectedCursos, setSelectedCursos] = useState([]);
-  //
   const [cursosDisponibles, setCursosDisponibles] = useState(cursos);
   const [selectVisible, setSelectVisible] = useState(false);
-  const [carrerasEliminadas, setCarrerasEliminadas] = useState("");
-  const [pasarValor, setPasarValor] = useState([]);
+  const [desactivarSubmit, setDesactivarSubmit] = useState(false);
+  const [desactivar, setDesactivar] = useState([]);
   const { control, handleSubmit, getValues, reset, setValue, register } =
     useForm({
       defaultValues: {
@@ -70,45 +69,46 @@ export const Proyecto = () => {
 
   // Agregar primer input
   const appendAgregar = () => {
-    const existingEmptyItem = getValues("items").find((item) => !item.items);
-    // console.log(existingEmptyItem);
-    if (!existingEmptyItem) {
+    const elementoVacio = getValues("items").find((item) => !item.items);
+    //  si elemento esta vació se agrega
+    if (!elementoVacio) {
       append({ items: "" });
     }
     setSelectVisible(true);
   };
+
+  // Función del segundo FieldArray
+
   const handleSelect2Change = (value) => {
     const carreraSeleccionada = value;
-    setCarrerasEliminadas(...carrerasEliminadas, carreraSeleccionada);
-    console.log(carreraSeleccionada, "el value");
+    // console.log(carreraSeleccionada, "fue ");
+    // console.log(selectedCursos, "selecionado");
+    // if (!selectedCursos) {
+    //   // No hagas nada si el input ya está lleno
+    //   return;
+    // }
     setSelectedCursos([...selectedCursos, carreraSeleccionada]);
-    const cursoSinHora = selectedCursos.filter(
-      (c) => c !== carreraSeleccionada
-    );
+
+    const cursoSinHora = selectedCursos.filter((c) => c !== carreraSeleccionada);
+
     if (cursoSinHora.length > 0) {
       append2({ items2: "", hours: "" });
+      setDesactivarSubmit(false);
     }
     setSelectedCursos(cursoSinHora);
   };
 
-  // guardar
+  // Guardar de nuevo los curso en el primer selector
   const handleGuardarClick = (index) => {
     const cursoEliminado = getValues(`items2[${index}].corsos`);
     console.log(cursoEliminado);
-    // Remueve el curso de selectedCursos
-    if (typeof cursoEliminado !== "undefined") {
-      // Agrega el curso eliminado nuevamente a cursosDisponibles
-      setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
+    setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
 
-      // Remueve el curso de selectedCursos
-      const nuevosCursos = [...selectedCursos];
-      nuevosCursos.splice(index, 1);
-      setSelectedCursos(nuevosCursos);
-    }
-
-    // Remueve el curso de selectedCursos
     remove2(index);
+
+    // setDesactivarSubmit(false);
   };
+  // activar el boton submit
 
   const onSubmit = (data) => {
     console.log(data);
@@ -142,7 +142,7 @@ export const Proyecto = () => {
               },
             }}
             render={({ field, fieldState }) => (
-              <div>
+              <div key={field}>
                 <Input {...field} placeholder="Nombre" />
                 {fieldState.invalid && (
                   <p style={{ color: "red" }}>{fieldState.error?.message}</p>
@@ -209,15 +209,13 @@ export const Proyecto = () => {
                     const cursoFil = selectedCursos.filter(
                       (c, i) => i !== index
                     );
-                    console.log(cursoFil, "cursofil");
+
                     remove(index);
                     setSelectedCursos(cursoFil);
                     setCursosDisponibles([
                       ...cursosDisponibles,
                       cursoEliminado,
                     ]);
-
-                    // reset()
                   }}
                 >
                   <DeleteFilled
@@ -246,7 +244,7 @@ export const Proyecto = () => {
                   : false,
               }}
               render={({ field, fieldState }) => (
-                <div>
+                <div key={field.id}>
                   {/* lógica para   mostrar el input */}
                   {selectVisible && (
                     <div style={{ display: "flex" }}>
@@ -258,7 +256,7 @@ export const Proyecto = () => {
                           handleSelectChange(e, index);
                         }}
                       >
-                        <option value="">Seleccione un cursos</option>
+                        <option value="">Seleccionar cursos</option>
                         {cursosDisponibles.map((curso, index) => (
                           <>
                             {/*  input con las carrera */}
@@ -291,7 +289,7 @@ export const Proyecto = () => {
         ))}
 
         {selectedCursos.length === 5 ? (
-          "No hay más carreras"
+          "No hay mas carreras para seleccionar"
         ) : (
           <div
             style={{
@@ -338,7 +336,14 @@ export const Proyecto = () => {
                 defaultValue=""
                 render={({ field }) => (
                   <div>
-                    <InputNumber {...field} placeholder="Horas" />
+                    <InputNumber
+                      {...field}
+                      placeholder="Horas"
+                      onChange={(value) => {
+                        field.onChange(value);
+                        setDesactivarSubmit(!!value);
+                      }}
+                    />
                   </div>
                 )}
               />
@@ -351,26 +356,18 @@ export const Proyecto = () => {
             </div>
           </div>
         ))}
+        {/* {selectedCursos.length ? "Bisible" : null} */}
 
-        <button type="button" onClick={() => append2({ items2: "" })}>
-          Agregar horario
-        </button>
-
-        {selectedCursos.length === 5 ? (
-          "No hay más carreras"
-        ) : (
-          <div
-            style={{
-              marginTop: "20px",
-              width: "100%",
-            }}
-          ></div>
+        {selectedCursos.length === 0 ? null : (
+          <Button type="button" onClick={() => append2({ items2: "" })}>
+            Agregar horario a cada cursos
+          </Button>
         )}
         <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
           <Button
             type="primary"
             htmlType="submit"
-            disabled={selectedCursos.length === 0}
+            disabled={fields2.length === 0 || !desactivarSubmit}
           >
             Submit
           </Button>
