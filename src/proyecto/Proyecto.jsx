@@ -30,14 +30,21 @@ export const Proyecto = () => {
   const [cursosDisponibles, setCursosDisponibles] = useState(cursos);
   const [selectVisible, setSelectVisible] = useState(false);
   const [desactivarSubmit, setDesactivarSubmit] = useState(false);
-  const [desactivar, setDesactivar] = useState([]);
-  const { control, handleSubmit, getValues, reset, setValue, register } =
-    useForm({
-      defaultValues: {
-        items: [],
-        cursosSeleccionados: [],
-      },
-    });
+  const [todosInputNumberEnCero, setTodosInputNumberEnCero] = useState(false);
+
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    reset,
+    setValue,
+    formState: { isDirty },
+  } = useForm({
+    defaultValues: {
+      items: [],
+      cursosSeleccionados: [],
+    },
+  });
   const { fields, append, remove } = useFieldArray({
     control,
     name: "items",
@@ -77,27 +84,27 @@ export const Proyecto = () => {
     setSelectVisible(true);
   };
 
-  // Función del segundo FieldArray
-
-  const handleSelect2Change = (value) => {
+  const [historialCarrera, setHistorialCarrera] = useState([]);
+  const [mostrarHistorial, setMostrarHistorial] = useState(false);
+  const [seleccionDeshabilitada, setSeleccionDeshabilitada] = useState([]);
+  const handleSelect2Change = (value, index) => {
     const carreraSeleccionada = value;
-    // console.log(carreraSeleccionada, "fue ");
-    // console.log(selectedCursos, "selecionado");
-    // if (!selectedCursos) {
-    //   // No hagas nada si el input ya está lleno
-    //   return;
-    // }
+
+    console.log(`carrera ${carreraSeleccionada}, index ${index}`);
+
     setSelectedCursos([...selectedCursos, carreraSeleccionada]);
 
-    const cursoSinHora = selectedCursos.filter((c) => c !== carreraSeleccionada);
-
-    if (cursoSinHora.length > 0) {
-      append2({ items2: "", hours: "" });
-      setDesactivarSubmit(false);
-    }
+    setValue();
+    const cursoSinHora = selectedCursos.filter(
+      (c) => c !== carreraSeleccionada
+    );
+    console.log(cursoSinHora, "ES EL FILTER cuando está seleccionada vacía");
     setSelectedCursos(cursoSinHora);
+
+    // if (cursoSinHora.length > 0) append2({ items2: "", hours: "" });
   };
 
+  // si son destinos filtre si no normal
   // Guardar de nuevo los curso en el primer selector
   const handleGuardarClick = (index) => {
     const cursoEliminado = getValues(`items2[${index}].corsos`);
@@ -120,16 +127,16 @@ export const Proyecto = () => {
     <div
       className="border"
       style={{
-        width: "100%",
+        width: "70%",
         background: "#F5F5F5",
         padding: "20px",
+        marginTop: "20px",
         borderRadius: "10px",
       }}
     >
-      <br></br>
+      <br />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label>Nombre </label>
           <Controller
             name={"name"}
             control={control}
@@ -150,7 +157,7 @@ export const Proyecto = () => {
               </div>
             )}
           />
-          <label>Apellidos</label>
+          <br />
           <Controller
             name={"apellido"}
             control={control}
@@ -171,7 +178,7 @@ export const Proyecto = () => {
               </div>
             )}
           />
-          <label>Correo</label>
+          <br />
           <Controller
             name={`address`}
             control={control}
@@ -244,7 +251,7 @@ export const Proyecto = () => {
                   : false,
               }}
               render={({ field, fieldState }) => (
-                <div key={field.id}>
+                <div>
                   {/* lógica para   mostrar el input */}
                   {selectVisible && (
                     <div style={{ display: "flex" }}>
@@ -273,14 +280,16 @@ export const Proyecto = () => {
                         }}
                       >
                         <DeleteFilled
-                          style={{ fontSize: "20px", color: "#b91010cc" }}
+                          style={{ fontSize: "20px", color: "#b91010" }}
                         />
                       </Button>
                     </div>
                   )}
 
                   {fieldState.invalid && (
-                    <p style={{ color: "red" }}>{fieldState.error?.message}</p>
+                    <p style={{ color: "#b91010" }}>
+                      {fieldState.error?.message}
+                    </p>
                   )}
                 </div>
               )}
@@ -321,7 +330,7 @@ export const Proyecto = () => {
                       }}
                     >
                       {selectedCursos.map((curso2, index) => (
-                        <Select.Option key={index} value={curso2}>
+                        <Select.Option key={index} value={curso2}   >
                           {curso2}
                         </Select.Option>
                       ))}
@@ -336,14 +345,7 @@ export const Proyecto = () => {
                 defaultValue=""
                 render={({ field }) => (
                   <div>
-                    <InputNumber
-                      {...field}
-                      placeholder="Horas"
-                      onChange={(value) => {
-                        field.onChange(value);
-                        setDesactivarSubmit(!!value);
-                      }}
-                    />
+                    <InputNumber {...field} placeholder="Horas" />
                   </div>
                 )}
               />
@@ -352,17 +354,18 @@ export const Proyecto = () => {
                 <DeleteFilled
                   style={{ fontSize: "14px", color: "#b91010cc" }}
                 />
+                
               </Button>
             </div>
           </div>
         ))}
-        {/* {selectedCursos.length ? "Bisible" : null} */}
 
         {selectedCursos.length === 0 ? null : (
           <Button type="button" onClick={() => append2({ items2: "" })}>
             Agregar horario a cada cursos
           </Button>
         )}
+
         <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
           <Button
             type="primary"

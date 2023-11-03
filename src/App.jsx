@@ -6,12 +6,12 @@ import { Header } from "./components/header/Header";
 import { BotonesAntd } from "./curso-antd/components/BotonesAntd";
 import { IconosAntd } from "./curso-antd/components/IconosAntd";
 import { TipografAntd } from "./curso-antd/components/TipografAntd";
-import { Validacion } from "./components/Validacion";
+
 import { FormStudy } from "./RetoTwo/FormStudy";
 
 import { PagesCurso } from "./components/Curso-react-hook-from/PagesCurso";
 import { Proyecto } from "./proyecto/Proyecto";
-import Bor from "./RetoTwo/Bor";
+import { Bor } from "./RetoTwo/Bor";
 import Borrador from "./RetoTwo/Borrador";
 import { PonerleHoras } from "./RetoTwo/PonerleHoras";
 
@@ -27,7 +27,7 @@ function App() {
         <Route path="/bot" element={<BotonesAntd />}></Route>
         <Route path="/icon" element={<IconosAntd />}></Route>
         <Route path="/tipo" element={<TipografAntd />}></Route>
-        <Route path="/form" element={<Validacion />}></Route>
+  
         <Route path="/stud" element={<FormStudy />}></Route>
         <Route path="/proyecto" element={<Proyecto />}></Route>
         <Route path="/page" element={<PagesCurso />}></Route>

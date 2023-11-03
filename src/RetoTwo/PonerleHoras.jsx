@@ -1,74 +1,72 @@
+import React from "react";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
-import { useState } from "react";
-import { SoloReact } from "./SoloReact";
 
 export const PonerleHoras = () => {
-  const { control, handleSubmit, register } = useForm();
-  const { fields, append, remove } = useFieldArray({
+  const { control, handleSubmit } = useForm();
+  const { fields, append } = useFieldArray({
     control,
-    name: "materias",
+    name: "carreras",
   });
-  const handleOnclick = (data) => {
-    console.log(data.materias);
-  };
+
+  const carreras = [
+    "Carrera 1",
+    "Carrera 2",
+    "Carrera 3",
+    "Carrera 4",
+    "Carrera 5",
+  ];
+
   const onSubmit = (data) => {
-    console.log(data.materias);
-    // Aquí puedes hacer lo que necesites con las selecciones
+    console.log(data);
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <h2>Seleccione una carrera y una hora:</h2>
+      <ul>
         {fields.map((field, index) => (
-          <div key={field.id}>
+          <li key={field.id}>
+            Carrera:
             <Controller
-              name={`materias[${index}].materia`}
+              name={`carreras[${index}].carrera`}
               control={control}
               defaultValue=""
               render={({ field }) => (
-                <select
-                  {...field}
-                  ref={register()}
-                  placeholder="Selecciona una materia"
-                >
-                  <option value="">Selecciona una materia</option>
-                  <option value="Matemáticas">Matemáticas</option>
-                  <option value="Estadísticas">Estadísticas</option>
-                  <option value="Biología">Biología</option>
-                  {/* Agrega más opciones de materias aquí */}
+                <select {...field}>
+                  {carreras.map((carrera, i) => (
+                    <option
+                      key={i}
+                      value={carrera}
+                      disabled={fields.some(
+                        (f) => f.carrera === carrera && f.id !== field.id
+                      )}
+                    >
+                      {carrera}
+                    </option>
+                  ))}
                 </select>
               )}
             />
+            Hora:
             <Controller
-              name={`materias[${index}].horas`}
+              name={`carreras[${index}].hora`}
               control={control}
               defaultValue=""
               render={({ field }) => (
                 <input
-                  {...field}
                   type="number"
-                  ref={register()}
-                  placeholder="Horas"
+                  {...field}
+                  min="1"
+                  max="24"
+                  placeholder="Ingrese la hora"
                 />
               )}
             />
-            <button onClick={() => handleOnclick({ materia: "", horas: "" })}>
-              {/* {guardar ? "se guardo hora" : "guardar"} */}
-            </button>
-            <button type="button" onClick={() => remove(index)}>
-              Eliminar
-            </button>
-          </div>
+          </li>
         ))}
-        <button
-          type="button"
-          onClick={() => append({ materia: "", horas: "" })}
-        >
-          Agregar Materia
-        </button>
-        <button type="submit">Guardar Materias</button>
-      </form>
-      <SoloReact/>
-    </>
+      </ul>
+      <button onClick={() => append({})}>Agregar</button>
+      <button type="submit">Enviar</button>
+    </form>
   );
 };
