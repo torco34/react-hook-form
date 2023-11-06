@@ -15,6 +15,8 @@ import { Bor } from "./RetoTwo/Bor";
 import Borrador from "./RetoTwo/Borrador";
 import { PonerleHoras } from "./RetoTwo/PonerleHoras";
 
+import { Practicas } from "./RetoTwo/Practicas";
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -27,9 +29,9 @@ function App() {
         <Route path="/bot" element={<BotonesAntd />}></Route>
         <Route path="/icon" element={<IconosAntd />}></Route>
         <Route path="/tipo" element={<TipografAntd />}></Route>
-  
+
         <Route path="/stud" element={<FormStudy />}></Route>
-        <Route path="/proyecto" element={<Proyecto />}></Route>
+        <Route path="/practicas" element={<Practicas />}></Route>
         <Route path="/page" element={<PagesCurso />}></Route>
         <Route path="/proyecto" element={<Proyecto />}></Route>
         <Route path="/bor" element={<Bor />}></Route>

@@ -10,12 +10,7 @@ import {
   Form,
   Input,
   InputNumber,
-  Radio,
   Select,
-  Slider,
-  Switch,
-  TreeSelect,
-  Upload,
 } from "antd";
 
 const cursos = [
@@ -57,7 +52,8 @@ export const Bor = () => {
     control,
     name: "items2",
   });
-
+  // FUNCIÓN DEL PRIMER SELECT FIELD ARRAY
+  // filtra para esconder
   const handleSelectChange = (e, index) => {
     // aquí selected capsula el curso seleccionado
     const selected = e.target.value;
@@ -74,31 +70,38 @@ export const Bor = () => {
     );
     setCursosDisponibles(cursosRestantes);
   };
-
-  // Agregar primer input
-  const appendAgregar = () => {
-    const elementoVacio = getValues("items").find((item) => !item.items);
-    //  si elemento esta vació se agrega
-    if (!elementoVacio) {
-      append({ items: "" });
-    }
-    setSelectVisible(true);
-    setShowAgregarHorario(true);
-  };
-  const handleSelect2Change = (value, index) => {};
-  const handleAppend2 = () => {
-    append2({ items2: "" });
-    setShowAgregarHorario(false);
-  };
   // remueve el curso seleccionado primer field Array
   const handleSelectRemoval = (index) => {
     const cursoEliminado = selectedCursos[index];
     console.log(cursoEliminado);
     const cursoFil = selectedCursos.filter((c, i) => i !== index);
     remove(index);
+    // delete cursoFil[index];
     setSelectedCursos(cursoFil);
     setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
   };
+  // Agregar el primer input
+  const appendAgregar = () => {
+    const elementoVacio = getValues("items").find((item) => !item.items);
+    if (!elementoVacio) {
+      append({ items: "" });
+    }
+    setSelectVisible(true);
+    setShowAgregarHorario(true);
+  };
+  // FUNCIÓN SEGUNDO SELECTOR FIELD ARRAY
+  const handleSelect2Change = (value, index) => {
+    const sele = value;
+    console.log(sele);
+    handleSelectRemoval("");
+    append2({ items2: "" });
+  };
+  const handleAppend2 = () => {
+    append2({ items2: "" });
+    console.log("append2 funcion");
+    // setShowAgregarHorario(false);
+  };
+
   // deshabilitar el select de field2 array
   const handleDisabledSelect = (curso, field2, fields2) => {
     return fields2.some((f) => f.corsos === curso && f.id !== field2.id);
@@ -111,7 +114,7 @@ export const Bor = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    reset();
+    // reset();
     // setSelectedCursos([""]);
   };
 
@@ -194,24 +197,7 @@ export const Bor = () => {
         </div>
         <br></br>
         <hr></hr>
-        <div style={{ width: "100%" }}>
-          <p>
-            {selectedCursos.map((cursoSelect, index) => (
-              <div key={index.id} style={{ display: "flex", width: "100%" }}>
-                {/* Se muestran los cursos seleccionados */}
-                <p>
-                  {cursoSelect}
-                  <Button onClick={() => handleSelectRemoval(index)}>
-                    <DeleteFilled
-                      style={{ fontSize: "14px", color: "#b91010cc" }}
-                    />
-                    eliminar
-                  </Button>
-                </p>
-              </div>
-            ))}
-          </p>
-        </div>
+
         {fields.map((item, index) => (
           <div key={item.id}>
             <Controller
@@ -274,6 +260,23 @@ export const Bor = () => {
                 </div>
               )}
             />
+
+            <div style={{ width: "100%" }}>
+              {selectedCursos.map((cursoSelect, index) => (
+                <div key={index.id} style={{ display: "flex", width: "100%" }}>
+                  {/* Se muestran los cursos seleccionados */}
+                  <p>
+                    {cursoSelect}
+                    <Button onClick={() => handleSelectRemoval(index)}>
+                      <DeleteFilled
+                        style={{ fontSize: "14px", color: "#b91010cc" }}
+                      />
+                      eliminar
+                    </Button>
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
 

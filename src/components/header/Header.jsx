@@ -16,13 +16,13 @@ export const Header = () => {
             <Link to="/stud">Reto two</Link>
           </li>
           <li className="border border-info btn list-inline-item ">
-            <Link to="/proyecto">Proyecto</Link>
+            <Link to="/practicas">Practicas</Link>
           </li>
           <li className="border border-info btn list-inline-item ">
             <Link to="/page">curso</Link>
           </li>
           <li className="text-center btn list-inline-item ">
-            <Link to="/Proyecto">Proyecto</Link>
+            <Link to="/proyecto">Proyecto</Link>
           </li>
           <li className="border border-info btn list-inline-item ">
             <Link to="/bor">Ejemplos</Link>

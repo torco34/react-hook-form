@@ -330,7 +330,7 @@ export const Proyecto = () => {
                       }}
                     >
                       {selectedCursos.map((curso2, index) => (
-                        <Select.Option key={index} value={curso2}   >
+                        <Select.Option key={index} value={curso2}>
                           {curso2}
                         </Select.Option>
                       ))}
@@ -354,7 +354,6 @@ export const Proyecto = () => {
                 <DeleteFilled
                   style={{ fontSize: "14px", color: "#b91010cc" }}
                 />
-                
               </Button>
             </div>
           </div>
