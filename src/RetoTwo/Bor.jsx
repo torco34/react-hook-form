@@ -2,16 +2,7 @@ import React, { useState } from "react";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { DeleteFilled } from "@ant-design/icons";
 
-import {
-  Button,
-  Cascader,
-  Checkbox,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Select,
-} from "antd";
+import { Button, Form, Input, InputNumber, Select } from "antd";
 
 const cursos = [
   "Ingles",
@@ -24,7 +15,7 @@ export const Bor = () => {
   const [selectedCursos, setSelectedCursos] = useState([]);
   const [cursosDisponibles, setCursosDisponibles] = useState(cursos);
   const [selectVisible, setSelectVisible] = useState(false);
-  const [desactivarSubmit, setDesactivarSubmit] = useState(0);
+  const [desactivarSubmit, setDesactivarSubmit] = useState();
   const [showAgregarHorario, setShowAgregarHorario] = useState(true);
 
   const {
@@ -52,15 +43,17 @@ export const Bor = () => {
     control,
     name: "items2",
   });
+
   // FUNCIÓN DEL PRIMER SELECT FIELD ARRAY
   // filtra para esconder
-  const handleSelectChange = (e, index) => {
+  const handleSelectChange = (value, index) => {
     // aquí selected capsula el curso seleccionado
-    const selected = e.target.value;
+    const selected = value;
+    console.log(selected);
     setSelectVisible(false);
     const selectedCourses =
       getValues(`items[${index}].cursosDisponibles`) || [];
-    selectedCourses.push(selected);
+    // selectedCourses.push(selected);
     setValue(`items[${index}].cursosDisponibles`, selectedCourses);
     // a qui se agrega a la array  el curso seleccionado
     setSelectedCursos([...selectedCursos, selected]);
@@ -75,8 +68,8 @@ export const Bor = () => {
     const cursoEliminado = selectedCursos[index];
     console.log(cursoEliminado);
     const cursoFil = selectedCursos.filter((c, i) => i !== index);
+
     remove(index);
-    // delete cursoFil[index];
     setSelectedCursos(cursoFil);
     setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
   };
@@ -90,22 +83,18 @@ export const Bor = () => {
     setShowAgregarHorario(true);
   };
   // FUNCIÓN SEGUNDO SELECTOR FIELD ARRAY
-  const handleSelect2Change = (value, index) => {
-    const sele = value;
-    console.log(sele);
-    handleSelectRemoval("");
-    append2({ items2: "" });
-  };
+
+  const handleSelect2Change = (value, index) => {};
   const handleAppend2 = () => {
     append2({ items2: "" });
-    console.log("append2 funcion");
-    // setShowAgregarHorario(false);
+
+    setShowAgregarHorario(false);
   };
 
   // deshabilitar el select de field2 array
-  const handleDisabledSelect = (curso, field2, fields2) => {
-    return fields2.some((f) => f.corsos === curso && f.id !== field2.id);
-  };
+  // const handleDisabledSelect = (curso, field2, fields2) => {
+  //   return fields2.some((f) => f.corsos === curso && f.id !== field2.id);
+  // };
   // Guardar de nuevo los curso en el primer selector
   const handleGuardarClick = (index) => {
     remove2(index);
@@ -114,6 +103,7 @@ export const Bor = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+
     // reset();
     // setSelectedCursos([""]);
   };
@@ -197,9 +187,32 @@ export const Bor = () => {
         </div>
         <br></br>
         <hr></hr>
+        <div style={{ width: "100%" }}>
+          {selectedCursos.map((cursoSelect, index) => (
+            <div
+              key={cursoSelect.id}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "200px",
+                height: "30px",
+                marginBottom: "8px",
+              }}
+            >
+              {/* Se muestran los cursos seleccionados */}
 
+              <p>{cursoSelect}</p>
+              <Button onClick={() => handleSelectRemoval(index)}>
+                <DeleteFilled
+                  style={{ fontSize: "15px", color: "#b91010cc" }}
+                />
+              </Button>
+            </div>
+          ))}
+        </div>
         {fields.map((item, index) => (
-          <div key={item.id}>
+          <div key={item.id} style={{}}>
             <Controller
               name={`items[${index}].cursosDisponibles`}
               control={control}
@@ -219,35 +232,42 @@ export const Bor = () => {
                 <div>
                   {/* lógica para   mostrar el input */}
                   {selectVisible && (
-                    <div style={{ display: "flex" }}>
-                      <select
-                        multiple={false}
+                    <div
+                      style={{
+                        display: "flex",
+                        width: "100%",
+                        justifyContent: "space-around",
+                        marginBottom: "8px",
+                        // border: "solid 1px red ",
+                      }}
+                    >
+                      <Select
                         {...field}
-                        style={{ width: "100%" }}
-                        onChange={(e) => {
-                          handleSelectChange(e, index);
+                        style={{ width: "90%" }}
+                        value={field.value}
+                        onChange={(value) => {
+                          field.onChange(value);
+                          handleSelectChange(value, index);
                         }}
                       >
-                        <option value="">Seleccionar cursos</option>
                         {cursosDisponibles.map((curso, index) => (
-                          <>
-                            {/*  input con las carrera */}
-                            <option key={index} value={curso}>
-                              {curso}
-                            </option>
-                          </>
+                          <Select.Option key={index} value={curso}>
+                            {curso}
+                          </Select.Option>
                         ))}
-                      </select>
+                      </Select>
+
                       <Button
-                        red
                         onClick={(index) => {
                           remove(index);
                         }}
                       >
                         <DeleteFilled
-                          style={{ fontSize: "20px", color: "#b91010" }}
+                          style={{
+                            fontSize: "16px",
+                            color: "#b91010",
+                          }}
                         />
-                        eliminar
                       </Button>
                     </div>
                   )}
@@ -260,23 +280,6 @@ export const Bor = () => {
                 </div>
               )}
             />
-
-            <div style={{ width: "100%" }}>
-              {selectedCursos.map((cursoSelect, index) => (
-                <div key={index.id} style={{ display: "flex", width: "100%" }}>
-                  {/* Se muestran los cursos seleccionados */}
-                  <p>
-                    {cursoSelect}
-                    <Button onClick={() => handleSelectRemoval(index)}>
-                      <DeleteFilled
-                        style={{ fontSize: "14px", color: "#b91010cc" }}
-                      />
-                      eliminar
-                    </Button>
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
         ))}
 
@@ -316,11 +319,11 @@ export const Bor = () => {
                         <Select.Option
                           key={cursoIndex}
                           value={curso2}
-                          disabled={handleDisabledSelect(
-                            curso2,
-                            field2,
-                            fields2
-                          )}
+                          // disabled={handleDisabledSelect(
+                          //   curso2,
+                          //   field2,
+                          //   fields2
+                          // )}
                         >
                           {curso2}
                         </Select.Option>

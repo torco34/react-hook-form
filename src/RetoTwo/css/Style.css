@@ -1,0 +1,15 @@
+.selecto {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  
+}
+.select  {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    width: 60%;
+    align-items: de;
+    
+  }
