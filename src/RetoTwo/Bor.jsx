@@ -17,7 +17,9 @@ export const Bor = () => {
   const [selectVisible, setSelectVisible] = useState(false);
   const [desactivarSubmit, setDesactivarSubmit] = useState();
   const [showAgregarHorario, setShowAgregarHorario] = useState(true);
-
+  const [showAppend, setShowAppend] = useState(false);
+  const [copiaSelectedCursos, setCopiaSelectedCursos] = useState([]);
+  console.log("copiaSelectedCursos", copiaSelectedCursos);
   const {
     control,
     handleSubmit,
@@ -53,6 +55,7 @@ export const Bor = () => {
     setSelectVisible(false);
     const selectedCourses =
       getValues(`items[${index}].cursosDisponibles`) || [];
+    console.log(selectedCourses, "sevalue");
     // selectedCourses.push(selected);
     setValue(`items[${index}].cursosDisponibles`, selectedCourses);
     // a qui se agrega a la array  el curso seleccionado
@@ -61,44 +64,70 @@ export const Bor = () => {
     const cursosRestantes = cursosDisponibles.filter(
       (curso) => curso !== selected
     );
+    setCopiaSelectedCursos([...copiaSelectedCursos, selected]);
     setCursosDisponibles(cursosRestantes);
+    setShowAppend(false);
   };
   // remueve el curso seleccionado primer field Array
   const handleSelectRemoval = (index) => {
     const cursoEliminado = selectedCursos[index];
-    console.log(cursoEliminado);
+
     const cursoFil = selectedCursos.filter((c, i) => i !== index);
 
-    remove(index);
+    // remove(index);
     setSelectedCursos(cursoFil);
     setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
   };
   // Agregar el primer input
   const appendAgregar = () => {
     const elementoVacio = getValues("items").find((item) => !item.items);
+    console.log(elementoVacio, "elementovacio");
     if (!elementoVacio) {
       append({ items: "" });
+      console.log("hola mundo");
     }
     setSelectVisible(true);
     setShowAgregarHorario(true);
+    // aun no sirve
+    setShowAppend(true);
   };
+
+  // Guardar de nuevo los curso en el primer selector
+  const handleGuardarClick = (index) => {
+    remove2(index);
+  };
+
   // FUNCIÓN SEGUNDO SELECTOR FIELD ARRAY
 
-  const handleSelect2Change = (value, index) => {};
+  const handleSelect2Change = (value, index) => {
+    const select2Valor = value;
+    // console.log(selectedCursos, fields2, "select field2");
+    // console.log(copiaSelectedCursos, index, "copia");
+
+    const updatedSelectedCursos = copiaSelectedCursos.filter(
+      (element) => element !== select2Valor
+    );
+    setCopiaSelectedCursos(updatedSelectedCursos);
+    if (updatedSelectedCursos.length > 0) append2({ items2: "", hours: "" });
+  };
+  // append segundo field array
   const handleAppend2 = () => {
     append2({ items2: "" });
 
     setShowAgregarHorario(false);
   };
+  //  onchange del inputNumber segundo field array
+  const handleDesactivarSubmit = (value, index) => {
+    const valorInput = value;
+    console.log(valorInput, "valor");
+    if (index === 0) {
+      setDesactivarSubmit(!!value);
+    }
 
-  // deshabilitar el select de field2 array
-  // const handleDisabledSelect = (curso, field2, fields2) => {
-  //   return fields2.some((f) => f.corsos === curso && f.id !== field2.id);
-  // };
-  // Guardar de nuevo los curso en el primer selector
-  const handleGuardarClick = (index) => {
-    remove2(index);
+    // setDesactivarSubmit(false);
+    console.log(index, "index");
   };
+
   // activar el boton submit
 
   const onSubmit = (data) => {
@@ -187,30 +216,7 @@ export const Bor = () => {
         </div>
         <br></br>
         <hr></hr>
-        <div style={{ width: "100%" }}>
-          {selectedCursos.map((cursoSelect, index) => (
-            <div
-              key={cursoSelect.id}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: "200px",
-                height: "30px",
-                marginBottom: "8px",
-              }}
-            >
-              {/* Se muestran los cursos seleccionados */}
 
-              <p>{cursoSelect}</p>
-              <Button onClick={() => handleSelectRemoval(index)}>
-                <DeleteFilled
-                  style={{ fontSize: "15px", color: "#b91010cc" }}
-                />
-              </Button>
-            </div>
-          ))}
-        </div>
         {fields.map((item, index) => (
           <div key={item.id} style={{}}>
             <Controller
@@ -231,6 +237,31 @@ export const Bor = () => {
               render={({ field, fieldState }) => (
                 <div>
                   {/* lógica para   mostrar el input */}
+
+                  <div style={{ width: "100%" }}>
+                    {selectedCursos.map((cursoSelect, index) => (
+                      <div
+                        key={index}
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          width: "200px",
+                          height: "30px",
+                          marginBottom: "8px",
+                        }}
+                      >
+                        {/* Se muestran los cursos seleccionados */}
+
+                        <p>{cursoSelect}</p>
+                        <Button onClick={() => handleSelectRemoval(index)}>
+                          <DeleteFilled
+                            style={{ fontSize: "15px", color: "#b91010cc" }}
+                          />
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
                   {selectVisible && (
                     <div
                       style={{
@@ -284,7 +315,7 @@ export const Bor = () => {
         ))}
 
         {selectedCursos.length === 5 ? (
-          "No hay mas carreras para seleccionar"
+          "No hay carreras "
         ) : (
           <div
             style={{
@@ -292,14 +323,26 @@ export const Bor = () => {
               width: "100%",
             }}
           >
-            <Button type="button" onClick={appendAgregar}>
-              Seleccionar cursos
-            </Button>
+            {showAppend ? null : (
+              <>
+                <Button type="button" onClick={appendAgregar}>
+                  Seleccionar cursos "esconder"
+                </Button>
+              </>
+            )}
           </div>
         )}
         {fields2.map((field2, index) => (
           <div key={field2.id}>
-            <div style={{ display: "flex", width: "100%", margin: "10px" }}>
+            <div
+              style={{
+                display: "flex",
+                width: "50%",
+                justifyContent: "space-around",
+                padding: "10px",
+                border: "soli1px",
+              }}
+            >
               <Controller
                 name={`items2.${index}.corsos`}
                 control={control}
@@ -315,16 +358,8 @@ export const Bor = () => {
                         handleSelect2Change(value, index);
                       }}
                     >
-                      {selectedCursos.map((curso2, cursoIndex) => (
-                        <Select.Option
-                          key={cursoIndex}
-                          value={curso2}
-                          // disabled={handleDisabledSelect(
-                          //   curso2,
-                          //   field2,
-                          //   fields2
-                          // )}
-                        >
+                      {copiaSelectedCursos.map((curso2, cursoIndex) => (
+                        <Select.Option key={cursoIndex} value={curso2}>
                           {curso2}
                         </Select.Option>
                       ))}
@@ -344,14 +379,14 @@ export const Bor = () => {
                       placeholder="Horas"
                       onChange={(value) => {
                         field.onChange(value);
-                        setDesactivarSubmit(!!value);
+                        handleDesactivarSubmit(value, index);
                       }}
                     />
                   </div>
                 )}
               />
 
-              <Button type="button" onClick={() => handleGuardarClick(index)}>
+              <Button onClick={() => handleGuardarClick(index)}>
                 <DeleteFilled
                   style={{ fontSize: "14px", color: "#b91010cc" }}
                 />
@@ -360,7 +395,7 @@ export const Bor = () => {
           </div>
         ))}
 
-        {selectedCursos.length === 0 ? null : (
+        {copiaSelectedCursos.length === 0 ? null : (
           <Button type="button" onClick={handleAppend2}>
             Agregar horario a cada cursos
           </Button>
