@@ -66,7 +66,7 @@ export const Bor = () => {
     );
     setCopiaSelectedCursos([...copiaSelectedCursos, selected]);
     setCursosDisponibles(cursosRestantes);
-    // setShowAppend(false);
+    setShowAppend(false);
   };
   // remueve el curso seleccionado primer field Array
   const handleSelectRemoval = (index) => {
@@ -87,7 +87,7 @@ export const Bor = () => {
     setSelectVisible(true);
     // setShowAgregarHorario(true);
     // aun no sirve
-    // setShowAppend(true);
+    setShowAppend(true);
   };
 
   // Guardar de nuevo los curso en el primer selector
@@ -290,6 +290,7 @@ export const Bor = () => {
                           remove(index);
                           // alert("HOLA MUNDO");
                           // setShowAppend(true);
+                          setShowAppend(false);
                         }}
                       >
                         <DeleteFilled
@@ -320,18 +321,18 @@ export const Bor = () => {
             style={{
               marginTop: "20px",
               width: "100%",
+              paddingBottom: "20px"
             }}
           >
-            {showAppend ? (
+            {/* {showAppend ? "verdad" : "false" } */}
+
+            {showAppend ? null : (
               <>
                 <Button type="button" onClick={appendAgregar}>
-                  Seleccionar cursos
+                  Seleccionar cursos 
                 </Button>
               </>
-            ) : null}
-            <Button type="button" onClick={appendAgregar}>
-              Seleccionar cursos
-            </Button>
+            )}
           </div>
         )}
         {fields2.map((field2, index) => (
