@@ -52,6 +52,12 @@ export const Bor = () => {
     // aquí selected capsula el curso seleccionado
     const selected = value;
     console.log(selected);
+    if (!copiaSelectedCursos.includes(selected)) {
+      setSelectVisible(false);
+      setCopiaSelectedCursos([...copiaSelectedCursos, selected]);
+    } else {
+      console.log("El curso ya fue seleccionado.");
+    }
     setSelectVisible(false);
     const selectedCourses =
       getValues(`items[${index}].cursosDisponibles`) || [];
@@ -64,7 +70,7 @@ export const Bor = () => {
     const cursosRestantes = cursosDisponibles.filter(
       (curso) => curso !== selected
     );
-    setCopiaSelectedCursos([...copiaSelectedCursos, selected]);
+    // setCopiaSelectedCursos([...copiaSelectedCursos, selected]);
     setCursosDisponibles(cursosRestantes);
     setShowAppend(false);
   };
@@ -75,6 +81,7 @@ export const Bor = () => {
     remove(index);
     setSelectedCursos(cursoFil);
     setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
+    setShowAppend(false);
   };
   // Agregar el primer input
   const appendAgregar = () => {
@@ -338,7 +345,7 @@ export const Bor = () => {
             <div
               style={{
                 display: "flex",
-                width: "50%",
+                width: "60%",
                 justifyContent: "space-around",
                 padding: "10px",
                 border: "soli1px",
@@ -352,7 +359,7 @@ export const Bor = () => {
                   <>
                     <Select
                       {...field}
-                      style={{ width: "40%" }}
+                      style={{ width: "50%" }}
                       // value={field.value}
                       onChange={(value) => {
                         field.onChange(value);
@@ -389,7 +396,7 @@ export const Bor = () => {
 
               <Button onClick={() => handleGuardarClick(index)}>
                 <DeleteFilled
-                  style={{ fontSize: "14px", color: "#b91010cc" }}
+                  style={{ fontSize: "16px", color: "#b91010cc" }}
                 />
               </Button>
             </div>
@@ -408,7 +415,7 @@ export const Bor = () => {
           </>
         )}
 
-        <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
+        <Form.Item wrapperCol={{ offset: 10, span: 1 }}>
           <Button
             type="primary"
             htmlType="submit"
