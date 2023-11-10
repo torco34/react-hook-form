@@ -66,15 +66,13 @@ export const Bor = () => {
     );
     setCopiaSelectedCursos([...copiaSelectedCursos, selected]);
     setCursosDisponibles(cursosRestantes);
-    setShowAppend(false);
+    // setShowAppend(false);
   };
   // remueve el curso seleccionado primer field Array
   const handleSelectRemoval = (index) => {
     const cursoEliminado = selectedCursos[index];
-
     const cursoFil = selectedCursos.filter((c, i) => i !== index);
-
-    // remove(index);
+    remove(index);
     setSelectedCursos(cursoFil);
     setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
   };
@@ -87,9 +85,9 @@ export const Bor = () => {
       console.log("hola mundo");
     }
     setSelectVisible(true);
-    setShowAgregarHorario(true);
+    // setShowAgregarHorario(true);
     // aun no sirve
-    setShowAppend(true);
+    // setShowAppend(true);
   };
 
   // Guardar de nuevo los curso en el primer selector
@@ -115,7 +113,7 @@ export const Bor = () => {
   const handleAppend2 = () => {
     append2({ items2: "" });
 
-    setShowAgregarHorario(false);
+    // setShowAgregarHorario(true);
   };
   //  onchange del inputNumber segundo field array
   const handleDesactivarSubmit = (value, index) => {
@@ -124,7 +122,7 @@ export const Bor = () => {
     if (index === 0) {
       setDesactivarSubmit(!!value);
     } else {
-      setDesactivarSubmit(true);
+      // setDesactivarSubmit(true);
     }
     // setDesactivarSubmit(!!value);
     // setDesactivarSubmit(false);
@@ -219,7 +217,26 @@ export const Bor = () => {
         </div>
         <br></br>
         <hr></hr>
+        {selectedCursos.map((cursoSelect, index) => (
+          <div
+            key={index}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              width: "200px",
+              height: "30px",
+              marginBottom: "8px",
+            }}
+          >
+            {/* Se muestran los cursos seleccionados */}
 
+            <p>{cursoSelect}</p>
+            <Button onClick={() => handleSelectRemoval(index)}>
+              <DeleteFilled style={{ fontSize: "15px", color: "#b91010cc" }} />
+            </Button>
+          </div>
+        ))}
         {fields.map((item, index) => (
           <div key={item.id} style={{}}>
             <Controller
@@ -241,30 +258,7 @@ export const Bor = () => {
                 <div>
                   {/* lógica para   mostrar el input */}
 
-                  <div style={{ width: "100%" }}>
-                    {selectedCursos.map((cursoSelect, index) => (
-                      <div
-                        key={index}
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          width: "200px",
-                          height: "30px",
-                          marginBottom: "8px",
-                        }}
-                      >
-                        {/* Se muestran los cursos seleccionados */}
-
-                        <p>{cursoSelect}</p>
-                        <Button onClick={() => handleSelectRemoval(index)}>
-                          <DeleteFilled
-                            style={{ fontSize: "15px", color: "#b91010cc" }}
-                          />
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
+                  <div style={{ width: "100%" }}></div>
                   {selectVisible && (
                     <div
                       style={{
@@ -294,7 +288,8 @@ export const Bor = () => {
                       <Button
                         onClick={() => {
                           remove(index);
-                          alert("HOLA MUNDO")
+                          // alert("HOLA MUNDO");
+                          // setShowAppend(true);
                         }}
                       >
                         <DeleteFilled
@@ -327,13 +322,16 @@ export const Bor = () => {
               width: "100%",
             }}
           >
-            {showAppend ? null : (
+            {showAppend ? (
               <>
                 <Button type="button" onClick={appendAgregar}>
                   Seleccionar cursos
                 </Button>
               </>
-            )}
+            ) : null}
+            <Button type="button" onClick={appendAgregar}>
+              Seleccionar cursos
+            </Button>
           </div>
         )}
         {fields2.map((field2, index) => (
