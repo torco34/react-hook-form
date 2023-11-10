@@ -85,7 +85,7 @@ export const Bor = () => {
       console.log("hola mundo");
     }
     setSelectVisible(true);
-    // setShowAgregarHorario(true);
+    setShowAgregarHorario(true);
     // aun no sirve
     setShowAppend(true);
   };
@@ -113,7 +113,7 @@ export const Bor = () => {
   const handleAppend2 = () => {
     append2({ items2: "" });
 
-    // setShowAgregarHorario(true);
+    setShowAgregarHorario(false);
   };
   //  onchange del inputNumber segundo field array
   const handleDesactivarSubmit = (value, index) => {
@@ -321,15 +321,13 @@ export const Bor = () => {
             style={{
               marginTop: "20px",
               width: "100%",
-              paddingBottom: "20px"
+              paddingBottom: "20px",
             }}
           >
-            {/* {showAppend ? "verdad" : "false" } */}
-
             {showAppend ? null : (
               <>
                 <Button type="button" onClick={appendAgregar}>
-                  Seleccionar cursos 
+                  Seleccionar cursos
                 </Button>
               </>
             )}
