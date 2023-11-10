@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { DeleteFilled } from "@ant-design/icons";
 
-import { Button, Form, Input, InputNumber, Select } from "antd";
+import { Alert, Button, Form, Input, InputNumber, Select } from "antd";
 
 const cursos = [
   "Ingles",
@@ -95,6 +95,7 @@ export const Bor = () => {
   // Guardar de nuevo los curso en el primer selector
   const handleGuardarClick = (index) => {
     remove2(index);
+    // setSelectedCursos([""]);
   };
 
   // FUNCIÓN SEGUNDO SELECTOR FIELD ARRAY
@@ -122,8 +123,10 @@ export const Bor = () => {
     console.log(valorInput, "valor");
     if (index === 0) {
       setDesactivarSubmit(!!value);
+    } else {
+      setDesactivarSubmit(true);
     }
-
+    // setDesactivarSubmit(!!value);
     // setDesactivarSubmit(false);
     console.log(index, "index");
   };
@@ -289,8 +292,9 @@ export const Bor = () => {
                       </Select>
 
                       <Button
-                        onClick={(index) => {
+                        onClick={() => {
                           remove(index);
+                          alert("HOLA MUNDO")
                         }}
                       >
                         <DeleteFilled
@@ -326,7 +330,7 @@ export const Bor = () => {
             {showAppend ? null : (
               <>
                 <Button type="button" onClick={appendAgregar}>
-                  Seleccionar cursos "esconder"
+                  Seleccionar cursos
                 </Button>
               </>
             )}
@@ -352,7 +356,7 @@ export const Bor = () => {
                     <Select
                       {...field}
                       style={{ width: "40%" }}
-                      value={field.value}
+                      // value={field.value}
                       onChange={(value) => {
                         field.onChange(value);
                         handleSelect2Change(value, index);
@@ -396,9 +400,15 @@ export const Bor = () => {
         ))}
 
         {copiaSelectedCursos.length === 0 ? null : (
-          <Button type="button" onClick={handleAppend2}>
-            Agregar horario a cada cursos
-          </Button>
+          <>
+            {showAgregarHorario ? (
+              <>
+                <Button type="button" onClick={handleAppend2}>
+                  Agregar el horario
+                </Button>
+              </>
+            ) : null}
+          </>
         )}
 
         <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
