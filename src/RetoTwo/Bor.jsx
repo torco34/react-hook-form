@@ -19,7 +19,7 @@ export const Bor = () => {
   const [showAgregarHorario, setShowAgregarHorario] = useState(true);
   const [showAppend, setShowAppend] = useState(false);
   const [copiaSelectedCursos, setCopiaSelectedCursos] = useState([]);
-  console.log("copiaSelectedCursos", copiaSelectedCursos);
+
   const {
     control,
     handleSubmit,
@@ -51,18 +51,13 @@ export const Bor = () => {
   const handleSelectChange = (value, index) => {
     // aquí selected capsula el curso seleccionado
     const selected = value;
-    console.log(selected);
-    if (!copiaSelectedCursos.includes(selected)) {
-      setSelectVisible(false);
-      setCopiaSelectedCursos([...copiaSelectedCursos, selected]);
-    } else {
-      console.log("El curso ya fue seleccionado.");
-    }
+
+    //  se esta copiando, para el segundo selector
     setSelectVisible(false);
+    setCopiaSelectedCursos([...copiaSelectedCursos, selected]);
     const selectedCourses =
       getValues(`items[${index}].cursosDisponibles`) || [];
-    console.log(selectedCourses, "sevalue");
-    // selectedCourses.push(selected);
+
     setValue(`items[${index}].cursosDisponibles`, selectedCourses);
     // a qui se agrega a la array  el curso seleccionado
     setSelectedCursos([...selectedCursos, selected]);
@@ -82,14 +77,16 @@ export const Bor = () => {
     setSelectedCursos(cursoFil);
     setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
     setShowAppend(false);
+    remove2(index);
+
+    setCopiaSelectedCursos([]);
   };
   // Agregar el primer input
   const appendAgregar = () => {
     const elementoVacio = getValues("items").find((item) => !item.items);
-    console.log(elementoVacio, "elementovacio");
+
     if (!elementoVacio) {
       append({ items: "" });
-      console.log("hola mundo");
     }
     setSelectVisible(true);
     setShowAgregarHorario(true);
@@ -100,32 +97,37 @@ export const Bor = () => {
   // Guardar de nuevo los curso en el primer selector
   const handleGuardarClick = (index) => {
     remove2(index);
-    // setSelectedCursos([""]);
+    remove(index);
+    // alert("hola mundo");
+    // setCopiaSelectedCursos([""]);
   };
 
   // FUNCIÓN SEGUNDO SELECTOR FIELD ARRAY
 
   const handleSelect2Change = (value, index) => {
     const select2Valor = value;
-    // console.log(selectedCursos, fields2, "select field2");
-    // console.log(copiaSelectedCursos, index, "copia");
 
     const updatedSelectedCursos = copiaSelectedCursos.filter(
       (element) => element !== select2Valor
     );
+    console.log(updatedSelectedCursos, "filter field2")
     setCopiaSelectedCursos(updatedSelectedCursos);
     if (updatedSelectedCursos.length > 0) append2({ items2: "", hours: "" });
   };
   // append segundo field array
   const handleAppend2 = () => {
     append2({ items2: "" });
-
+    // aquí la lógica de recuperar los eliminados
+    // setCopiaSelectedCursos(selectedCursos);
+    console.log(selectedCursos);
+    console.log(copiaSelectedCursos, "copiaselecionada");
     setShowAgregarHorario(false);
+    console.log(fields2)
   };
   //  onchange del inputNumber segundo field array
   const handleDesactivarSubmit = (value, index) => {
     const valorInput = value;
-    console.log(valorInput, "valor");
+
     if (index === 0) {
       setDesactivarSubmit(!!value);
     } else {
@@ -133,7 +135,6 @@ export const Bor = () => {
     }
     // setDesactivarSubmit(!!value);
     // setDesactivarSubmit(false);
-    console.log(index, "index");
   };
 
   // activar el boton submit

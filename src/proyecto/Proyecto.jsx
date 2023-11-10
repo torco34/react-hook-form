@@ -90,7 +90,7 @@ export const Proyecto = () => {
   const handleSelect2Change = (value, index) => {
     const carreraSeleccionada = value;
 
-    console.log(`carrera ${carreraSeleccionada}, index ${index}`);
+  
 
     setSelectedCursos([...selectedCursos, carreraSeleccionada]);
 
