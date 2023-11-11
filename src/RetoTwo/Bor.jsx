@@ -76,53 +76,66 @@ export const Bor = () => {
     remove(index);
     setSelectedCursos(cursoFil);
     setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
-    setShowAppend(false);
-    remove2(index);
 
-    setCopiaSelectedCursos([]);
+    remove2(index);
+    setCopiaSelectedCursos(cursoFil);
+    // setCopiaSelectedCursos([]);
+    console.log("este es mi remov");
   };
   // Agregar el primer input
   const appendAgregar = () => {
     const elementoVacio = getValues("items").find((item) => !item.items);
-
+    console.log("agregar append");
     if (!elementoVacio) {
       append({ items: "" });
     }
     setSelectVisible(true);
     setShowAgregarHorario(true);
-    // aun no sirve
+    // esconde boton seleccionar curso
     setShowAppend(true);
   };
 
   // Guardar de nuevo los curso en el primer selector
   const handleGuardarClick = (index) => {
     remove2(index);
+    console.log("caneca");
     remove(index);
-    // alert("hola mundo");
-    // setCopiaSelectedCursos([""]);
+    setShowAgregarHorario(true);
+    console.log(showAgregarHorario, "showAgregar ");
   };
 
   // FUNCIÓN SEGUNDO SELECTOR FIELD ARRAY
 
   const handleSelect2Change = (value, index) => {
     const select2Valor = value;
-
+    console.log("onchange2");
     const updatedSelectedCursos = copiaSelectedCursos.filter(
       (element) => element !== select2Valor
     );
-    console.log(updatedSelectedCursos, "filter field2")
+    console.log(updatedSelectedCursos, "filter field2");
     setCopiaSelectedCursos(updatedSelectedCursos);
-    if (updatedSelectedCursos.length > 0) append2({ items2: "", hours: "" });
+    if (updatedSelectedCursos.length > 0) {
+      append2({ items2: "", hours: "" });
+    }
   };
+
   // append segundo field array
   const handleAppend2 = () => {
-    append2({ items2: "" });
+    append2({ items2: "", hours: "" });
     // aquí la lógica de recuperar los eliminados
-    // setCopiaSelectedCursos(selectedCursos);
+
+    if (fields2.length === 0) {
+      setCopiaSelectedCursos(selectedCursos);
+      // setShowAgregarHorario(true);
+    }
     console.log(selectedCursos);
-    console.log(copiaSelectedCursos, "copiaselecionada");
-    setShowAgregarHorario(false);
-    console.log(fields2)
+    //  Muestra el text de select  "agregar horario"
+    setShowAgregarHorario(true);
+
+    console.log(showAgregarHorario, "hola");
+    //  Para que el submit no se active
+    setDesactivarSubmit(false);
+    console.log("append2 donde se llena");
   };
   //  onchange del inputNumber segundo field array
   const handleDesactivarSubmit = (value, index) => {
@@ -130,11 +143,12 @@ export const Bor = () => {
 
     if (index === 0) {
       setDesactivarSubmit(!!value);
-    } else {
       // setDesactivarSubmit(true);
+    } else {
+      setDesactivarSubmit(true);
     }
     // setDesactivarSubmit(!!value);
-    // setDesactivarSubmit(false);
+    console.log(index);
   };
 
   // activar el boton submit
@@ -225,6 +239,7 @@ export const Bor = () => {
         </div>
         <br></br>
         <hr></hr>
+        <br />
         {selectedCursos.map((cursoSelect, index) => (
           <div
             key={index}
@@ -296,8 +311,7 @@ export const Bor = () => {
                       <Button
                         onClick={() => {
                           remove(index);
-                          // alert("HOLA MUNDO");
-                          // setShowAppend(true);
+
                           setShowAppend(false);
                         }}
                       >
@@ -323,7 +337,9 @@ export const Bor = () => {
         ))}
 
         {selectedCursos.length === 5 ? (
-          "No hay carreras "
+          <>
+            <p>No hay carreras </p>
+          </>
         ) : (
           <div
             style={{
@@ -404,27 +420,43 @@ export const Bor = () => {
           </div>
         ))}
 
-        {copiaSelectedCursos.length === 0 ? null : (
-          <>
-            {showAgregarHorario ? (
-              <>
-                <Button type="button" onClick={handleAppend2}>
-                  Agregar el horario
-                </Button>
-              </>
-            ) : null}
-          </>
-        )}
+        <div>
+          {copiaSelectedCursos.length === 0 ? null : (
+            <>
+              {showAgregarHorario && (
+                <>
+                  <Button type="button" onClick={handleAppend2}>
+                    Agregar el horario
+                  </Button>
+                </>
+              )}
+            </>
+          )}
+        </div>
 
-        <Form.Item wrapperCol={{ offset: 10, span: 1 }}>
-          <Button
-            type="primary"
-            htmlType="submit"
-            disabled={fields2.length === 0 || !desactivarSubmit}
-          >
-            Submit
-          </Button>
-        </Form.Item>
+        <div>
+          {/* {showAgregarHorario && (
+            <>
+              <Button type="button" onClick={handleAppend2}>
+                Agregar el horario
+              </Button>
+            </>
+          )} */}
+        </div>
+
+        <br></br>
+        {}
+        <div>
+          <Form.Item wrapperCol={{ offset: 10, span: 1 }}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              disabled={fields2.length === 0 || !desactivarSubmit}
+            >
+              Submit
+            </Button>
+          </Form.Item>
+        </div>
       </form>
     </div>
   );
