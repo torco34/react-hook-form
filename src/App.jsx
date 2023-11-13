@@ -7,7 +7,7 @@ import { BotonesAntd } from "./curso-antd/components/BotonesAntd";
 import { IconosAntd } from "./curso-antd/components/IconosAntd";
 import { TipografAntd } from "./curso-antd/components/TipografAntd";
 
-import  FormStudy  from "./RetoTwo/FormStudy";
+import {  FormStudy}  from "./RetoTwo/FormStudy";
 
 import { PagesCurso } from "./components/Curso-react-hook-from/PagesCurso";
 import { Proyecto } from "./proyecto/Proyecto";

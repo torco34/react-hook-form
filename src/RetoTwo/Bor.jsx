@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
+import { useForm, Controller, useFieldArray, useWatch } from "react-hook-form";
 import { DeleteFilled } from "@ant-design/icons";
 
 import { Alert, Button, Form, Input, InputNumber, Select } from "antd";
@@ -26,6 +26,7 @@ export const Bor = () => {
     getValues,
     reset,
     setValue,
+    register,
     formState: { isDirty },
   } = useForm({
     defaultValues: {
@@ -45,7 +46,7 @@ export const Bor = () => {
     control,
     name: "items2",
   });
-
+  const title = useWatch({ name: "title", control });
   // FUNCIÓN DEL PRIMER SELECT FIELD ARRAY
   // filtra para esconder
   const handleSelectChange = (value, index) => {
@@ -76,7 +77,7 @@ export const Bor = () => {
     remove(index);
     setSelectedCursos(cursoFil);
     setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
-
+    setShowButton(false);
     remove2(index);
     setCopiaSelectedCursos(cursoFil);
     // setCopiaSelectedCursos([]);
@@ -93,30 +94,46 @@ export const Bor = () => {
     setShowAgregarHorario(true);
     // esconde boton seleccionar curso
     setShowAppend(true);
+    setShowButton(false);
   };
 
   // Guardar de nuevo los curso en el primer selector
+  const [showButton, setShowButton] = useState(false);
+  const [valorSelect, setValorSelect] = useState([]);
+  const showButtons = copiaSelectedCursos.length > 0 || showButton;
   const handleGuardarClick = (index) => {
     remove2(index);
     console.log("caneca");
     remove(index);
     setShowAgregarHorario(true);
+    // const elementoVacio = getValues(select2Valor);
+    setShowButton(true);
+
     console.log(showAgregarHorario, "showAgregar ");
+    console.log(showButtons, "showBotos ");
+    console.log(selectedCursos, "selected curso ");
+    console.log(copiaSelectedCursos, "copiaSelectedCursos ");
+    console.log(valorSelect, "valor sele ");
+    setValorSelect(valorSelect);
   };
 
   // FUNCIÓN SEGUNDO SELECTOR FIELD ARRAY
 
   const handleSelect2Change = (value, index) => {
     const select2Valor = value;
+    setValorSelect(select2Valor);
     console.log("onchange2");
     const updatedSelectedCursos = copiaSelectedCursos.filter(
       (element) => element !== select2Valor
     );
+
     console.log(updatedSelectedCursos, "filter field2");
     setCopiaSelectedCursos(updatedSelectedCursos);
     if (updatedSelectedCursos.length > 0) {
       append2({ items2: "", hours: "" });
+      setShowAgregarHorario(false);
     }
+    setShowButton(false);
   };
 
   // append segundo field array
@@ -130,8 +147,8 @@ export const Bor = () => {
     }
     console.log(selectedCursos);
     //  Muestra el text de select  "agregar horario"
-    setShowAgregarHorario(true);
-
+    setShowAgregarHorario(false);
+    setShowButton(false);
     console.log(showAgregarHorario, "hola");
     //  Para que el submit no se active
     setDesactivarSubmit(false);
@@ -382,6 +399,8 @@ export const Bor = () => {
                         field.onChange(value);
                         handleSelect2Change(value, index);
                       }}
+
+                      // disabled={bloqueSelect}
                     >
                       {copiaSelectedCursos.map((curso2, cursoIndex) => (
                         <Select.Option key={cursoIndex} value={curso2}>
@@ -419,8 +438,14 @@ export const Bor = () => {
             </div>
           </div>
         ))}
-
         <div>
+          {showButtons && (
+            <Button type="button" onClick={handleAppend2}>
+              {showButton ? "Agregar el horario 2" : "Agregar el horario"}
+            </Button>
+          )}
+        </div>
+        {/* <div>
           {copiaSelectedCursos.length === 0 ? null : (
             <>
               {showAgregarHorario && (
@@ -435,14 +460,14 @@ export const Bor = () => {
         </div>
 
         <div>
-          {/* {showAgregarHorario && (
+          {showButton && (
             <>
               <Button type="button" onClick={handleAppend2}>
-                Agregar el horario
+                Agregar el horario 2
               </Button>
             </>
-          )} */}
-        </div>
+          )}
+        </div> */}
 
         <br></br>
         {}

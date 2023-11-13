@@ -1,55 +1,40 @@
-import React from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import React, { useState } from "react";
+let childRender = "torco";
+import { useForm, useWatch } from "react-hook-form";
 
-function FormStudy() {
-  const { control, handleSubmit, watch, setValue, register } = useForm();
-  const selectedValue = watch('selectedItem');
+export const FormStudy = () => {
+  const [isFieldsBlocked, setFieldsBlocked] = useState(false);
 
-  const items = [
-    { name: 'Item 1', value: 'Value 1' },
-    { name: 'Item 2', value: 'Value 2' },
-    // Agrega más elementos si es necesario
-  ];
+  const { register, control } = useForm();
+  const firstName = useWatch({ name: "firstName", control });
+  const lastName = useWatch({ name: "lastName", control });
+  const title = useWatch({ name: "title", control });
+  // Ejemplo de uso de setValue para actualizar el valor de un campo llamado "nombre"
+  const handleTitleChange = (e) => {
+    const selectedTitle = e.target.value;
 
-  const onSubmit = (data) => {
-    // Maneja la acción de envío del formulario aquí
+    // Lógica para decidir si bloquear o desbloquear los campos
+    setFieldsBlocked(selectedTitle === "Dr.");
   };
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        {items.map((item, index) => (
-          <label key={index}>
-            <input
-              type="radio"
-              value={index}
-              {...register('selectedItem')}
-            />
-            {item.name}
-          </label>
-        ))}
-      </div>
-
-      {selectedValue !== undefined && (
-        <div>
-          <label>Item Name:</label>
-          <Controller
-            name={`items[${selectedValue}].name`}
-            control={control}
-            render={({ field }) => <input {...field} />}
-          />
-          <label>Item Value:</label>
-          <Controller
-            name={`items[${selectedValue}].value`}
-            control={control}
-            render={({ field }) => <input {...field} />}
-          />
-        </div>
-      )}
-
-      <button type="submit">Submit</button>
+    <form>
+      <select {...register("title")} onChange={handleTitleChange}>
+        <option value="Mr.">Mr.</option>
+        <option value="Mrs.">Mrs.</option>
+        <option value="Dr.">Dr.</option>
+      </select>
+     
+      <input
+        {...register("firstName")}
+        placeholder="First Name"
+        disabled={isFieldsBlocked}
+      />
+      <input
+        {...register("lastName")}
+        placeholder="Last Name"
+        disabled={isFieldsBlocked}
+      />
+      <p>Full Name: {`${firstName} ${title}  ${lastName}`}</p>
     </form>
   );
-}
-
-export default FormStudy;
+};
