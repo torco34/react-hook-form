@@ -110,19 +110,26 @@ export const Bor = () => {
     setShowButton(true);
 
     console.log(showAgregarHorario, "showAgregar ");
-    console.log(showButtons, "showBotos ");
+    console.log(showButtons, "showBotos");
     console.log(selectedCursos, "selected curso ");
     console.log(copiaSelectedCursos, "copiaSelectedCursos ");
-    console.log(valorSelect, "valor sele ");
-    setValorSelect(valorSelect);
+    // setValorSelect(copiaSelectedCursos);
+    console.log(valorSelect, "caneca hiddenElements");
+    setCopiaSelectedCursos(valorSelect);
   };
 
   // FUNCIÓN SEGUNDO SELECTOR FIELD ARRAY
 
   const handleSelect2Change = (value, index) => {
     const select2Valor = value;
-    setValorSelect(select2Valor);
+
     console.log("onchange2");
+    const hiddenElements = copiaSelectedCursos.filter(
+      (element) => element === select2Valor
+    );
+    setValorSelect(hiddenElements);
+    
+    console.log(...hiddenElements, "filter hiddenElements");
     const updatedSelectedCursos = copiaSelectedCursos.filter(
       (element) => element !== select2Valor
     );

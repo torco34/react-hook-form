@@ -25,171 +25,48 @@ const cursos = [
   "Estadísticas",
 ];
 export const Practicas = () => {
-  const [cursoSelect, setCursoSelect] = useState([]);
-  const [arrayCursos, setArrayCursos] = useState(cursos);
-  const {
-    control,
-    handleSubmit,
-    getValues,
-    reset,
-    setValue,
-    register,
-    formState: { isDirty },
-  } = useForm({
-    defaultValues: {
-      items: [],
-      cursosSeleccionados: [],
-    },
-  });
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "items",
-  });
-  //  FUNCIONES DE ANT DESIGN
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-  // FUNCIONES PARA MANEJAR EL ESTADO
-  const handleSelectArray = (selectedValue, index) => {
-    setCursoSelect([...cursoSelect, selectedValue]);
+  const [elementosSeleccionados, setElementosSeleccionados] = useState([]);
 
-    const cursosRestantes = arrayCursos.filter(
-      (curso) => curso !== selectedValue
-    );
-    setArrayCursos(cursosRestantes);
-    append({ nombre: "" });
-  };
-  const onSubmit = (data) => {
-    console.log(data);
-    reset();
-    // setSelectedCursos([""]);
+  // Función para manejar la selección de un elemento
+  const handleSeleccion = (elemento) => {
+    // Verificar si el elemento ya está seleccionado
+    const estaSeleccionado = elementosSeleccionados.includes(elemento);
+    console.log(estaSeleccionado, "estaselecionado");
+    console.log(elemento, "elemento 1")
+    // Actualizar el estado en consecuencia
+    if (estaSeleccionado) {
+      // Si ya está seleccionado, quitarlo de la lista
+      console.log("entro del if")
+      setElementosSeleccionados(
+        elementosSeleccionados.filter((item) => item !== elemento)
+      );
+      console.log(elementosSeleccionados, "elementosSeleccionados");
+    } else {
+      // Si no está seleccionado, agregarlo a la lista
+      setElementosSeleccionados([...elementosSeleccionados, elemento]);
+      console.log(elementosSeleccionados, "elementosSeleccionados ");
+      console.log(elemento, " elemento");
+    }
   };
   return (
     <div>
-      <h2>Practicas </h2>
-      <Form
-        name="basic"
-        labelCol={{
-          span: 4,
-        }}
-        wrapperCol={{
-          span: 15,
-        }}
-        style={{
-          maxWidth: "100%",
-          background: "#F1EFEF",
-          padding: "30px",
-        }}
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <div>
-          <Controller
-            name="nombre"
-            control={control}
-            render={({ field }) => (
-              <Form.Item
-                label="Nombre"
-                name="nombre"
-                {...field}
-                rules={[
-                  {
-                    required: true,
-                    message: "Agregue tu nombre!",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            )}
-          />
+      {/* Renderizar tus elementos, por ejemplo, un array de botones */}
+      {cursos.map((elemento) => (
+        <button
+          key={elemento.id}
+          onClick={() => handleSeleccion(elemento)}
+          style={{
+            backgroundColor: elementosSeleccionados.includes(elemento)
+              ? "lightblue"
+              : "white",
+          }}
+        >
+          {elemento}
+        </button>
+      ))}
 
-          <Controller
-            name="apellido"
-            control={control}
-            render={({ field }) => (
-              <Form.Item
-                label="Apellidos"
-                name="apellido"
-                {...field}
-                rules={[
-                  {
-                    required: true,
-                    message: "Agregue los apellidos !",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            )}
-          />
-          <Controller
-            name="correo"
-            control={control}
-            render={({ field }) => (
-              <Form.Item
-                label="Correo"
-                name="correo"
-                {...field}
-                rules={[
-                  {
-                    required: true,
-                    message: "Ingresas tu correo electrónico!",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            )}
-          />
-
-          {fields.map((field, index) => (
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Controller
-                name={`items.${index}.cursos`}
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <div className="selecto">
-                    <Select
-                      className="select"
-                      {...field}
-                      value={field.value}
-                      onChange={(value) => {
-                        const selectedValue = value;
-                        field.onChange(selectedValue);
-                        handleSelectArray(selectedValue, index);
-                      }}
-                      // style={{ width: "40%" }}
-                    >
-                      {arrayCursos.map((item, index) => (
-                        <Select.Option key={index} value={item}>
-                          {item}
-                        </Select.Option>
-                      ))}
-                    </Select>
-
-                    <Button type="button" onClick={() => remove(index)}>
-                      <DeleteFilled
-                        style={{ fontSize: "14px", color: "#b91010cc" }}
-                      />
-                    </Button>
-                  </div>
-                )}
-              />
-            </div>
-          ))}
-          <Button onClick={() => append({ nombre: "" })}>Agregar cursos</Button>
-        </div>{" "}
-      </Form>
+      {/* Puedes mostrar la lista de elementos seleccionados si es necesario */}
+      <div>Elementos seleccionados: {elementosSeleccionados.join(", ")}</div>
     </div>
   );
 };
