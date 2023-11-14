@@ -46,7 +46,7 @@ export const Bor = () => {
     control,
     name: "items2",
   });
-  const title = useWatch({ name: "title", control });
+
   // FUNCIÓN DEL PRIMER SELECT FIELD ARRAY
   // filtra para esconder
   const handleSelectChange = (value, index) => {
@@ -81,12 +81,11 @@ export const Bor = () => {
     remove2(index);
     setCopiaSelectedCursos(cursoFil);
     // setCopiaSelectedCursos([]);
-    console.log("este es mi remov");
   };
   // Agregar el primer input
   const appendAgregar = () => {
     const elementoVacio = getValues("items").find((item) => !item.items);
-    console.log("agregar append");
+
     if (!elementoVacio) {
       append({ items: "" });
     }
@@ -109,27 +108,25 @@ export const Bor = () => {
 
   const handleGuardarClick = (index) => {
     remove2(index);
-
     remove(index);
     setShowAgregarHorario(true);
     setShowButton(true);
 
     const removedElements = [selectedCursos[index], copiaSelectedCursos[index]];
-    console.log(removedElements, "que");
-    console.log(copiaSelectedCursos[index], "que index");
+
     if (removedElements.length === 2) {
+      //   Array.from(new Set(removedElements)) crea  una nueva matriz con elementos únicos
       const uniqueRemovedElements = Array.from(new Set(removedElements));
-      console.log(uniqueRemovedElements);
-      const filteredRemovedElements = uniqueRemovedElements.filter(
-        (element) => !copiaSelectedCursos.includes(element)
-      );
+
+      // elimina valores falso de la matriz  uniqueRemovedElements` es una matriz tiene  elementos,  falsos como `indefinido` o `nulo`. 2.
+      const filteredRemovedElements = uniqueRemovedElements.filter(Boolean);
+
       // Recupera los elementos eliminados
-      console.log(filteredRemovedElements, "remove eliminar");
-      setCopiaSelectedCursos([
-        ...copiaSelectedCursos,
+
+      setCopiaSelectedCursos((prevCopiaSelectedCursos) => [
+        ...prevCopiaSelectedCursos,
         ...filteredRemovedElements,
       ]);
-      console.log(copiaSelectedCursos, "filtered nombre ultimo");
     }
   };
 
@@ -176,31 +173,25 @@ export const Bor = () => {
     if (fields2.length === 0) {
       setCopiaSelectedCursos(selectedCursos);
       // setShowAgregarHorario(true);
+      setDesactivarSubmit(false);
     }
-    console.log(selectedCursos);
+
     //  Muestra el text de select  "agregar horario"
 
     setShowButton(false);
-    console.log(showAgregarHorario, "hola");
-    //  Para que el submit no se active
-    setDesactivarSubmit(false);
-    console.log("append2 donde se llena");
   };
   //  onchange del inputNumber segundo field array
+
   const handleDesactivarSubmit = (value, index) => {
-    const valorInput = value;
+    // setDesactivarSubmit(primerInputVacio);
 
     if (index === 0) {
       setDesactivarSubmit(!!value);
-      // setDesactivarSubmit(true);
     } else {
       setDesactivarSubmit(true);
     }
-    // setDesactivarSubmit(!!value);
-    console.log(index);
+    // setDesactivarSubmit(false);
   };
-
-  // activar el boton submit
 
   const onSubmit = (data) => {
     console.log(data);
@@ -208,7 +199,6 @@ export const Bor = () => {
     // reset();
     // setSelectedCursos([""]);
   };
-
   return (
     <div
       className="border"
@@ -407,7 +397,7 @@ export const Bor = () => {
           </div>
         )}
         {fields2.map((field2, index) => (
-          <div key={field2.id}>
+          <div key={index}>
             <div
               style={{
                 display: "flex",
@@ -434,8 +424,8 @@ export const Bor = () => {
 
                       // disabled={bloqueSelect}
                     >
-                      {copiaSelectedCursos.map((curso2) => (
-                        <Select.Option key={curso2} value={curso2}>
+                      {copiaSelectedCursos.map((curso2, cursoIndex) => (
+                        <Select.Option key={cursoIndex} value={curso2}>
                           {curso2}
                         </Select.Option>
                       ))}
@@ -487,6 +477,7 @@ export const Bor = () => {
               type="primary"
               htmlType="submit"
               disabled={fields2.length === 0 || !desactivarSubmit}
+              // disabled={!!desactivarSubmit}
             >
               Submit
             </Button>

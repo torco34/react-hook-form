@@ -155,80 +155,18 @@ export const Bor = () => {
 
     // ... (your existing code)
   };
-
-  // ... (your existing code)
-
-  // ... (Código anterior)
-
-  // Sección del primer selector de cursos
-  {
-    fields.map((item, index) => (
-      <div key={item.id}>
-        <Controller
-          name={`items[${index}].cursosDisponibles`}
-          control={control}
-          defaultValues=""
-          rules={{
-            required: selectVisible ? "Debe seleccionar una carrera" : false,
-            minLength: selectVisible
-              ? {
-                  value: 2,
-                  message: "Nombre debe tener al menos 2 caracteres",
-                }
-              : false,
-          }}
-          render={({ field, fieldState }) => (
-            <div>
-              {/* lógica para   mostrar el input */}
-              {selectVisible && (
-                <div style={{ display: "flex", width: "100%" }}>
-                  <Select
-                    {...field}
-                    style={{ width: "90%" }}
-                    value={field.value}
-                    onChange={(value) => {
-                      field.onChange(value);
-                      handleSelectChange(value, index);
-                    }}
-                  >
-                    {cursosDisponibles.map((curso, index) => (
-                      <Select.Option key={index} value={curso}>
-                        {curso}
-                      </Select.Option>
-                    ))}
-                  </Select>
-
-                  <Button
-                    onClick={() => {
-                      remove(index);
-                      setShowAppend(false);
-                    }}
-                  >
-                    <DeleteFilled
-                      style={{ fontSize: "16px", color: "#b91010" }}
-                    />
-                  </Button>
-                </div>
-              )}
-
-              {fieldState.invalid && (
-                <p style={{ color: "#b91010" }}>{fieldState.error?.message}</p>
-              )}
-            </div>
-          )}
-        />
-      </div>
-    ));
-  }
 };
+// ... (your existing code)
+
+// ... (Código anterior)
+
+// Sección del primer selector de cursos
+
+
 
 // ... (Otras secciones del código)
 
 // Sección del segundo selector de cursos
 // ... (your existing code)
 
-
 // ... (your existing code)
-
-
-
