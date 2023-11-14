@@ -112,3 +112,123 @@ export const Practicas = () => {
     </div>
   );
 };
+
+// ... (otras importaciones)
+// ... (your existing imports)
+
+export const Bor = () => {
+  // ... (your existing state variables)
+
+  const [isCourseSelected, setIsCourseSelected] = useState(false); // Add this state variable
+
+  // ... (your existing code)
+
+  // FUNCIÓN DEL PRIMER SELECT FIELD ARRAY
+  // filtra para esconder
+  const handleSelectChange = (value, index) => {
+    // ... (your existing code)
+
+    // Update the state variable when a course is selected
+    setIsCourseSelected(true);
+
+    // ... (your existing code)
+  };
+
+  // remueve el curso seleccionado primer field Array
+  const handleSelectRemoval = (index) => {
+    // ... (your existing code)
+
+    // Update the state variable when a course is removed
+    setIsCourseSelected(false);
+
+    // ... (your existing code)
+  };
+
+  // ... (your existing code)
+
+  // append segundo field array
+  const handleAppend2 = () => {
+    // ... (your existing code)
+
+    // Update the state variable when a course is appended
+    setIsCourseSelected(false);
+
+    // ... (your existing code)
+  };
+
+  // ... (your existing code)
+
+  // ... (Código anterior)
+
+  // Sección del primer selector de cursos
+  {
+    fields.map((item, index) => (
+      <div key={item.id}>
+        <Controller
+          name={`items[${index}].cursosDisponibles`}
+          control={control}
+          defaultValues=""
+          rules={{
+            required: selectVisible ? "Debe seleccionar una carrera" : false,
+            minLength: selectVisible
+              ? {
+                  value: 2,
+                  message: "Nombre debe tener al menos 2 caracteres",
+                }
+              : false,
+          }}
+          render={({ field, fieldState }) => (
+            <div>
+              {/* lógica para   mostrar el input */}
+              {selectVisible && (
+                <div style={{ display: "flex", width: "100%" }}>
+                  <Select
+                    {...field}
+                    style={{ width: "90%" }}
+                    value={field.value}
+                    onChange={(value) => {
+                      field.onChange(value);
+                      handleSelectChange(value, index);
+                    }}
+                  >
+                    {cursosDisponibles.map((curso, index) => (
+                      <Select.Option key={index} value={curso}>
+                        {curso}
+                      </Select.Option>
+                    ))}
+                  </Select>
+
+                  <Button
+                    onClick={() => {
+                      remove(index);
+                      setShowAppend(false);
+                    }}
+                  >
+                    <DeleteFilled
+                      style={{ fontSize: "16px", color: "#b91010" }}
+                    />
+                  </Button>
+                </div>
+              )}
+
+              {fieldState.invalid && (
+                <p style={{ color: "#b91010" }}>{fieldState.error?.message}</p>
+              )}
+            </div>
+          )}
+        />
+      </div>
+    ));
+  }
+};
+
+// ... (Otras secciones del código)
+
+// Sección del segundo selector de cursos
+// ... (your existing code)
+
+
+// ... (your existing code)
+
+
+

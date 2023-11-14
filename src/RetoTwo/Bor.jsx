@@ -101,8 +101,12 @@ export const Bor = () => {
   const [showButton, setShowButton] = useState(false);
   const [historia, setHistoria] = useState([]);
 
-  const [removedElement, setRemovedElement] = useState([]);
+  const [elementosDesaparecidos, setElementosDesaparecidos] = useState([]);
+
+  const [removedElement, setRemovedElement] = useState(null);
+
   const showButtons = copiaSelectedCursos.length > 0 || showButton;
+
   const handleGuardarClick = (index) => {
     remove2(index);
 
@@ -120,12 +124,12 @@ export const Bor = () => {
         (element) => !copiaSelectedCursos.includes(element)
       );
       // Recupera los elementos eliminados
-
+      console.log(filteredRemovedElements, "remove eliminar");
       setCopiaSelectedCursos([
         ...copiaSelectedCursos,
         ...filteredRemovedElements,
       ]);
-      console.log(filteredRemovedElements, "filtered nombre");
+      console.log(copiaSelectedCursos, "filtered nombre ultimo");
     }
   };
 
@@ -133,32 +137,26 @@ export const Bor = () => {
 
   const handleSelect2Change = (value) => {
     const select2Valor = value;
+
+    if (removedElement && removedElement === select2Valor) {
+      setHistoria((prevHistoria) => [...prevHistoria, removedElement]);
+      setRemovedElement(null);
+    }
+
     const copiaHistoria = copiaSelectedCursos.filter(
       (element) => element === select2Valor
     );
-    setRemovedElement([...removedElement, copiaHistoria]);
-    // setHistoria(copiaHistoria);
-    console.log(copiaHistoria, "copiaHistoria");
-    // const elementoOculto = miLista.find((elemento) => elemento.id === copiaHistoria);
+
+    setHistoria(copiaHistoria);
+
     const updatedSelectedCursos = copiaSelectedCursos.filter(
       (element) => element !== select2Valor
     );
-    const elementoOculto = copiaSelectedCursos.find(
-      (elemento) => elemento !== copiaHistoria
-    );
-    setHistoria([historia, elementoOculto]);
-    console.log(selectedCursos, "cursos");
-    if (elementoOculto) {
-      // Si se encuentra, establece el estado de la historia
-      setHistoria(elementoOculto);
-      console.log(historia, "dentro if");
-    } else {
-      // Si no se encuentra, puedes hacer algo, como establecer el estado de la historia en null
-      setHistoria(null);
-    }
-    console.log(elementoOculto, "fin");
-    console.log(historia, "historia");
-    console.log(updatedSelectedCursos, "filtrado");
+
+    setElementosDesaparecidos((prevElementos) => [
+      ...prevElementos,
+      select2Valor,
+    ]);
     setCopiaSelectedCursos(updatedSelectedCursos);
 
     if (updatedSelectedCursos.length > 0) {
@@ -166,10 +164,10 @@ export const Bor = () => {
       setShowAgregarHorario(false);
       setShowButton(false);
     }
+
     setShowButton(false);
     setShowAgregarHorario(false);
   };
-
   // append segundo field array
   const handleAppend2 = () => {
     append2({ items2: "", hours: "" });
@@ -436,8 +434,8 @@ export const Bor = () => {
 
                       // disabled={bloqueSelect}
                     >
-                      {copiaSelectedCursos.map((curso2, cursoIndex) => (
-                        <Select.Option key={cursoIndex} value={curso2}>
+                      {copiaSelectedCursos.map((curso2) => (
+                        <Select.Option key={curso2} value={curso2}>
                           {curso2}
                         </Select.Option>
                       ))}
@@ -472,36 +470,14 @@ export const Bor = () => {
             </div>
           </div>
         ))}
+
         <div>
-          {showButtons && (
+          {copiaSelectedCursos.length === 0 || !showAgregarHorario ? null : (
             <Button type="button" onClick={handleAppend2}>
-              {showButton ? "Agregar el horario 2" : "Agregar el horario"}
+              Agregar el horario
             </Button>
           )}
         </div>
-        {/* <div>
-          {copiaSelectedCursos.length === 0 ? null : (
-            <>
-              {showAgregarHorario && (
-                <>
-                  <Button type="button" onClick={handleAppend2}>
-                    Agregar el horario
-                  </Button>
-                </>
-              )}
-            </>
-          )}
-        </div>
-
-        <div>
-          {showButton && (
-            <>
-              <Button type="button" onClick={handleAppend2}>
-                Agregar el horario 2
-              </Button>
-            </>
-          )}
-        </div> */}
 
         <br></br>
         {}
