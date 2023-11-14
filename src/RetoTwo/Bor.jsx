@@ -99,48 +99,75 @@ export const Bor = () => {
 
   // Guardar de nuevo los curso en el primer selector
   const [showButton, setShowButton] = useState(false);
-  const [valorSelect, setValorSelect] = useState([]);
+  const [historia, setHistoria] = useState([]);
+
+  const [removedElement, setRemovedElement] = useState([]);
   const showButtons = copiaSelectedCursos.length > 0 || showButton;
   const handleGuardarClick = (index) => {
     remove2(index);
-    console.log("caneca");
+
     remove(index);
     setShowAgregarHorario(true);
-    // const elementoVacio = getValues(select2Valor);
     setShowButton(true);
 
-    console.log(showAgregarHorario, "showAgregar ");
-    console.log(showButtons, "showBotos");
-    console.log(selectedCursos, "selected curso ");
-    console.log(copiaSelectedCursos, "copiaSelectedCursos ");
-    // setValorSelect(copiaSelectedCursos);
-    console.log(valorSelect, "caneca hiddenElements");
-    setCopiaSelectedCursos(valorSelect);
+    const removedElements = [selectedCursos[index], copiaSelectedCursos[index]];
+    console.log(removedElements, "que");
+    console.log(copiaSelectedCursos[index], "que index");
+    if (removedElements.length === 2) {
+      const uniqueRemovedElements = Array.from(new Set(removedElements));
+      console.log(uniqueRemovedElements);
+      const filteredRemovedElements = uniqueRemovedElements.filter(
+        (element) => !copiaSelectedCursos.includes(element)
+      );
+      // Recupera los elementos eliminados
+
+      setCopiaSelectedCursos([
+        ...copiaSelectedCursos,
+        ...filteredRemovedElements,
+      ]);
+      console.log(filteredRemovedElements, "filtered nombre");
+    }
   };
 
   // FUNCIÓN SEGUNDO SELECTOR FIELD ARRAY
 
-  const handleSelect2Change = (value, index) => {
+  const handleSelect2Change = (value) => {
     const select2Valor = value;
-
-    console.log("onchange2");
-    const hiddenElements = copiaSelectedCursos.filter(
+    const copiaHistoria = copiaSelectedCursos.filter(
       (element) => element === select2Valor
     );
-    setValorSelect(hiddenElements);
-    
-    console.log(...hiddenElements, "filter hiddenElements");
+    setRemovedElement([...removedElement, copiaHistoria]);
+    // setHistoria(copiaHistoria);
+    console.log(copiaHistoria, "copiaHistoria");
+    // const elementoOculto = miLista.find((elemento) => elemento.id === copiaHistoria);
     const updatedSelectedCursos = copiaSelectedCursos.filter(
       (element) => element !== select2Valor
     );
-
-    console.log(updatedSelectedCursos, "filter field2");
+    const elementoOculto = copiaSelectedCursos.find(
+      (elemento) => elemento !== copiaHistoria
+    );
+    setHistoria([historia, elementoOculto]);
+    console.log(selectedCursos, "cursos");
+    if (elementoOculto) {
+      // Si se encuentra, establece el estado de la historia
+      setHistoria(elementoOculto);
+      console.log(historia, "dentro if");
+    } else {
+      // Si no se encuentra, puedes hacer algo, como establecer el estado de la historia en null
+      setHistoria(null);
+    }
+    console.log(elementoOculto, "fin");
+    console.log(historia, "historia");
+    console.log(updatedSelectedCursos, "filtrado");
     setCopiaSelectedCursos(updatedSelectedCursos);
+
     if (updatedSelectedCursos.length > 0) {
       append2({ items2: "", hours: "" });
       setShowAgregarHorario(false);
+      setShowButton(false);
     }
     setShowButton(false);
+    setShowAgregarHorario(false);
   };
 
   // append segundo field array
@@ -154,7 +181,7 @@ export const Bor = () => {
     }
     console.log(selectedCursos);
     //  Muestra el text de select  "agregar horario"
-    setShowAgregarHorario(false);
+
     setShowButton(false);
     console.log(showAgregarHorario, "hola");
     //  Para que el submit no se active

@@ -32,11 +32,11 @@ export const Practicas = () => {
     // Verificar si el elemento ya está seleccionado
     const estaSeleccionado = elementosSeleccionados.includes(elemento);
     console.log(estaSeleccionado, "estaselecionado");
-    console.log(elemento, "elemento 1")
+    console.log(elemento, "elemento 1");
     // Actualizar el estado en consecuencia
     if (estaSeleccionado) {
       // Si ya está seleccionado, quitarlo de la lista
-      console.log("entro del if")
+      console.log("entro del if");
       setElementosSeleccionados(
         elementosSeleccionados.filter((item) => item !== elemento)
       );
@@ -47,6 +47,29 @@ export const Practicas = () => {
       console.log(elementosSeleccionados, "elementosSeleccionados ");
       console.log(elemento, " elemento");
     }
+  };
+  const [miLista, setMiLista] = useState([
+    { id: 1, texto: "Elemento 1", visible: true },
+    { id: 2, texto: "Elemento 2", visible: true },
+    { id: 3, texto: "Elemento 3", visible: true },
+  ]);
+
+  const [elementosOcultos, setElementosOcultos] = useState([]);
+
+  const ocultarElemento = (id) => {
+    const nuevoEstado = miLista.map((elemento) =>
+      elemento.id === id ? { ...elemento, visible: false } : elemento
+    );
+
+    const elementoOculto = miLista.find((elemento) => elemento.id === id);
+    setElementosOcultos([...elementosOcultos, elementoOculto]);
+
+    setMiLista(nuevoEstado);
+  };
+
+  const mostrarElementosOcultos = () => {
+    setMiLista([...miLista, ...elementosOcultos]);
+    setElementosOcultos([]);
   };
   return (
     <div>
@@ -67,6 +90,25 @@ export const Practicas = () => {
 
       {/* Puedes mostrar la lista de elementos seleccionados si es necesario */}
       <div>Elementos seleccionados: {elementosSeleccionados.join(", ")}</div>
+
+      <div>
+        <h1>Mi Lista</h1>
+        <ul>
+          {miLista
+            .filter((elemento) => elemento.visible)
+            .map((elemento) => (
+              <li key={elemento.id}>
+                {elemento.texto}
+                <button onClick={() => ocultarElemento(elemento.id)}>
+                  Ocultar
+                </button>
+              </li>
+            ))}
+        </ul>
+        <button onClick={mostrarElementosOcultos}>
+          Mostrar Elementos Ocultos
+        </button>
+      </div>
     </div>
   );
 };
