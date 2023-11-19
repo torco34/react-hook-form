@@ -39,12 +39,17 @@ export const PageIndex = () => {
     selectVisible,
   } = useMaterias();
   const {
+    // hooks
     cursosDisponibles,
-    handleSelectChange,
     selectedCursos,
+    copiaSelectedCursos,
+    setCopiaSelectedCursos,
+    // handleOnclick
     handleSelectRemoval,
-    // appendAgregar,
+    handleSelectChange,
+    handleSelect2Change,
   } = contextTodosHookLogica;
+
   const appendAgregar = () => {
     const elementoVacio = getValues("items").find((item) => !item.items);
     console.log(elementoVacio);
@@ -52,6 +57,16 @@ export const PageIndex = () => {
     if (!elementoVacio) {
       append({ items: "" });
     }
+  };
+
+  const handleAppend2 = () => {
+    append2({ items2: "", hours: "" });
+
+    if (fields2.length === 0) {
+      setCopiaSelectedCursos(selectedCursos);
+    }
+
+    //  Muestra el text de select  "agregar horario"
   };
   const onSubmit = (data) => {
     console.log(data);
@@ -130,7 +145,7 @@ export const PageIndex = () => {
         {selectedCursos.map((cursoSelect, index) => (
           <div key={index} className="cursoSelect">
             <p>{cursoSelect}</p>
-            <Button onClick={() => handleSelectRemoval(cursoSelect)}>
+            <Button onClick={() => handleSelectRemoval(cursoSelect, index)}>
               <DeleteFilled style={{ fontSize: "15px", color: "#b91010cc" }} />
             </Button>
           </div>
@@ -138,7 +153,7 @@ export const PageIndex = () => {
 
         <br></br>
         {fields.map((field, index) => (
-          <div key={index} className="">
+          <div key={field.id} className="">
             <Controller
               name={`items[${index}].cursosDisponibles`}
               control={control}
@@ -186,9 +201,98 @@ export const PageIndex = () => {
             />
           </div>
         ))}
+        {fields2.map((field2, index) => (
+          <div key={index}>
+            <div
+              style={{
+                display: "flex",
+                width: "60%",
+                justifyContent: "space-around",
+                padding: "10px",
+                border: "soli1px",
+              }}
+            >
+              <Controller
+                name={`items2.${index}.corsos`}
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <>
+                    <Select
+                      {...field}
+                      style={{ width: "50%" }}
+                      value={field.value}
+                      onChange={(value) => {
+                        field.onChange(value);
+                        handleSelect2Change(value, index);
+                      }}
+
+                      // disabled={bloqueSelect}
+                    >
+                      {copiaSelectedCursos.map((curso, cursoIndex) => (
+                        <Select.Option
+                          key={curso}
+                          value={curso && curso.name}
+                        >
+                          {curso && curso.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </>
+                )}
+              />
+
+              <Controller
+                name={`items2[${index}].horas`}
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <div>
+                    <InputNumber
+                      {...field}
+                      placeholder="Horas"
+                      onChange={(value) => {
+                        field.onChange(value);
+                        handleDesactivarSubmit(value, index);
+                      }}
+                    />
+                  </div>
+                )}
+              />
+
+              <Button onClick={() => handleGuardarClick(index)}>
+                <DeleteFilled
+                  style={{ fontSize: "16px", color: "#b91010cc" }}
+                />
+              </Button>
+            </div>
+          </div>
+        ))}
+        <br></br>
+        <br></br>
+        <br></br>
         <Button type="button" onClick={appendAgregar}>
           Seleccionar cursos
         </Button>
+        <br></br>
+        <br></br>
+        <br></br>
+        <Button type="button" onClick={handleAppend2}>
+          Agregar el horario
+        </Button>
+        <br></br>
+        <br></br>
+        <br></br>
+        <Form.Item wrapperCol={{ offset: 10, span: 1 }}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            // disabled={fields2.length === 0 || !desactivarSubmit}
+            // disabled={!!desactivarSubmit}
+          >
+            Submit
+          </Button>
+        </Form.Item>
       </Form>
     </div>
   );

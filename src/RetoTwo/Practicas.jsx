@@ -161,42 +161,20 @@ export const Bor = () => {
     // ... (your existing code)
   };
 };
+const handleSelectRemoval = (cursoSelect, index) => {
+  const updatedCursos = selectedCursos.filter((curso) => curso !== cursoSelect);
+  setSelectedCursos(updatedCursos);
+  setCursosDisponibles([...cursosDisponibles, { id: uuidv4(), name: cursoSelect }]);
 
-// const handleSelectChange = (value, index) => {
-//   const selectedCurso = cursosDisponibles.find((curso) => curso.name === value);
-//   console.log(selectedCurso, "selectedCurso");
-//   setSelectedCursos([...selectedCursos, selectedCurso]);
+  // Eliminar el cursoSelect de copiaSelectedCursos
+  const updatedCopiaSelectedCursos = copiaSelectedCursos.filter(
+    (curso) => curso.name !== cursoSelect
+  );
+  setCopiaSelectedCursos(updatedCopiaSelectedCursos);
 
-//   const cursosRestantes = cursosDisponibles.filter(
-//     (curso) => curso.name !== value
-//   );
-//   setCursosDisponibles(cursosRestantes);
-// };
-
-// {selectedCursos.map((cursoSelect) => (
-//   <div key={cursoSelect.id} className="cursoSelect">
-//     <p>{cursoSelect.name}</p>
-//     <Button onClick={() => handleSelectRemoval(cursoSelect)}>
-//       <DeleteFilled style={{ fontSize: "15px", color: "#b91010cc" }} />
-//     </Button>
-//   </div>
-// ))}
-
-// const handleSelectChange = (value, index) => {
-//   const selectedCurso = cursosDisponibles.find((curso) => curso.name === value);
-//   console.log(selectedCurso, "selectedCurso");
-//   setSelectedCursos([...selectedCursos, selectedCurso.name]); // Almacena solo el nombre
-
-//   const cursosRestantes = cursosDisponibles.filter(
-//     (curso) => curso.name !== value
-//   );
-//   setCursosDisponibles(cursosRestantes);
-// };
-// {selectedCursos.map((cursoSelect) => (
-//   <div key={cursoSelect.id} className="cursoSelect">
-//     <p>{cursoSelect}</p> {/* Renderiza el nombre directamente */}
-//     <Button onClick={() => handleSelectRemoval(cursoSelect)}>
-//       <DeleteFilled style={{ fontSize: "15px", color: "#b91010cc" }} />
-//     </Button>
-//   </div>
-// ))}
+  console.log(updatedCursos, "updatedCursos");
+  console.log(cursosDisponibles);
+  console.log(updatedCopiaSelectedCursos, "copiaSelectedCursos después de eliminación");
+  console.log(cursoSelect, "cursoSeled...........");
+  // Filtrar el curso que coincide con el nombre
+};

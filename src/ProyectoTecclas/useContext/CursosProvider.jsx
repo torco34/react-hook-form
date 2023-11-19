@@ -57,8 +57,12 @@ export const CursosProvider = ({ children }) => {
       (curso) => curso.name === value
     );
     const selected = value;
+    // copiando para el segundo field array
+    setCopiaSelectedCursos([...copiaSelectedCursos, selectedCurso.name]);
+
+    console.log(copiaSelectedCursos, "copiaSelectedCursos..");
     console.log(selected, "selected");
-    console.log(selectedCurso, "selectedCurso");
+    console.log(selectedCurso, "selectedCurso ....");
     setSelectedCursos([...selectedCursos, selectedCurso.name]);
 
     const cursosRestantes = cursosDisponibles.filter(
@@ -69,6 +73,7 @@ export const CursosProvider = ({ children }) => {
   //
   //
   //
+
   const handleSelectRemoval = (cursoSelect) => {
     // const cursoFil = selectedCursos.filter((c) => c !== cursoSelect);
     const updatedCursos = selectedCursos.filter(
@@ -79,11 +84,36 @@ export const CursosProvider = ({ children }) => {
       ...cursosDisponibles,
       { id: uuidv4(), name: cursoSelect },
     ]);
+    // para tener en cuenta no funciona aun que deberia
+    const updatedCopiaSelectedCursos = copiaSelectedCursos.filter(
+      (curso) => curso.name !== cursoSelect
+    );
 
+    setCopiaSelectedCursos(updatedCopiaSelectedCursos);
     console.log(updatedCursos, "updatedCursos");
     console.log(cursosDisponibles);
-    console.log(cursoSelect, "cursoSeled...........");
+    console.log(updatedCopiaSelectedCursos, "cursoSeled...........");
     // Filtrar el curso que coincide con el nombre
+  };
+  //
+  //
+  // onchange del segundo selector y fieldArray
+  //
+  const handleSelect2Change = (value) => {
+    const select2Valor = value;
+
+    const updatedSelectedCursos = copiaSelectedCursos.filter(
+      (element) => element !== select2Valor
+    );
+
+    console.log(updatedSelectedCursos, "resultodo del filtro");
+
+    setCopiaSelectedCursos(updatedSelectedCursos);
+
+    // if (updatedSelectedCursos.length > 0) {
+    //   append2({ items2: "", hours: "" });
+
+    // }
   };
 
   const agregarCursos = (nombre) => {
@@ -95,20 +125,24 @@ export const CursosProvider = ({ children }) => {
   };
 
   const contextTodosHookLogica = {
-    // hook
-    selectedCursos,
+    // hook 1
+    setCopiaSelectedCursos,
+    copiaSelectedCursos,
+    // hook 2
     setSelectedCursos,
-
-    cursosDisponibles,
+    selectedCursos,
+    //  hook 3
     setCursosDisponibles,
-    selectVisible,
+    cursosDisponibles,
+    //  hook 4
     setSelectVisible,
-
+    selectVisible,
     // funciones
     agregarCursos,
     // appendAgregar,
     handleSelectRemoval,
     handleSelectChange,
+    handleSelect2Change,
   };
   return (
     <MateriasContext.Provider value={{ contextTodosHookLogica }}>

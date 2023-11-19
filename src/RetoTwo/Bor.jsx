@@ -5,11 +5,11 @@ import { DeleteFilled } from "@ant-design/icons";
 import { Alert, Button, Form, Input, InputNumber, Select } from "antd";
 import { v4 as uuidv4 } from "uuid";
 const cursos = [
-  { id: 0, name: "Informática" },
-  { id: 1, name: "Administración" },
-  { id: 2, name: "Matemáticas" },
-  { id: 3, name: "Estadísticas" },
-  { id: 4, name: "Ingles" },
+  "Informática",
+  "Matemáticas",
+  "Administración",
+  "Estadísticas",
+  "Ingles",
 ];
 
 export const Bor = ({}) => {
@@ -19,7 +19,6 @@ export const Bor = ({}) => {
   const [desactivarSubmit, setDesactivarSubmit] = useState();
   const [showAgregarHorario, setShowAgregarHorario] = useState(false);
   const [showAppend, setShowAppend] = useState(false);
-
   const [copiaSelectedCursos, setCopiaSelectedCursos] = useState([]);
 
   const {
