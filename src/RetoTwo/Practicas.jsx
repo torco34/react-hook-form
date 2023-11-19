@@ -31,8 +31,8 @@ export const Practicas = () => {
   const handleSeleccion = (elemento) => {
     // Verificar si el elemento ya está seleccionado
     const estaSeleccionado = elementosSeleccionados.includes(elemento);
-    console.log(estaSeleccionado, "estaselecionado");
-    console.log(elemento, "elemento 1");
+    console.log(estaSeleccionado, elementosSeleccionados, "elementos Seleccionado", "estaSeleccionado");
+    console.log(elemento, "elemento la variable");
     // Actualizar el estado en consecuencia
     if (estaSeleccionado) {
       // Si ya está seleccionado, quitarlo de la lista
@@ -156,17 +156,18 @@ export const Bor = () => {
     // ... (your existing code)
   };
 };
-// ... (your existing code)
 
-// ... (Código anterior)
+const handleSelectChange = (value, index) => {
+  const selectedCurso = cursosDisponibles.find((curso) => curso.name === value);
+  console.log(selectedCurso, "selectedCurso");
+  setSelectedCursos([...selectedCursos, selectedCurso]);
 
-// Sección del primer selector de cursos
+  const cursosRestantes = cursosDisponibles.filter(
+    (curso) => curso.name !== value
+  );
+  setCursosDisponibles(cursosRestantes);
+};
 
 
 
-// ... (Otras secciones del código)
 
-// Sección del segundo selector de cursos
-// ... (your existing code)
-
-// ... (your existing code)

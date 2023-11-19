@@ -33,6 +33,9 @@ export const Header = () => {
           <li className="border border-info btn list-inline-item ">
             <Link to="/horas">Horas</Link>
           </li>
+          <li className="border border-info btn list-inline-item ">
+            <Link to="/tecclas">Proyectos</Link>
+          </li>
         </ul>
       </nav>
     </>

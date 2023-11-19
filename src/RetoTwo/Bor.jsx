@@ -1,23 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller, useFieldArray, useWatch } from "react-hook-form";
 import { DeleteFilled } from "@ant-design/icons";
 
 import { Alert, Button, Form, Input, InputNumber, Select } from "antd";
-
+import { v4 as uuidv4 } from "uuid";
 const cursos = [
-  "Ingles",
-  "Informática",
-  "Matemáticas",
-  "Administración",
-  "Estadísticas",
+  { id: 0, name: "Informática" },
+  { id: 1, name: "Administración" },
+  { id: 2, name: "Matemáticas" },
+  { id: 3, name: "Estadísticas" },
+  { id: 4, name: "Ingles" },
 ];
-export const Bor = () => {
+
+export const Bor = ({}) => {
   const [selectedCursos, setSelectedCursos] = useState([]);
   const [cursosDisponibles, setCursosDisponibles] = useState(cursos);
   const [selectVisible, setSelectVisible] = useState(false);
   const [desactivarSubmit, setDesactivarSubmit] = useState();
-  const [showAgregarHorario, setShowAgregarHorario] = useState(true);
+  const [showAgregarHorario, setShowAgregarHorario] = useState(false);
   const [showAppend, setShowAppend] = useState(false);
+
   const [copiaSelectedCursos, setCopiaSelectedCursos] = useState([]);
 
   const {
@@ -49,6 +51,9 @@ export const Bor = () => {
 
   // FUNCIÓN DEL PRIMER SELECT FIELD ARRAY
   // filtra para esconder
+  //
+  //
+  //
   const handleSelectChange = (value, index) => {
     // aquí selected capsula el curso seleccionado
     const selected = value;
@@ -56,6 +61,7 @@ export const Bor = () => {
     //  se esta copiando, para el segundo selector
     setSelectVisible(false);
     setCopiaSelectedCursos([...copiaSelectedCursos, selected]);
+    // console.log(copiaSelectedCursos, "en el primer onchange copiaSelectedCursos");
     const selectedCourses =
       getValues(`items[${index}].cursosDisponibles`) || [];
 
@@ -66,11 +72,17 @@ export const Bor = () => {
     const cursosRestantes = cursosDisponibles.filter(
       (curso) => curso !== selected
     );
+    console.log(selectedCursos, "aaa");
     // setCopiaSelectedCursos([...copiaSelectedCursos, selected]);
     setCursosDisponibles(cursosRestantes);
     setShowAppend(false);
   };
+
+  //
+  //
+  //
   // remueve el curso seleccionado primer field Array
+
   const handleSelectRemoval = (index) => {
     const cursoEliminado = selectedCursos[index];
     const cursoFil = selectedCursos.filter((c, i) => i !== index);
@@ -78,10 +90,11 @@ export const Bor = () => {
     setSelectedCursos(cursoFil);
     setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
     setShowButton(false);
+
     remove2(index);
-    setCopiaSelectedCursos(cursoFil);
-    // setCopiaSelectedCursos([]);
+    // setSelectedCursos(indexInSecondArray)
   };
+
   // Agregar el primer input
   const appendAgregar = () => {
     const elementoVacio = getValues("items").find((item) => !item.items);
@@ -98,58 +111,31 @@ export const Bor = () => {
 
   // Guardar de nuevo los curso en el primer selector
   const [showButton, setShowButton] = useState(false);
-  const [historia, setHistoria] = useState([]);
 
   const [elementosDesaparecidos, setElementosDesaparecidos] = useState([]);
-
-  const [removedElement, setRemovedElement] = useState(null);
 
   const showButtons = copiaSelectedCursos.length > 0 || showButton;
 
   const handleGuardarClick = (index) => {
-    remove2(index);
+    const currentIndex = index;
+    remove2(currentIndex);
     remove(index);
     setShowAgregarHorario(true);
     setShowButton(true);
-
-    const removedElements = [selectedCursos[index], copiaSelectedCursos[index]];
-
-    if (removedElements.length === 2) {
-      //   Array.from(new Set(removedElements)) crea  una nueva matriz con elementos únicos
-      const uniqueRemovedElements = Array.from(new Set(removedElements));
-
-      // elimina valores falso de la matriz  uniqueRemovedElements` es una matriz tiene  elementos,  falsos como `indefinido` o `nulo`. 2.
-      const filteredRemovedElements = uniqueRemovedElements.filter(Boolean);
-
-      // Recupera los elementos eliminados
-
-      setCopiaSelectedCursos((prevCopiaSelectedCursos) => [
-        ...prevCopiaSelectedCursos,
-        ...filteredRemovedElements,
-      ]);
-    }
   };
 
   // FUNCIÓN SEGUNDO SELECTOR FIELD ARRAY
-
+  //
+  //
+  //
   const handleSelect2Change = (value) => {
     const select2Valor = value;
-
-    if (removedElement && removedElement === select2Valor) {
-      setHistoria((prevHistoria) => [...prevHistoria, removedElement]);
-      setRemovedElement(null);
-    }
-
-    const copiaHistoria = copiaSelectedCursos.filter(
-      (element) => element === select2Valor
-    );
-
-    setHistoria(copiaHistoria);
 
     const updatedSelectedCursos = copiaSelectedCursos.filter(
       (element) => element !== select2Valor
     );
 
+    console.log(updatedSelectedCursos, "resultodo del filtro");
     setElementosDesaparecidos((prevElementos) => [
       ...prevElementos,
       select2Valor,
@@ -161,27 +147,29 @@ export const Bor = () => {
       setShowAgregarHorario(false);
       setShowButton(false);
     }
-
     setShowButton(false);
     setShowAgregarHorario(false);
   };
   // append segundo field array
+  //
+  //
+  //
   const handleAppend2 = () => {
     append2({ items2: "", hours: "" });
-    // aquí la lógica de recuperar los eliminados
 
     if (fields2.length === 0) {
       setCopiaSelectedCursos(selectedCursos);
-      // setShowAgregarHorario(true);
+
       setDesactivarSubmit(false);
     }
 
     //  Muestra el text de select  "agregar horario"
-
+    setShowAgregarHorario(true);
     setShowButton(false);
   };
   //  onchange del inputNumber segundo field array
-
+  //
+  //
   const handleDesactivarSubmit = (value, index) => {
     // setDesactivarSubmit(primerInputVacio);
 
@@ -293,7 +281,7 @@ export const Bor = () => {
           >
             {/* Se muestran los cursos seleccionados */}
 
-            <p>{cursoSelect}</p>
+            <p>{cursoSelect} </p>
             <Button onClick={() => handleSelectRemoval(index)}>
               <DeleteFilled style={{ fontSize: "15px", color: "#b91010cc" }} />
             </Button>
@@ -396,73 +384,74 @@ export const Bor = () => {
             )}
           </div>
         )}
-        {fields2.map((field2, index) => (
-          <div key={index}>
-            <div
-              style={{
-                display: "flex",
-                width: "60%",
-                justifyContent: "space-around",
-                padding: "10px",
-                border: "soli1px",
-              }}
-            >
-              <Controller
-                name={`items2.${index}.corsos`}
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <>
-                    <Select
-                      {...field}
-                      style={{ width: "50%" }}
-                      // value={field.value}
-                      onChange={(value) => {
-                        field.onChange(value);
-                        handleSelect2Change(value, index);
-                      }}
+        <ul>
+          {fields2.map((field2, index) => (
+            <div key={index}>
+              <div
+                style={{
+                  display: "flex",
+                  width: "60%",
+                  justifyContent: "space-around",
+                  padding: "10px",
+                  border: "soli1px",
+                }}
+              >
+                <Controller
+                  name={`items2.${index}.corsos`}
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <>
+                      <Select
+                        {...field}
+                        style={{ width: "50%" }}
+                        // value={field.value}
+                        onChange={(value) => {
+                          field.onChange(value);
+                          handleSelect2Change(value, index);
+                        }}
 
-                      // disabled={bloqueSelect}
-                    >
-                      {copiaSelectedCursos.map((curso2, cursoIndex) => (
-                        <Select.Option key={cursoIndex} value={curso2}>
-                          {curso2}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  </>
-                )}
-              />
-
-              <Controller
-                name={`items2[${index}].horas`}
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <div>
-                    <InputNumber
-                      {...field}
-                      placeholder="Horas"
-                      onChange={(value) => {
-                        field.onChange(value);
-                        handleDesactivarSubmit(value, index);
-                      }}
-                    />
-                  </div>
-                )}
-              />
-
-              <Button onClick={() => handleGuardarClick(index)}>
-                <DeleteFilled
-                  style={{ fontSize: "16px", color: "#b91010cc" }}
+                        // disabled={bloqueSelect}
+                      >
+                        {copiaSelectedCursos.map((curso2, cursoIndex) => (
+                          <Select.Option key={cursoIndex} value={curso2}>
+                            {curso2}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                    </>
+                  )}
                 />
-              </Button>
-            </div>
-          </div>
-        ))}
 
+                <Controller
+                  name={`items2[${index}].horas`}
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <div>
+                      <InputNumber
+                        {...field}
+                        placeholder="Horas"
+                        onChange={(value) => {
+                          field.onChange(value);
+                          handleDesactivarSubmit(value, index);
+                        }}
+                      />
+                    </div>
+                  )}
+                />
+
+                <Button onClick={() => handleGuardarClick(index)}>
+                  <DeleteFilled
+                    style={{ fontSize: "16px", color: "#b91010cc" }}
+                  />
+                </Button>
+              </div>
+            </div>
+          ))}
+        </ul>
         <div>
-          {copiaSelectedCursos.length === 0 || !showAgregarHorario ? null : (
+          {copiaSelectedCursos.length === 0 || !showButtons ? null : (
             <Button type="button" onClick={handleAppend2}>
               Agregar el horario
             </Button>
