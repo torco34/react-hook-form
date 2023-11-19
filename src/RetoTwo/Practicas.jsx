@@ -31,7 +31,12 @@ export const Practicas = () => {
   const handleSeleccion = (elemento) => {
     // Verificar si el elemento ya está seleccionado
     const estaSeleccionado = elementosSeleccionados.includes(elemento);
-    console.log(estaSeleccionado, elementosSeleccionados, "elementos Seleccionado", "estaSeleccionado");
+    console.log(
+      estaSeleccionado,
+      elementosSeleccionados,
+      "elementos Seleccionado",
+      "estaSeleccionado"
+    );
     console.log(elemento, "elemento la variable");
     // Actualizar el estado en consecuencia
     if (estaSeleccionado) {
@@ -157,17 +162,41 @@ export const Bor = () => {
   };
 };
 
-const handleSelectChange = (value, index) => {
-  const selectedCurso = cursosDisponibles.find((curso) => curso.name === value);
-  console.log(selectedCurso, "selectedCurso");
-  setSelectedCursos([...selectedCursos, selectedCurso]);
+// const handleSelectChange = (value, index) => {
+//   const selectedCurso = cursosDisponibles.find((curso) => curso.name === value);
+//   console.log(selectedCurso, "selectedCurso");
+//   setSelectedCursos([...selectedCursos, selectedCurso]);
 
-  const cursosRestantes = cursosDisponibles.filter(
-    (curso) => curso.name !== value
-  );
-  setCursosDisponibles(cursosRestantes);
-};
+//   const cursosRestantes = cursosDisponibles.filter(
+//     (curso) => curso.name !== value
+//   );
+//   setCursosDisponibles(cursosRestantes);
+// };
 
+// {selectedCursos.map((cursoSelect) => (
+//   <div key={cursoSelect.id} className="cursoSelect">
+//     <p>{cursoSelect.name}</p>
+//     <Button onClick={() => handleSelectRemoval(cursoSelect)}>
+//       <DeleteFilled style={{ fontSize: "15px", color: "#b91010cc" }} />
+//     </Button>
+//   </div>
+// ))}
 
+// const handleSelectChange = (value, index) => {
+//   const selectedCurso = cursosDisponibles.find((curso) => curso.name === value);
+//   console.log(selectedCurso, "selectedCurso");
+//   setSelectedCursos([...selectedCursos, selectedCurso.name]); // Almacena solo el nombre
 
-
+//   const cursosRestantes = cursosDisponibles.filter(
+//     (curso) => curso.name !== value
+//   );
+//   setCursosDisponibles(cursosRestantes);
+// };
+// {selectedCursos.map((cursoSelect) => (
+//   <div key={cursoSelect.id} className="cursoSelect">
+//     <p>{cursoSelect}</p> {/* Renderiza el nombre directamente */}
+//     <Button onClick={() => handleSelectRemoval(cursoSelect)}>
+//       <DeleteFilled style={{ fontSize: "15px", color: "#b91010cc" }} />
+//     </Button>
+//   </div>
+// ))}
