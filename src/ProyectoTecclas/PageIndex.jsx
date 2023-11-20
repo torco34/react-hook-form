@@ -48,7 +48,7 @@ export const PageIndex = () => {
     handleSelectRemoval,
     handleSelectChange,
     handleSelect2Change,
-    
+    guardarResultados,
   } = contextTodosHookLogica;
 
   const appendAgregar = () => {
@@ -74,7 +74,6 @@ export const PageIndex = () => {
     const currentIndex = index;
     remove2(currentIndex);
     remove(index);
-   
   };
   const onSubmit = (data) => {
     console.log(data);
@@ -238,10 +237,7 @@ export const PageIndex = () => {
                       // disabled={bloqueSelect}
                     >
                       {copiaSelectedCursos.map((curso, cursoIndex) => (
-                        <Select.Option
-                          key={curso}
-                          value={curso && curso.name}
-                        >
+                        <Select.Option key={curso} value={curso && curso.name}>
                           {curso && curso.name}
                         </Select.Option>
                       ))}
@@ -276,8 +272,7 @@ export const PageIndex = () => {
             </div>
           </div>
         ))}
-        <br></br>
-        <br></br>
+
         <br></br>
         <Button type="button" onClick={appendAgregar}>
           Seleccionar cursos
@@ -288,8 +283,7 @@ export const PageIndex = () => {
         <Button type="button" onClick={handleAppend2}>
           Agregar el horario
         </Button>
-        <br></br>
-        <br></br>
+
         <br></br>
         <Form.Item wrapperCol={{ offset: 10, span: 1 }}>
           <Button

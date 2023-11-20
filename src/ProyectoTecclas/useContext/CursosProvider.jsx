@@ -51,20 +51,14 @@ export const CursosProvider = ({ children }) => {
   const [showAppend, setShowAppend] = useState(false);
 
   const [copiaSelectedCursos, setCopiaSelectedCursos] = useState([]);
-
+  const [guardarResultados, setGuardarResultados] = useState([]);
   const handleSelectChange = (value, index) => {
     const selectedCurso = cursosDisponibles.find(
       (curso) => curso.name === value
     );
-
-    // copiando para el segundo field array
     setCopiaSelectedCursos([...copiaSelectedCursos, selectedCurso.name]);
-
-    console.log(copiaSelectedCursos, "copia segundo selector");
-
-    console.log(selectedCurso, "primer selector fitrado.");
+    console.log(copiaSelectedCursos, "La copia");
     setSelectedCursos([...selectedCursos, selectedCurso.name]);
-    console.log(selectedCursos, "seva guardando");
     const cursosRestantes = cursosDisponibles.filter(
       (curso) => curso.name !== value
     );
@@ -74,9 +68,7 @@ export const CursosProvider = ({ children }) => {
   //
   //
 
-  const handleSelectRemoval = (cursoSelect) => {
-    // const cursoFil = selectedCursos.filter((c) => c !== cursoSelect);
-
+  const handleSelectRemoval = (cursoSelect, index) => {
     const updatedCursos = selectedCursos.filter(
       (curso) => curso !== cursoSelect
     );
@@ -86,28 +78,24 @@ export const CursosProvider = ({ children }) => {
       { id: uuidv4(), name: cursoSelect },
     ]);
 
-    // para tener en cuenta no funciona aun que deberia
-    const updatedCopiaSelectedCursos = copiaSelectedCursos.filter(
-      (curso) => curso.name !== cursoSelect
-    );
-
     setCopiaSelectedCursos(updatedCursos);
-
-    // Filtrar el curso que coincide con el nombre
+    const filterField = fields.filter((field) => field !== updatedCursos);
+    // console.log(filterField, "filterField");
+    // console.log(index, "index");
+    // console.log(fields, "Field");
+    // console.log(updatedCursos, "updated");
   };
   //
   //
   // onchange del segundo selector y fieldArray
   //
+
   const handleSelect2Change = (value) => {
     const select2Valor = value;
 
     const updatedSelectedCursos = copiaSelectedCursos.filter(
       (element) => element !== select2Valor
     );
-
-    console.log(updatedSelectedCursos, "resultodo del filtro");
-
     setCopiaSelectedCursos(updatedSelectedCursos);
 
     // if (updatedSelectedCursos.length > 0) {
@@ -137,6 +125,7 @@ export const CursosProvider = ({ children }) => {
     //  hook 4
     setSelectVisible,
     selectVisible,
+    guardarResultados,
     // funciones
     agregarCursos,
     // appendAgregar,

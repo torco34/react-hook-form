@@ -121,49 +121,70 @@ export const Practicas = () => {
 // ... (otras importaciones)
 // ... (your existing imports)
 
-const handleSelectRemoval = (cursoSelect) => {
-  // Filtrar el curso seleccionado del primer selector
-  const updatedCursos = selectedCursos.filter((curso) => curso !== cursoSelect);
-  setSelectedCursos(updatedCursos);
+// import React, { useState } from 'react';
 
-  // Devolver el curso al segundo selector
-  const selectedCurso = cursosDisponibles.find((curso) => curso.name === cursoSelect);
-  setCursosDisponibles([...cursosDisponibles, { id: uuidv4(), name: cursoSelect }]);
+// const YourComponent = () => {
+//   const [selectedCursos, setSelectedCursos] = useState([]);
+//   const [copiaSelectedCursos, setCopiaSelectedCursos] = useState([]);
+//   const [cursosDisponibles, setCursosDisponibles] = useState([]);
+//   const [guardarResultdos, setGuardarResultdos] = useState([]);
 
-  // Filtrar el curso seleccionado del segundo selector (copia)
-  const updatedCopiaSelectedCursos = copiaSelectedCursos.filter((curso) => curso.name !== cursoSelect);
-  setCopiaSelectedCursos(updatedCopiaSelectedCursos);
+//   const handleSelectChange = (value, index) => {
+//     const selectedCurso = cursosDisponibles.find((curso) => curso.name === value);
 
-  console.log(updatedCursos, "updatedCursos");
-  console.log(cursosDisponibles, "cursosDisponibles");
-  console.log(updatedCopiaSelectedCursos, "copia select");
-  console.log(copiaSelectedCursos, "copiaSelectedCursos");
-};
+//     // Check if the curso is not already in copiaSelectedCursos
+//     if (!copiaSelectedCursos.includes(selectedCurso.name)) {
+//       setCopiaSelectedCursos([...copiaSelectedCursos, selectedCurso.name]);
+//     }
 
-const handleSelect2Change = (value) => {
-  const select2Valor = value;
+//     setSelectedCursos([...selectedCursos, selectedCurso.name]);
 
-  // Filtrar el curso seleccionado del segundo selector (copia)
-  const updatedSelectedCursos = copiaSelectedCursos.filter((element) => element.name !== select2Valor);
-  console.log(updatedSelectedCursos, "resultado del filtro");
+//     const cursosRestantes = cursosDisponibles.filter((curso) => curso.name !== value);
+//     setCursosDisponibles(cursosRestantes);
+//   };
 
-  setCopiaSelectedCursos(updatedSelectedCursos);
-};
+//   const handleSelect2Change = (value) => {
+//     const select2Valor = value;
 
-const handleSelectChange = (value, index) => {
-  const selectedCurso = cursosDisponibles.find((curso) => curso.name === value);
+//     // Check if the value is not already in guardarResultdos
+//     if (!guardarResultdos.includes(select2Valor)) {
+//       setGuardarResultdos([...guardarResultdos, select2Valor]);
+//     }
 
-  // Copiar el objeto completo al segundo selector
-  setCopiaSelectedCursos([...copiaSelectedCursos, selectedCurso]);
+//     const updatedSelectedCursos = copiaSelectedCursos.filter(
+//       (element) => element !== select2Valor
+//     );
 
-  console.log(copiaSelectedCursos, "copiaSelectedCursos..");
-  console.log(selectedCurso, "selectedCurso ....");
+//     setCopiaSelectedCursos(updatedSelectedCursos);
+//   };
 
-  // Agregar el nombre al primer selector
-  setSelectedCursos([...selectedCursos, selectedCurso.name]);
+//   // Assuming cursosDisponibles is initially set with all available options
+//   // and guardarResultdos contains already selected options in the second select
+//   const cursosDisponiblesFiltrados = cursosDisponibles.filter(
+//     (curso) => !guardarResultdos.includes(curso.name)
+//   );
 
-  // Filtrar el curso seleccionado del primer selector
-  const cursosRestantes = cursosDisponibles.filter((curso) => curso.name !== value);
-  setCursosDisponibles(cursosRestantes);
-};
+//   return (
+//     <div>
+//       <select onChange={(e) => handleSelectChange(e.target.value)}>
+//         {cursosDisponiblesFiltrados.map((curso) => (
+//           <option key={curso.name} value={curso.name}>
+//             {curso.name}
+//           </option>
+//         ))}
+//       </select>
+
+//       <select onChange={(e) => handleSelect2Change(e.target.value)}>
+//         {copiaSelectedCursos.map((curso) => (
+//           <option key={curso} value={curso}>
+//             {curso}
+//           </option>
+//         ))}
+//       </select>
+//     </div>
+//   );
+// };
+
+// export default YourComponent;
+
 
