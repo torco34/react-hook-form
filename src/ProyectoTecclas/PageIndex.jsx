@@ -48,6 +48,7 @@ export const PageIndex = () => {
     handleSelectRemoval,
     handleSelectChange,
     handleSelect2Change,
+    
   } = contextTodosHookLogica;
 
   const appendAgregar = () => {
@@ -63,10 +64,17 @@ export const PageIndex = () => {
     append2({ items2: "", hours: "" });
 
     if (fields2.length === 0) {
-      setCopiaSelectedCursos(selectedCursos);
+      // setCopiaSelectedCursos(selectedCursos);
     }
 
     //  Muestra el text de select  "agregar horario"
+  };
+
+  const handleGuardarClick = (index) => {
+    const currentIndex = index;
+    remove2(currentIndex);
+    remove(index);
+   
   };
   const onSubmit = (data) => {
     console.log(data);

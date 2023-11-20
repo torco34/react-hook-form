@@ -121,60 +121,49 @@ export const Practicas = () => {
 // ... (otras importaciones)
 // ... (your existing imports)
 
-export const Bor = () => {
-  // ... (your existing state variables)
-
-  const [isCourseSelected, setIsCourseSelected] = useState(false); // Add this state variable
-
-  // ... (your existing code)
-
-  // FUNCIÓN DEL PRIMER SELECT FIELD ARRAY
-  // filtra para esconder
-  const handleSelectChange = (value, index) => {
-    // ... (your existing code)
-
-    // Update the state variable when a course is selected
-    setIsCourseSelected(true);
-
-    // ... (your existing code)
-  };
-
-  // remueve el curso seleccionado primer field Array
-  const handleSelectRemoval = (index) => {
-    // ... (your existing code)
-
-    // Update the state variable when a course is removed
-    setIsCourseSelected(false);
-
-    // ... (your existing code)
-  };
-
-  // ... (your existing code)
-
-  // append segundo field array
-  const handleAppend2 = () => {
-    // ... (your existing code)
-
-    // Update the state variable when a course is appended
-    setIsCourseSelected(false);
-
-    // ... (your existing code)
-  };
-};
-const handleSelectRemoval = (cursoSelect, index) => {
+const handleSelectRemoval = (cursoSelect) => {
+  // Filtrar el curso seleccionado del primer selector
   const updatedCursos = selectedCursos.filter((curso) => curso !== cursoSelect);
   setSelectedCursos(updatedCursos);
+
+  // Devolver el curso al segundo selector
+  const selectedCurso = cursosDisponibles.find((curso) => curso.name === cursoSelect);
   setCursosDisponibles([...cursosDisponibles, { id: uuidv4(), name: cursoSelect }]);
 
-  // Eliminar el cursoSelect de copiaSelectedCursos
-  const updatedCopiaSelectedCursos = copiaSelectedCursos.filter(
-    (curso) => curso.name !== cursoSelect
-  );
+  // Filtrar el curso seleccionado del segundo selector (copia)
+  const updatedCopiaSelectedCursos = copiaSelectedCursos.filter((curso) => curso.name !== cursoSelect);
   setCopiaSelectedCursos(updatedCopiaSelectedCursos);
 
   console.log(updatedCursos, "updatedCursos");
-  console.log(cursosDisponibles);
-  console.log(updatedCopiaSelectedCursos, "copiaSelectedCursos después de eliminación");
-  console.log(cursoSelect, "cursoSeled...........");
-  // Filtrar el curso que coincide con el nombre
+  console.log(cursosDisponibles, "cursosDisponibles");
+  console.log(updatedCopiaSelectedCursos, "copia select");
+  console.log(copiaSelectedCursos, "copiaSelectedCursos");
 };
+
+const handleSelect2Change = (value) => {
+  const select2Valor = value;
+
+  // Filtrar el curso seleccionado del segundo selector (copia)
+  const updatedSelectedCursos = copiaSelectedCursos.filter((element) => element.name !== select2Valor);
+  console.log(updatedSelectedCursos, "resultado del filtro");
+
+  setCopiaSelectedCursos(updatedSelectedCursos);
+};
+
+const handleSelectChange = (value, index) => {
+  const selectedCurso = cursosDisponibles.find((curso) => curso.name === value);
+
+  // Copiar el objeto completo al segundo selector
+  setCopiaSelectedCursos([...copiaSelectedCursos, selectedCurso]);
+
+  console.log(copiaSelectedCursos, "copiaSelectedCursos..");
+  console.log(selectedCurso, "selectedCurso ....");
+
+  // Agregar el nombre al primer selector
+  setSelectedCursos([...selectedCursos, selectedCurso.name]);
+
+  // Filtrar el curso seleccionado del primer selector
+  const cursosRestantes = cursosDisponibles.filter((curso) => curso.name !== value);
+  setCursosDisponibles(cursosRestantes);
+};
+

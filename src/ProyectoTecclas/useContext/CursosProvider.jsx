@@ -56,15 +56,15 @@ export const CursosProvider = ({ children }) => {
     const selectedCurso = cursosDisponibles.find(
       (curso) => curso.name === value
     );
-    const selected = value;
+
     // copiando para el segundo field array
     setCopiaSelectedCursos([...copiaSelectedCursos, selectedCurso.name]);
 
-    console.log(copiaSelectedCursos, "copiaSelectedCursos..");
-    console.log(selected, "selected");
-    console.log(selectedCurso, "selectedCurso ....");
-    setSelectedCursos([...selectedCursos, selectedCurso.name]);
+    console.log(copiaSelectedCursos, "copia segundo selector");
 
+    console.log(selectedCurso, "primer selector fitrado.");
+    setSelectedCursos([...selectedCursos, selectedCurso.name]);
+    console.log(selectedCursos, "seva guardando");
     const cursosRestantes = cursosDisponibles.filter(
       (curso) => curso.name !== value
     );
@@ -76,6 +76,7 @@ export const CursosProvider = ({ children }) => {
 
   const handleSelectRemoval = (cursoSelect) => {
     // const cursoFil = selectedCursos.filter((c) => c !== cursoSelect);
+
     const updatedCursos = selectedCursos.filter(
       (curso) => curso !== cursoSelect
     );
@@ -84,15 +85,14 @@ export const CursosProvider = ({ children }) => {
       ...cursosDisponibles,
       { id: uuidv4(), name: cursoSelect },
     ]);
+
     // para tener en cuenta no funciona aun que deberia
     const updatedCopiaSelectedCursos = copiaSelectedCursos.filter(
       (curso) => curso.name !== cursoSelect
     );
 
-    setCopiaSelectedCursos(updatedCopiaSelectedCursos);
-    console.log(updatedCursos, "updatedCursos");
-    console.log(cursosDisponibles);
-    console.log(updatedCopiaSelectedCursos, "cursoSeled...........");
+    setCopiaSelectedCursos(updatedCursos);
+
     // Filtrar el curso que coincide con el nombre
   };
   //
