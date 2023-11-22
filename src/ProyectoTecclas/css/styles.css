@@ -16,3 +16,12 @@
   height: 30px;
   margin-bottom: 8px;
 }
+.copiaselect{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+}
+.select1{
+  width: 100%;
+}

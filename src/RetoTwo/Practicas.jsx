@@ -31,12 +31,7 @@ export const Practicas = () => {
   const handleSeleccion = (elemento) => {
     // Verificar si el elemento ya está seleccionado
     const estaSeleccionado = elementosSeleccionados.includes(elemento);
-    console.log(
-      estaSeleccionado,
-      elementosSeleccionados,
-      "elementos Seleccionado",
-      "estaSeleccionado"
-    );
+  console.log(estaSeleccionado)
     console.log(elemento, "elemento la variable");
     // Actualizar el estado en consecuencia
     if (estaSeleccionado) {
@@ -117,74 +112,27 @@ export const Practicas = () => {
     </div>
   );
 };
+const handleSelectRemove = (cursoSelect) => {
+  // Filter out the course to be removed from selectedCursos
+  const restanteCurso = selectedCursos.filter(
+    (curso) => curso !== cursoSelect
+  );
 
-// ... (otras importaciones)
-// ... (your existing imports)
+  // Set the updated state for selectedCursos
+  setSelectedCursos(restanteCurso);
 
-// import React, { useState } from 'react';
+  // Filter out the course to be removed from copiaSelectedCursos
+  const updatedCopiaSelectedCursos = copiaSelectedCursos.filter(
+    (element) => element !== cursoSelect
+  );
 
-// const YourComponent = () => {
-//   const [selectedCursos, setSelectedCursos] = useState([]);
-//   const [copiaSelectedCursos, setCopiaSelectedCursos] = useState([]);
-//   const [cursosDisponibles, setCursosDisponibles] = useState([]);
-//   const [guardarResultdos, setGuardarResultdos] = useState([]);
+  // Set the updated state for copiaSelectedCursos
+  setCopiaSelectedCursos(updatedCopiaSelectedCursos);
 
-//   const handleSelectChange = (value, index) => {
-//     const selectedCurso = cursosDisponibles.find((curso) => curso.name === value);
-
-//     // Check if the curso is not already in copiaSelectedCursos
-//     if (!copiaSelectedCursos.includes(selectedCurso.name)) {
-//       setCopiaSelectedCursos([...copiaSelectedCursos, selectedCurso.name]);
-//     }
-
-//     setSelectedCursos([...selectedCursos, selectedCurso.name]);
-
-//     const cursosRestantes = cursosDisponibles.filter((curso) => curso.name !== value);
-//     setCursosDisponibles(cursosRestantes);
-//   };
-
-//   const handleSelect2Change = (value) => {
-//     const select2Valor = value;
-
-//     // Check if the value is not already in guardarResultdos
-//     if (!guardarResultdos.includes(select2Valor)) {
-//       setGuardarResultdos([...guardarResultdos, select2Valor]);
-//     }
-
-//     const updatedSelectedCursos = copiaSelectedCursos.filter(
-//       (element) => element !== select2Valor
-//     );
-
-//     setCopiaSelectedCursos(updatedSelectedCursos);
-//   };
-
-//   // Assuming cursosDisponibles is initially set with all available options
-//   // and guardarResultdos contains already selected options in the second select
-//   const cursosDisponiblesFiltrados = cursosDisponibles.filter(
-//     (curso) => !guardarResultdos.includes(curso.name)
-//   );
-
-//   return (
-//     <div>
-//       <select onChange={(e) => handleSelectChange(e.target.value)}>
-//         {cursosDisponiblesFiltrados.map((curso) => (
-//           <option key={curso.name} value={curso.name}>
-//             {curso.name}
-//           </option>
-//         ))}
-//       </select>
-
-//       <select onChange={(e) => handleSelect2Change(e.target.value)}>
-//         {copiaSelectedCursos.map((curso) => (
-//           <option key={curso} value={curso}>
-//             {curso}
-//           </option>
-//         ))}
-//       </select>
-//     </div>
-//   );
-// };
-
-// export default YourComponent;
-
+  // Add the removed course back to cursosDisponibles
+  setCursosDisponibles([
+    ...cursosDisponibles,
+    { id: uuidv4(), name: cursoSelect },
+  ]);
+};
 

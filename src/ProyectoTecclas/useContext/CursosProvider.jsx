@@ -11,33 +11,6 @@ export const CursosProvider = ({ children }) => {
     { id: uuidv4(), name: "Ingles" },
   ];
 
-  const {
-    control,
-    handleSubmit,
-    getValues,
-    reset,
-    setValue,
-    register,
-    formState: { isDirty },
-  } = useForm({
-    defaultValues: {
-      items: [],
-      cursosSeleccionados: [],
-    },
-  });
-
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "items",
-  });
-  const {
-    fields: fields2,
-    append: append2,
-    remove: remove2,
-  } = useFieldArray({
-    control,
-    name: "items2",
-  });
   //
   //
 
@@ -45,65 +18,16 @@ export const CursosProvider = ({ children }) => {
   // const [cursos, setCursos] = useState(nombresDeCursos);
   const [cursosDisponibles, setCursosDisponibles] = useState(nombresDeCursos);
   const [selectedCursos, setSelectedCursos] = useState([]);
-  const [selectVisible, setSelectVisible] = useState(false);
-  const [desactivarSubmit, setDesactivarSubmit] = useState();
-  const [showAgregarHorario, setShowAgregarHorario] = useState(false);
+  const [setSelectVisible, selectVisible] = useState(false);
+  const [selectAppend1Booleano, setSelectAppend1Booleano] = useState(false);
+  const [desactivarSubmit, setDesactivarSubmit] = useState(true);
+  const [showAppendCursos, setShowAppendCursos] = useState(false);
   const [showAppend, setShowAppend] = useState(false);
-
   const [copiaSelectedCursos, setCopiaSelectedCursos] = useState([]);
-  const [guardarResultados, setGuardarResultados] = useState([]);
-  const handleSelectChange = (value, index) => {
-    const selectedCurso = cursosDisponibles.find(
-      (curso) => curso.name === value
-    );
-    setCopiaSelectedCursos([...copiaSelectedCursos, selectedCurso.name]);
-    console.log(copiaSelectedCursos, "La copia");
-    setSelectedCursos([...selectedCursos, selectedCurso.name]);
-    const cursosRestantes = cursosDisponibles.filter(
-      (curso) => curso.name !== value
-    );
-    setCursosDisponibles(cursosRestantes);
-  };
-  //
-  //
-  //
-
-  const handleSelectRemoval = (cursoSelect, index) => {
-    const updatedCursos = selectedCursos.filter(
-      (curso) => curso !== cursoSelect
-    );
-    setSelectedCursos(updatedCursos);
-    setCursosDisponibles([
-      ...cursosDisponibles,
-      { id: uuidv4(), name: cursoSelect },
-    ]);
-
-    setCopiaSelectedCursos(updatedCursos);
-    const filterField = fields.filter((field) => field !== updatedCursos);
-    // console.log(filterField, "filterField");
-    // console.log(index, "index");
-    // console.log(fields, "Field");
-    // console.log(updatedCursos, "updated");
-  };
-  //
-  //
-  // onchange del segundo selector y fieldArray
-  //
-
-  const handleSelect2Change = (value) => {
-    const select2Valor = value;
-
-    const updatedSelectedCursos = copiaSelectedCursos.filter(
-      (element) => element !== select2Valor
-    );
-    setCopiaSelectedCursos(updatedSelectedCursos);
-
-    // if (updatedSelectedCursos.length > 0) {
-    //   append2({ items2: "", hours: "" });
-
-    // }
-  };
-
+  const [historyOnchange, setHistoryOnchange] = useState([]);
+  const [showAgregarHorario, setShowAgregarHorario] = useState(false);
+  const [deleteFieldsArray, setDeleteFieldsArray] = useState();
+  const [showButton, setShowButton] = useState(false);
   const agregarCursos = (nombre) => {
     const nuevaMateria = {
       id: uuidv4(),
@@ -113,25 +37,42 @@ export const CursosProvider = ({ children }) => {
   };
 
   const contextTodosHookLogica = {
-    // hook 1
+    // hook copia para mapear el segundo fields array
     setCopiaSelectedCursos,
     copiaSelectedCursos,
-    // hook 2
+    // hook guarda  los curso seleccionados
     setSelectedCursos,
     selectedCursos,
-    //  hook 3
+    //  hook donde van la array de objeto
     setCursosDisponibles,
     cursosDisponibles,
-    //  hook 4
+    //  hook muestra   texto cuando ya no hay  curso seleccionado
     setSelectVisible,
     selectVisible,
-    guardarResultados,
-    // funciones
-    agregarCursos,
-    // appendAgregar,
-    handleSelectRemoval,
-    handleSelectChange,
-    handleSelect2Change,
+    setSelectAppend1Booleano,
+    selectAppend1Booleano,
+    // hook 5
+    setShowAppendCursos,
+
+    showAppendCursos,
+    // hook muestra el texto segundo  append
+    setShowAppend,
+    showAppend,
+    // hook mostrar texto agregar horario
+    setShowAgregarHorario,
+    showAgregarHorario,
+    // guardar historia  en onchei
+    setHistoryOnchange,
+    historyOnchange,
+    //
+    setDeleteFieldsArray,
+    deleteFieldsArray,
+    //  desactiva submit
+    setDesactivarSubmit,
+    desactivarSubmit,
+
+    setShowButton,
+    showButton,
   };
   return (
     <MateriasContext.Provider value={{ contextTodosHookLogica }}>

@@ -71,7 +71,7 @@ export const Bor = ({}) => {
     const cursosRestantes = cursosDisponibles.filter(
       (curso) => curso !== selected
     );
-    console.log(selectedCursos, "aaa");
+   
     // setCopiaSelectedCursos([...copiaSelectedCursos, selected]);
     setCursosDisponibles(cursosRestantes);
     setShowAppend(false);
@@ -89,9 +89,10 @@ export const Bor = ({}) => {
     setSelectedCursos(cursoFil);
     setCursosDisponibles([...cursosDisponibles, cursoEliminado]);
     setShowButton(false);
-
     remove2(index);
-    // setSelectedCursos(indexInSecondArray)
+    if (fields2.length === 1) {
+      setCopiaSelectedCursos(cursoFil);
+    }
   };
 
   // Agregar el primer input
@@ -111,8 +112,6 @@ export const Bor = ({}) => {
   // Guardar de nuevo los curso en el primer selector
   const [showButton, setShowButton] = useState(false);
 
-  const [elementosDesaparecidos, setElementosDesaparecidos] = useState([]);
-
   const showButtons = copiaSelectedCursos.length > 0 || showButton;
 
   const handleGuardarClick = (index) => {
@@ -128,24 +127,12 @@ export const Bor = ({}) => {
   //
   //
   const handleSelect2Change = (value) => {
-    const select2Valor = value;
-
     const updatedSelectedCursos = copiaSelectedCursos.filter(
-      (element) => element !== select2Valor
+      (element) => element !== value
     );
 
-    console.log(updatedSelectedCursos, "resultodo del filtro");
-    setElementosDesaparecidos((prevElementos) => [
-      ...prevElementos,
-      select2Valor,
-    ]);
     setCopiaSelectedCursos(updatedSelectedCursos);
 
-    if (updatedSelectedCursos.length > 0) {
-      append2({ items2: "", hours: "" });
-      setShowAgregarHorario(false);
-      setShowButton(false);
-    }
     setShowButton(false);
     setShowAgregarHorario(false);
   };
