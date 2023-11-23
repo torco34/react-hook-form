@@ -16,12 +16,21 @@
   height: 30px;
   margin-bottom: 8px;
 }
-.copiaselect{
+.copiaselect {
   width: 100%;
   display: flex;
   justify-content: space-between;
-
 }
-.select1{
+.select1 {
   width: 100%;
+}
+.containerField2 {
+  display: flex;
+  justify-content: space-between;
+  /* justify-content: space-around; */
+  /* border: rebeccapurple solid; */
+  margin-bottom: 20px;
+}
+.containerFields {
+
 }

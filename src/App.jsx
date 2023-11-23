@@ -18,7 +18,6 @@ import { CursosProvider } from "./ProyectoTecclas/useContext/CursosProvider";
 import { Practicas } from "./RetoTwo/Practicas";
 import { PageIndex } from "./ProyectoTecclas/PageIndex";
 
-
 function App() {
   const [count, setCount] = useState(0);
 
@@ -41,6 +40,8 @@ function App() {
           <Route path="/borrador" element={<Borrador />}></Route>
           <Route path="/horas" element={<PonerleHoras />}></Route>
           <Route path="/tecclas" element={<PageIndex />}></Route>
+
+          <Route path="/proyecto" element={<Proyecto />}></Route>
         </Routes>
       </CursosProvider>
     </Router>

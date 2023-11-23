@@ -14,25 +14,39 @@ export const PageIndex = () => {
     reset,
     setValue,
     register,
-    formState: { isDirty },
+    watch,
+    getFieldState: { error },
+    ...restFormMethods
   } = useForm({
     defaultValues: {
       items: [],
       cursosSeleccionados: [],
     },
   });
-  const { fields, append, remove } = useFieldArray({
+
+  const {
+    fields: fieldsCursos,
+    append: appendCursos,
+    remove: removeCursos,
+  } = useFieldArray({
     control,
     name: "items",
   });
+
   const {
-    fields: fields2,
-    append: append2,
-    remove: remove2,
+    fields: fieldsCursosSeleccionados,
+    append: appendCursosSeleccionados,
+    remove: removeCursosSeleccionados,
+    update: updateCursosSeleccionados,
   } = useFieldArray({
     control,
     name: "items2",
   });
+
+  const items2Watch = watch("items2", []);
+
+  // console.log({ error });
+
   const { contextTodosHookLogica } = useMaterias();
   const {
     // hooks
@@ -62,7 +76,7 @@ export const PageIndex = () => {
 
   const showButtons = copiaSelectedCursos.length > 0 || showButton;
 
-  // PRIMER FIELDARRAY
+  // PRIMER FIELD ARRAY
   //
   //
   //
@@ -86,57 +100,11 @@ export const PageIndex = () => {
       console.log("hola mundo");
     }
   };
-
-  // SEGUNDO FIELD ARRAY
-  const handleSelect2Onchange = (value, index) => {
-    if (!historyOnchange.includes(value)) {
-      // Si no está presente, agregar el nuevo valor al historial
-      setHistoryOnchange([...historyOnchange, value]);
-    }
-
-    console.log(historyOnchange);
-    setShowAppend(false);
-    const updatedSelectedCursos = copiaSelectedCursos.filter(
-      (element) => element !== value
-    );
-    setCopiaSelectedCursos(updatedSelectedCursos);
-    setShowButton(false);
-    setShowAgregarHorario(false);
-    if (updatedSelectedCursos.length > 0) {
-      append2({ items2: "", hours: "" });
-    }
-    remove(index);
-  };
-  const handleAppend = () => {
-    const elementoVacio = getValues("items").find((item) => !item.items);
-    if (!elementoVacio) {
-      append({ items: "" });
-    }
-    // muestra la visibilidad del texto
-    // setSelectVisible(true);
-    // muestra el primer selector
-    setShowAppend(true);
- 
-    // setShowAppend(true);
-    // setShowButton(false);
-    // setShowAgregarHorario(true);
-  };
-
-  const handleAppend2 = (index) => {
-    if (fields2.length === 0) {
-      setCopiaSelectedCursos(selectedCursos);
-    }
-    append2({ items2: "", hours: "" });
-    remove(index);
-
-    setShowAppend(false);
-  };
-
   //
+  // función de remover   los seleccionados field array uno
   //
-  // Funcion de remover curso selector primer field array
-
   const handleSelectRemove = (cursoSelect, index) => {
+    console.log({ index, cursoSelect });
     const restanteCurso = selectedCursos.filter(
       (curso) => curso !== cursoSelect
     );
@@ -152,27 +120,99 @@ export const PageIndex = () => {
       ...cursosDisponibles,
       { id: uuidv4(), name: cursoSelect },
     ]);
-    const deleteFields2 = fields2.filter((item, i) => i !== index);
-    console.log(fields2);
-    console.log(deleteFields2);
-    setDeleteFieldsArray(deleteFields2);
-    remove2(deleteFields2);
-    // setShowAppend(false);
-    setShowAppend(false);
-    remove(index);
-    console.log("handleSelectRemove")
-  
-  };
-  const handleDesactivarSubmit = (value, index) => {
-    // setDesactivarSubmit(primerInputVacio);
+    const deleteFields2 = fieldsCursosSeleccionados.filter(
+      (item, i) => i !== index
+    );
 
-    if (index === 0) {
-      setDesactivarSubmit(!!value);
-    } else {
-      setDesactivarSubmit(true);
-    }
-    // setDesactivarSubmit(false);
+    // const indexToRemove = fieldsCursosSeleccionados.findIndex(
+    //   (e) => e.corsos === cursoSelect
+    // );
+
+    console.log(fieldsCursosSeleccionados);
+    // console.log(deleteFields2);
+    // setDeleteFieldsArray(deleteFields2);
+    // setValue("items2", deleteFields2);
+
+    removeCursosSeleccionados(index);
+
+    // setShowApend(false);
+    setShowAppend(false);
+    // removeCursos(index);
+    console.log("handleSelectRemove");
   };
+  //
+  //
+  // función de del append del fields uno
+  const handleAppend = () => {
+    const elementoVacio = getValues("items").find((item) => !item.items);
+    if (!elementoVacio) {
+      appendCursos({ items: "" });
+    }
+    // muestra la visibilidad del texto
+    // setSelectVisible(true);
+    // muestra el primer selector
+    setShowAppend(true);
+
+    // setShowAppend(true);
+    // setShowButton(false);
+    // setShowAgregarHorario(true);
+  };
+  //
+  //
+  // SEGUNDO FIELD ARRAY
+  //
+  //
+  // el onchange del segundo fiel array
+  //
+  //
+  const handleSelect2Onchange = (value, index) => {
+    // if (!historyOnchange.includes(value)) {
+    //   // Si no está presente, agregar el nuevo valor al historial
+    //   setHistoryOnchange([...historyOnchange, value]);
+    // }
+    console.log({ index });
+    const elementoVacio = getValues("items").find((item) => !item.items);
+    console.log(historyOnchange);
+    setShowAppend(false);
+    const updatedSelectedCursos = copiaSelectedCursos.filter(
+      (element) => element !== value
+    );
+    setCopiaSelectedCursos(updatedSelectedCursos);
+    setShowButton(false);
+    setShowAgregarHorario(false);
+    setDesactivarSubmit(false);
+    // if (updatedSelectedCursos.length > 0) {
+    //   appendCursosSeleccionados({ items2: "", hours: "" });
+    // }
+    removeCursos(index);
+  };
+
+  const handleAppend2 = (index) => {
+    const elementoVacio = getValues("items2").find((item) => !item.items);
+    if (fieldsCursosSeleccionados.length === 0) {
+      setCopiaSelectedCursos(selectedCursos);
+    }
+    // if (!elementoVacio) {
+    appendCursosSeleccionados({ items2: "", hours: "" });
+    // }
+    removeCursos(index);
+    // appendCursosSeleccionados({ items2: "", hours: "" });
+    setShowAppend(false);
+  };
+
+  // función de desactivar
+
+  // const handleDesactivarSubmit = (value, index) => {
+  //   // setDesactivarSubmit(primerInputVacio);
+
+  //   if (index === 0) {
+  //     setDesactivarSubmit(!!value);
+  //   } else {
+  //     setDesactivarSubmit(true);
+  //   }
+  // setDesactivarSubmit(false);
+  // };
+
   const onSubmit = (data) => {
     console.log(data);
 
@@ -245,8 +285,8 @@ export const PageIndex = () => {
             </div>
           )}
         />
-        <br></br>
-        <hr></hr>
+        <br />
+        <hr />
 
         {selectedCursos.map((cursoSelect, index) => (
           <div key={index} className="cursoSelect">
@@ -257,44 +297,46 @@ export const PageIndex = () => {
           </div>
         ))}
 
-        <br></br>
-        {fields.map((field, index) => (
-          <div key={field.id} className="">
-            <Controller
-              name={`items[${index}].cursosDisponibles`}
-              control={control}
-              defaultValues=""
-              render={({ field, fieldState }) => (
-                <div
-                  style={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "space-around",
-                    marginBottom: "8px",
-                    // border: "solid 1px red ",
-                  }}
-                >
-                  <Select
-                    {...field}
-                    style={{ width: "90%" }}
-                    value={field.id}
-                    onChange={(value) => {
-                      field.onChange(value);
-                      handleSelectChange(value, index);
-                    }}
-                  >
-                    {cursosDisponibles.map((curso) => (
-                      <Select.Option key={curso.id} value={curso.name}>
-                        {curso.name}
-                      </Select.Option>
-                    ))}
-                  </Select>
+        <br />
+        {showAppend
+          ? fieldsCursos.map((field1, index) => (
+              <div key={field1.id} className="containerFields">
+                <Controller
+                  name={`items[${index}].cursosDisponibles`}
+                  control={control}
+                  defaultValues=""
+                  render={({ field, fieldState }) => (
+                    <div
+                      style={{
+                        display: "flex",
+                        width: "80%",
+                        justifyContent: "space-between",
+                        marginBottom: "20px",
+                        // border: "solid 1px red ",
+                      }}
+                    >
+                      <Select
+                        {...field}
+                        style={{ width: "60%" }}
+                        value={field1.corsos}
+                        onChange={(value) => {
+                          field.onChange(value);
+                          handleSelectChange(value, index);
+                        }}
+                      >
+                        {cursosDisponibles.map((curso) => (
+                          <Select.Option key={curso.id} value={curso.name}>
+                            {curso.name}
+                          </Select.Option>
+                        ))}
+                      </Select>
 
-                  <Button
+                      {/* <Button
                     onClick={() => {
                       // Obtén el curso a eliminar
-                      // setShowAppend(false);
-                      remove(index);
+                      setShowAgregarHorario(false);
+                      setShowAppend(false);
+                      removeCursos(index);
                     }}
                   >
                     <DeleteFilled
@@ -303,91 +345,99 @@ export const PageIndex = () => {
                         color: "#b91010",
                       }}
                     />
-                  </Button>
+                  </Button> */}
+                    </div>
+                  )}
+                />
+              </div>
+            ))
+          : null}
+        <div className="">
+          {selectedCursos.length === 5 ? (
+            <>
+              <p>No hay cursos</p>
+            </>
+          ) : (
+            <>
+              {showAppend ? null : (
+                <Button type="button" onClick={handleAppend}>
+                  Seleccionar cursos
+                </Button>
+              )}
+            </>
+          )}
+        </div>
+        <br></br>
+        {fieldsCursosSeleccionados.map((field2, index) => (
+          <div key={index} className="containerField2">
+            <Controller
+              name={`items2.${index}.corsos`}
+              control={control}
+              defaultValue={null}
+              render={({ field }) => (
+                <>
+                  <Select
+                    {...field}
+                    style={{ width: "50%" }}
+                    value={field2.corsos}
+                    onChange={(value) => {
+                      field.onChange(value);
+                      handleSelect2Onchange(value, index);
+                      updateCursosSeleccionados(index, {
+                        ...field2,
+                        corsos: value,
+                      });
+                    }}
+                    // disabled={field !== ""}
+                  >
+                    {copiaSelectedCursos.map((curso, cursoIndex) => (
+                      <Select.Option
+                        onClick={handleSelectRemove}
+                        key={curso}
+                        value={curso.name}
+                      >
+                        {curso.name}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                </>
+              )}
+            />
+            <br />
+
+            <Controller
+              name={`items2[${index}].horas`}
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <div>
+                  <InputNumber
+                    {...field}
+                    placeholder="Horas"
+                    onChange={(value) => {
+                      field.onChange(value);
+                      updateCursosSeleccionados(index, {
+                        ...field2,
+                        horas: value === null ? undefined : value,
+                      });
+                      // handleDesactivarSubmit(value, index);
+                    }}
+                    value={field2.horas}
+                  />
                 </div>
               )}
             />
-          </div>
-        ))}
-        {selectedCursos.length === 5 ? (
-          <>
-            <p>No hay cursos</p>
-          </>
-        ) : (
-          <>
-            {showAppend ? null : (
-              <Button type="button" onClick={handleAppend}>
-                Seleccionar cursos
-              </Button>
-            )}
-          </>
-        )}
-        {fields2.map((field2, index) => (
-          <div key={index}>
-            <div
-              style={{
-                display: "flex",
-                width: "60%",
-                justifyContent: "space-around",
-                padding: "10px",
-                border: "soli1px",
+
+            <Button
+              onClick={() => {
+                console.log({ index });
+                removeCursosSeleccionados(index);
+                setCopiaSelectedCursos([...copiaSelectedCursos, field2.corsos]);
+                setShowAppend(false);
               }}
             >
-              <Controller
-                name={`items2.${index}.corsos`}
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <>
-                    <Select
-                      {...field}
-                      style={{ width: "60%" }}
-                      value={field.value}
-                      onChange={(value) => {
-                        field.onChange(value);
-                        handleSelect2Onchange(value, index);
-                      }}
-
-                      // disabled={bloqueSelect}
-                    >
-                      {copiaSelectedCursos.map((curso, cursoIndex) => (
-                        <Select.Option
-                          onClick={handleSelectRemove}
-                          key={curso}
-                          value={curso && curso.name}
-                        >
-                          {curso && curso.name}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  </>
-                )}
-              />
-
-              <Controller
-                name={`items2[${index}].horas`}
-                control={control}
-                defaultValue=""
-                render={({ field }) => (
-                  <div>
-                    <InputNumber
-                      {...field}
-                      placeholder="Horas"
-                      onChange={(value) => {
-                        field.onChange(value);
-                        handleDesactivarSubmit(value, index);
-                      }}
-                    />
-                  </div>
-                )}
-              />
-
-              {/* <Button onClick={() => remove2(index)}>
-                <DeleteFilled
-                  style={{ fontSize: "16px", color: "#b91010cc" }}
-                />
-              </Button> */}
-            </div>
+              <DeleteFilled style={{ fontSize: "16px", color: "#b91010cc" }} />
+            </Button>
           </div>
         ))}
 
@@ -410,7 +460,12 @@ export const PageIndex = () => {
           <Button
             type="primary"
             htmlType="submit"
-            disabled={fields2.length === 0 || !desactivarSubmit}
+            disabled={
+              !fieldsCursosSeleccionados.length ||
+              fieldsCursosSeleccionados.some(
+                (e) => e.corsos === "" || e.horas === undefined || e.horas === 0
+              )
+            }
             // disabled={!!desactivarSubmit}
           >
             Submit
