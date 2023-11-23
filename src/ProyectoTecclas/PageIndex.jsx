@@ -388,7 +388,7 @@ export const PageIndex = () => {
                         corsos: value,
                       });
                     }}
-                    // disabled={field !== ""}
+                    //  disabled={field2.corsos !== ""}
                   >
                     {copiaSelectedCursos.map((curso, cursoIndex) => (
                       <Select.Option
