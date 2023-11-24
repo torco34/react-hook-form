@@ -1,0 +1,15 @@
+.containerProfesor {
+  display: grid;
+  gap: 20px;
+  /* width: 100%; */
+}
+.selectedProfesores {
+  display: flex;
+  width: 100%;
+  /* border: solid rgb(255, 132, 0) */
+}
+.selectedJornada {
+  display: flex;
+  width: 100%;
+  /* border: solid red */
+}

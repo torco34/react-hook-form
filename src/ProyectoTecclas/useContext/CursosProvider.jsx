@@ -1,8 +1,11 @@
 import React, { createContext, useContext, useState } from "react";
-import {  nombresDeCursos} from "../componentes/Datos"
+import {
+  nombresDeCursos,
+  datosJornadas,
+  datosProfesor,
+} from "../componentes/Datos";
 import { v4 as uuidv4 } from "uuid";
 const MateriasContext = createContext();
-
 
 export const CursosProvider = ({ children }) => {
   //
@@ -23,6 +26,9 @@ export const CursosProvider = ({ children }) => {
   const [deleteFieldsArray, setDeleteFieldsArray] = useState();
   const [showButton, setShowButton] = useState(false);
 
+  // HOOKS DE  PROFESOR
+  const [datosDeProfesor, setDatosDeProfesor] = useState(datosProfesor);
+  const [datosDeJornada, setDatosDejornada] = useState(datosJornadas);
   const agregarCursos = (nombre) => {
     const nuevaMateria = {
       id: uuidv4(),
@@ -68,6 +74,12 @@ export const CursosProvider = ({ children }) => {
 
     setShowButton,
     showButton,
+    // HOOKS PROFESOR
+    setDatosDeProfesor,
+    datosDeProfesor,
+    // jornada
+    setDatosDejornada,
+    datosDeJornada
   };
   return (
     <MateriasContext.Provider value={{ contextTodosHookLogica }}>

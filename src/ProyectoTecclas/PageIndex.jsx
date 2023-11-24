@@ -459,7 +459,7 @@ export const PageIndex = () => {
             )}
           </div>
           <br></br>
-          <Profesores/>
+          <Profesores />
           <Form.Item wrapperCol={{ offset: 10, span: 1 }}>
             <Button
               type="primary"
