@@ -4,9 +4,11 @@
   justify-content: center;
   background-color: #f5f7f8;
   padding: 20px;
+  margin-top: 0px;
 }
 .formulario {
   width: 50%;
+  margin-top: 20px;
 }
 .cursoSelect {
   display: flex;
@@ -31,6 +33,11 @@
   /* border: rebeccapurple solid; */
   margin-bottom: 20px;
 }
-.containerFields {
-
+.header-formulario{
+ background-color: #495464;
+ padding: 5px;
+ color: #f5f7f8;
+ text-align: center;
+ margin-top: 50px;
+ border-radius: 5px 5px 0px 0px ;
 }

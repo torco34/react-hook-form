@@ -5,6 +5,7 @@ import { Alert, Button, Form, Input, InputNumber, Select } from "antd";
 import { useMaterias } from "./useContext/CursosProvider";
 import "./css/styles.css";
 import { v4 as uuidv4 } from "uuid";
+import { Profesores } from "./componentes/Profesores";
 
 export const PageIndex = () => {
   const {
@@ -207,118 +208,124 @@ export const PageIndex = () => {
     // setSelectedCursos([""]);
   };
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit(onSubmit)} className="formulario">
-        <Controller
-          name={"name"}
-          control={control}
-          defaultValue=""
-          rules={{
-            required: "Este campo  requiere apellido",
-            minLength: {
-              value: 2,
-              message: "Nombre debe tener al menos 2 caracteres",
-            },
-          }}
-          render={({ field, fieldState }) => (
-            <div key={field}>
-              <Input {...field} placeholder="Nombre" />
-              {fieldState.invalid && (
-                <p style={{ color: "red" }}>{fieldState.error?.message}</p>
-              )}
-            </div>
-          )}
-        />
+    <>
+      <div className="header-formulario">
+        <h2>Fields arrays</h2>
+      </div>
+      <div className="container">
+        <form onSubmit={handleSubmit(onSubmit)} className="formulario">
+          <Controller
+            name={"name"}
+            control={control}
+            defaultValue=""
+            rules={{
+              required: "Este campo  requiere apellido",
+              minLength: {
+                value: 2,
+                message: "Nombre debe tener al menos 2 caracteres",
+              },
+            }}
+            render={({ field, fieldState }) => (
+              <div key={field}>
+                <Input {...field} placeholder="Nombre" />
+                {fieldState.invalid && (
+                  <p style={{ color: "red" }}>{fieldState.error?.message}</p>
+                )}
+              </div>
+            )}
+          />
 
-        <br></br>
-        <Controller
-          name={"apellido"}
-          control={control}
-          defaultValue=""
-          rules={{
-            required: "Este campo  requiere apellido",
-            minLength: {
-              value: 2,
-              message: "Nombre debe tener al menos 2 caracteres",
-            },
-          }}
-          render={({ field, fieldState }) => (
-            <div>
-              <Input {...field} placeholder="Apellido" />
-              {fieldState.invalid && (
-                <p style={{ color: "red" }}>{fieldState.error?.message}</p>
-              )}
-            </div>
-          )}
-        />
-        <br></br>
-        <Controller
-          name={`address`}
-          control={control}
-          defaultValue=""
-          rules={{
-            required: "Este campo  require correo ",
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-              message: "Dirección de correo electrónico no válida",
-            },
-          }}
-          render={({ field, fieldState }) => (
-            <div>
-              <Input {...field} placeholder="Correo" />
-              {fieldState.invalid && (
-                <p style={{ color: "red" }}>{fieldState.error?.message}</p>
-              )}
-            </div>
-          )}
-        />
-        <br />
-        <hr />
+          <br></br>
+          <Controller
+            name={"apellido"}
+            control={control}
+            defaultValue=""
+            rules={{
+              required: "Este campo  requiere apellido",
+              minLength: {
+                value: 2,
+                message: "Nombre debe tener al menos 2 caracteres",
+              },
+            }}
+            render={({ field, fieldState }) => (
+              <div>
+                <Input {...field} placeholder="Apellido" />
+                {fieldState.invalid && (
+                  <p style={{ color: "red" }}>{fieldState.error?.message}</p>
+                )}
+              </div>
+            )}
+          />
+          <br></br>
+          <Controller
+            name={`address`}
+            control={control}
+            defaultValue=""
+            rules={{
+              required: "Este campo  require correo ",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                message: "Dirección de correo electrónico no válida",
+              },
+            }}
+            render={({ field, fieldState }) => (
+              <div>
+                <Input {...field} placeholder="Correo" />
+                {fieldState.invalid && (
+                  <p style={{ color: "red" }}>{fieldState.error?.message}</p>
+                )}
+              </div>
+            )}
+          />
+          <br />
+          <hr />
 
-        {selectedCursos.map((cursoSelect, index) => (
-          <div key={index} className="cursoSelect">
-            <p>{cursoSelect}</p>
-            <Button onClick={() => handleSelectRemove(cursoSelect, index)}>
-              <DeleteFilled style={{ fontSize: "15px", color: "#b91010cc" }} />
-            </Button>
-          </div>
-        ))}
+          {selectedCursos.map((cursoSelect, index) => (
+            <div key={index} className="cursoSelect">
+              <p>{cursoSelect}</p>
+              <Button onClick={() => handleSelectRemove(cursoSelect, index)}>
+                <DeleteFilled
+                  style={{ fontSize: "15px", color: "#b91010cc" }}
+                />
+              </Button>
+            </div>
+          ))}
 
-        <br />
-        {showAppend
-          ? fieldsCursos.map((field1, index) => (
-              <div key={field1.id} className="containerFields">
-                <Controller
-                  name={`items[${index}].cursosDisponibles`}
-                  control={control}
-                  defaultValues=""
-                  render={({ field, fieldState }) => (
-                    <div
-                      style={{
-                        display: "flex",
-                        width: "80%",
-                        justifyContent: "space-between",
-                        marginBottom: "20px",
-                        // border: "solid 1px red ",
-                      }}
-                    >
-                      <Select
-                        {...field}
-                        style={{ width: "60%" }}
-                        value={field1.corsos}
-                        onChange={(value) => {
-                          field.onChange(value);
-                          handleSelectChange(value, index);
+          <br />
+          {showAppend
+            ? fieldsCursos.map((field1, index) => (
+                <div key={field1.id} className="containerFields">
+                  <Controller
+                    name={`items[${index}].cursosDisponibles`}
+                    control={control}
+                    defaultValues=""
+                    render={({ field, fieldState }) => (
+                      <div
+                        style={{
+                          display: "flex",
+                          width: "80%",
+                          justifyContent: "space-between",
+                          marginBottom: "20px",
+                          // border: "solid 1px red ",
                         }}
                       >
-                        {cursosDisponibles.map((curso) => (
-                          <Select.Option key={curso.id} value={curso.name}>
-                            {curso.name}
-                          </Select.Option>
-                        ))}
-                      </Select>
+                        <Select
+                          {...field}
+                          style={{ width: "60%" }}
+                          value={field1.corsos}
+                          onChange={(value) => {
+                            field.onChange(value);
+                            handleSelectChange(value, index);
+                          }}
+                        >
+                          {cursosDisponibles.map((curso) => (
+                            <Select.Option key={curso.id} value={curso.name}>
+                              {curso.name}
+                            </Select.Option>
+                          ))}
+                        </Select>
 
-                      {/* <Button
+                        {/* <Button
                     onClick={() => {
                       // Obtén el curso a eliminar
                       setShowAgregarHorario(false);
@@ -333,136 +340,144 @@ export const PageIndex = () => {
                       }}
                     />
                   </Button> */}
-                    </div>
-                  )}
-                />
-              </div>
-            ))
-          : null}
-        <div className="">
-          {selectedCursos.length === 5 ? (
-            <>
-              <p>No hay cursos</p>
-            </>
-          ) : (
-            <>
-              {showAppend ? null : (
-                <Button type="button" onClick={handleAppend}>
-                  Seleccionar cursos
-                </Button>
-              )}
-            </>
-          )}
-        </div>
-        <br></br>
-        {fieldsCursosSeleccionados.map((field2, index) => (
-          <div key={index} className="containerField2">
-            <Controller
-              name={`items2.${index}.corsos`}
-              control={control}
-              defaultValue={null}
-              render={({ field }) => (
-                <>
-                  <Select
-                    {...field}
-                    style={{ width: "50%" }}
-                    value={field2.corsos}
-                    onChange={(value) => {
-                      field.onChange(value);
-                      handleSelect2Onchange(value, index);
-                      updateCursosSeleccionados(index, {
-                        ...field2,
-                        corsos: value,
-                      });
-                    }}
-                    disabled={
-                      field2.corsos !== null &&
-                      field2.corsos !== undefined &&
-                      field2.corsos !== ""
-                    }
-                  >
-                    {copiaSelectedCursos.map((curso, cursoIndex) => (
-                      <Select.Option
-                        onClick={handleSelectRemove}
-                        key={curso}
-                        value={curso.name}
-                      >
-                        {curso.name}
-                      </Select.Option>
-                    ))}
-                  </Select>
-                </>
-              )}
-            />
-            <br />
-
-            <Controller
-              name={`items2[${index}].horas`}
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <div>
-                  <InputNumber
-                    {...field}
-                    placeholder="Horas"
-                    onChange={(value) => {
-                      field.onChange(value);
-                      updateCursosSeleccionados(index, {
-                        ...field2,
-                        horas: value === null ? undefined : value,
-                      });
-                      // handleDesactivarSubmit(value, index);
-                    }}
-                    value={field2.horas}
+                      </div>
+                    )}
                   />
                 </div>
-              )}
-            />
-
-            <Button
-              onClick={() => {
-                console.log({ index });
-                removeCursosSeleccionados(index);
-                setCopiaSelectedCursos([...copiaSelectedCursos, field2.corsos]);
-                setShowAppend(false);
-              }}
-            >
-              <DeleteFilled style={{ fontSize: "16px", color: "#b91010cc" }} />
-            </Button>
+              ))
+            : null}
+          <div className="">
+            {selectedCursos.length === 5 ? (
+              <>
+                <p>No hay cursos</p>
+              </>
+            ) : (
+              <>
+                {showAppend ? null : (
+                  <Button type="button" onClick={handleAppend}>
+                    Seleccionar cursos
+                  </Button>
+                )}
+              </>
+            )}
           </div>
-        ))}
+          <br></br>
+          {fieldsCursosSeleccionados.map((field2, index) => (
+            <div key={index} className="containerField2">
+              <Controller
+                name={`items2.${index}.corsos`}
+                control={control}
+                defaultValue={null}
+                render={({ field }) => (
+                  <>
+                    <Select
+                      {...field}
+                      style={{ width: "50%" }}
+                      value={field2.corsos}
+                      onChange={(value) => {
+                        field.onChange(value);
+                        handleSelect2Onchange(value, index);
+                        updateCursosSeleccionados(index, {
+                          ...field2,
+                          corsos: value,
+                        });
+                      }}
+                      disabled={
+                        field2.corsos !== null &&
+                        field2.corsos !== undefined &&
+                        field2.corsos !== ""
+                      }
+                    >
+                      {copiaSelectedCursos.map((curso, cursoIndex) => (
+                        <Select.Option
+                          onClick={handleSelectRemove}
+                          key={curso}
+                          value={curso.name}
+                        >
+                          {curso.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </>
+                )}
+              />
+              <br />
 
-        <br></br>
+              <Controller
+                name={`items2[${index}].horas`}
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <div>
+                    <InputNumber
+                      {...field}
+                      placeholder="Horas"
+                      onChange={(value) => {
+                        field.onChange(value);
+                        updateCursosSeleccionados(index, {
+                          ...field2,
+                          horas: value === null ? undefined : value,
+                        });
+                        // handleDesactivarSubmit(value, index);
+                      }}
+                      value={field2.horas}
+                    />
+                  </div>
+                )}
+              />
 
-        {/* <Button type="button" onClick={handleAppend}>
+              <Button
+                onClick={() => {
+                  console.log({ index });
+                  removeCursosSeleccionados(index);
+                  setCopiaSelectedCursos([
+                    ...copiaSelectedCursos,
+                    field2.corsos,
+                  ]);
+                  setShowAppend(false);
+                }}
+              >
+                <DeleteFilled
+                  style={{ fontSize: "16px", color: "#b91010cc" }}
+                />
+              </Button>
+            </div>
+          ))}
+
+          <br></br>
+
+          {/* <Button type="button" onClick={handleAppend}>
           Seleccionar cursos
         </Button> */}
-        <br></br>
+          <br></br>
 
-        <div>
-          {copiaSelectedCursos.length === 0 || !showButtons ? null : (
-            <Button type="button" onClick={handleAppend2}>
-              Agregar el horario
+          <div>
+            {copiaSelectedCursos.length === 0 || !showButtons ? null : (
+              <Button type="button" onClick={handleAppend2}>
+                Agregar el horario
+              </Button>
+            )}
+          </div>
+          <br></br>
+          <Profesores/>
+          <Form.Item wrapperCol={{ offset: 10, span: 1 }}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              disabled={
+                !fieldsCursosSeleccionados.length ||
+                fieldsCursosSeleccionados.some(
+                  (e) =>
+                    e.corsos === "" || e.horas === undefined || e.horas === 0
+                )
+              }
+              // disabled={!!desactivarSubmit}
+            >
+              Submit
             </Button>
-          )}
-        </div>
-        <br></br>
-        <Form.Item wrapperCol={{ offset: 10, span: 1 }}>
-          <Button
-            type="primary"
-            htmlType="submit"
-            disabled={
-              !fieldsCursosSeleccionados.length ||
-              fieldsCursosSeleccionados.some(
-                (e) => e.corsos === "" || e.horas === undefined || e.horas === 0
-              )
-            }
-            // disabled={!!desactivarSubmit}
-          >
-            Submit
-          </Button>
-        </Form.Item>
-      </form>
-    </div>
+          </Form.Item>
+        </form>
+      </div>
+    </>
   );
 };
