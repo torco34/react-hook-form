@@ -11,7 +11,7 @@ const nombresDeCursos = [
   { id: uuidv4(), name: "Ingles" },
 ];
 export const CursosProvider = ({ children }) => {
-  console.log(nombresDeCursos);
+ 
 
   //
   //

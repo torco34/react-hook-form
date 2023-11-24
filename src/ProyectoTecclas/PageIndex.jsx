@@ -200,19 +200,6 @@ export const PageIndex = () => {
     setShowAppend(false);
   };
 
-  // función de desactivar
-
-  // const handleDesactivarSubmit = (value, index) => {
-  //   // setDesactivarSubmit(primerInputVacio);
-
-  //   if (index === 0) {
-  //     setDesactivarSubmit(!!value);
-  //   } else {
-  //     setDesactivarSubmit(true);
-  //   }
-  // setDesactivarSubmit(false);
-  // };
-
   const onSubmit = (data) => {
     console.log(data);
 
@@ -388,7 +375,11 @@ export const PageIndex = () => {
                         corsos: value,
                       });
                     }}
-                    //  disabled={field2.corsos !== ""}
+                    disabled={
+                      field2.corsos !== null &&
+                      field2.corsos !== undefined &&
+                      field2.corsos !== ""
+                    }
                   >
                     {copiaSelectedCursos.map((curso, cursoIndex) => (
                       <Select.Option
