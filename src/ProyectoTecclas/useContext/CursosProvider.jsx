@@ -27,8 +27,12 @@ export const CursosProvider = ({ children }) => {
   const [showButton, setShowButton] = useState(false);
 
   // HOOKS DE  PROFESOR
+  // compartir estado 
+  const [fieldArrayData, setFieldArrayData] = useState([]);
+  // data de profesor
   const [datosDeProfesor, setDatosDeProfesor] = useState(datosProfesor);
-  const [datosDeJornada, setDatosDejornada] = useState(datosJornadas);
+  // data de jornada
+  const [datosDeJornada, setDatosDeJornada] = useState(datosJornadas);
   const agregarCursos = (nombre) => {
     const nuevaMateria = {
       id: uuidv4(),
@@ -78,8 +82,11 @@ export const CursosProvider = ({ children }) => {
     setDatosDeProfesor,
     datosDeProfesor,
     // jornada
-    setDatosDejornada,
-    datosDeJornada
+    setDatosDeJornada,
+    datosDeJornada,
+    // compartir estados
+    setFieldArrayData,
+    fieldArrayData,
   };
   return (
     <MateriasContext.Provider value={{ contextTodosHookLogica }}>
