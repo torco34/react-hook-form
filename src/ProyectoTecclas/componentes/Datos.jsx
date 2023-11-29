@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 
 const datosProfesor = [
-  { id: uuidv4(), name: "Juan Manuel" },
-  { id: uuidv4(), name: "Jose Luis" },
+  { id: uuidv4(), name: "Juan" },
+  { id: uuidv4(), name: "Jose" },
   { id: uuidv4(), name: "Agustin" },
   { id: uuidv4(), name: "Sergio" },
   { id: uuidv4(), name: "Esteban" },

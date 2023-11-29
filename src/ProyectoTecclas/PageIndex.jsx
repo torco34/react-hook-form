@@ -60,8 +60,7 @@ export const PageIndex = () => {
     setCursosDisponibles,
     setSelectedCursos,
     setShowAppend,
-    selectVisible,
-    setSelectVisible,
+
     showAppendCursos,
     setDesactivarSubmit,
 
@@ -73,6 +72,11 @@ export const PageIndex = () => {
     setDeleteFieldsArray,
     setShowButton,
     showButton,
+    // HOOK DE TRABAJO SELECCIÓN DE PROFESOR
+    cursoDeProfesor,
+    setCursoDeProfesor,
+    setDatosDeProfesor,
+    datosDeProfesor,
   } = contextTodosHookLogica;
 
   const showButtons = copiaSelectedCursos.length > 0 || showButton;
@@ -81,15 +85,54 @@ export const PageIndex = () => {
   //
   //
   //
-  const handleSelectChange = (value, index) => {
+  const [nombreActual, setNombreActual] = useState(null);
+  const handleClick = (nombre) => {
+    // Realiza la acción que necesitas con el nombre actual
+    console.log(`Clic en ${nombre}`);
+
+    // Actualiza el estado con el nombre actual
+    setNombreActual(nombre);
+  };
+  const [nombresSeleccionados, setNombresSeleccionados] = useState("");
+  const handleSelectChange = (value) => {
     //
     const selectedCurso = cursosDisponibles.find(
       (curso) => curso.name === value
     );
-    // setSelectVisible(false);
+    datosDeProfesor.map((item) => {
+      {
+        item.name;
+      }
+      console.log(item.name);
+      const nose = datosDeProfesor.filter((n) => n === item);
+      // console.log(nose, "nose");
+    });
+    const nombres = datosDeProfesor.map((item) => item.name);
+   
+    console.log(nombres, "nombre");
+    
+    // FILTRANDO PARA QUE SE VEA LOS CURSO SELECT EN LOS  PROFESOR
+    // Actualizar el estado de profesores disponibles
+    if (!cursoDeProfesor.includes(value)) {
+      // Agregar el valor a la lista de seleccionados
+      setCursoDeProfesor([...cursoDeProfesor, value]);
+    }
+
+    //
+    //
+    // SECTION DE NOMBRE PROFESORES
+
+    datosDeProfesor.forEach((profesor) => {
+      if (profesor.name === profesor) {
+        handleClick(profesor.name);
+
+      }
+      console.log(profesor);
+    });
+
+    //
 
     setCopiaSelectedCursos([...copiaSelectedCursos, selectedCurso.name]);
-
     setSelectedCursos([...selectedCursos, selectedCurso.name]);
     const cursosRestantes = cursosDisponibles.filter(
       (curso) => curso.name !== value
@@ -106,6 +149,7 @@ export const PageIndex = () => {
   //
   const handleSelectRemove = (cursoSelect, index) => {
     console.log({ index, cursoSelect });
+
     const restanteCurso = selectedCursos.filter(
       (curso) => curso !== cursoSelect
     );
@@ -116,7 +160,8 @@ export const PageIndex = () => {
     );
 
     setCopiaSelectedCursos(updatedCopiaSelectedCursos);
-
+    // actualiza el estado de los curso seleccionado del profesor
+    setCursoDeProfesor(updatedCopiaSelectedCursos);
     setCursosDisponibles([
       ...cursosDisponibles,
       { id: uuidv4(), name: cursoSelect },
@@ -144,6 +189,7 @@ export const PageIndex = () => {
   //
   //
   // función de del append del fields uno
+
   const handleAppend = () => {
     const elementoVacio = getValues("items").find((item) => !item.items);
     if (!elementoVacio) {
@@ -477,6 +523,19 @@ export const PageIndex = () => {
             </Button>
           </Form.Item>
         </form>
+
+        <div>
+          <p>Nombre actual: {nombreActual}</p>
+          {datosDeProfesor.map((profesor, index) => (
+            <div
+              key={index}
+              onClick={() => handleClick(profesor.name)}
+              style={{ cursor: "pointer", marginBottom: "10px" }}
+            >
+              {profesor.name}
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

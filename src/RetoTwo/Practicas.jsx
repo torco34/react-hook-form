@@ -13,7 +13,7 @@ import {
 } from "../ProyectoTecclas/componentes/Datos";
 import { Alert, Button, Form, Input, InputNumber, Select } from "antd";
 export const Practicas = () => {
-  const profesores = ["Profesor1", "Profesor2", "Profesor3"];
+  const profesores = ["juan", "miguel", "antonio"];
   const materias = ["Materia1", "Materia2", "Materia3"];
   const jornadas = ["Mañana", "Tarde"];
 
@@ -108,6 +108,12 @@ const NestedForm = () => {
       ],
     },
   });
+  const importate = () => {
+    // const filtroProfe = (element) => element.name !== value;
+    // const seledProfe = cursosDisponibles.filter(filtroProfe);
+    // console.log(seledProfe, "seledProfe");
+    // setDatosDeProfesor(seledProfe);
+  };
 
   const {
     fields: sections,
@@ -247,8 +253,177 @@ const NestedForm = () => {
       </button>
 
       <button type="submit">Enviar</button>
+
+      <TuComponente />
+
+      <TuComponentes />
     </form>
   );
 };
 
 export default NestedForm;
+
+// // Supongamos que tienes dos arrays como estas:
+// const cursos = [
+//   { id: 1, nombre: 'Curso 1' },
+//   { id: 2, nombre: 'Curso 2' },
+//   { id: 3, nombre: 'Curso 3' },
+//   { id: 4, nombre: 'Curso 4' },
+//   { id: 5, nombre: 'Curso 5' }
+// ];
+
+// const nombres = [
+//   { id: 1, nombre: 'Nombre 1' },
+//   { id: 2, nombre: 'Nombre 2' },
+//   { id: 3, nombre: 'Nombre 3' },
+//   { id: 4, nombre: 'Nombre 4' },
+//   { id: 5, nombre: 'Nombre 5' }
+// ];
+
+// // Supongamos que seleccionas 3 cursos
+// const cursosSeleccionados = cursos.slice(0, 3);
+
+// // Filtrar la array de nombres para obtener la misma cantidad que cursos seleccionados
+// const nombresSeleccionados = nombres.slice(0, cursosSeleccionados.length);
+
+// // Imprimir los resultados
+// console.log('Cursos Seleccionados:', cursosSeleccionados);
+// console.log('Nombres Seleccionados:', nombresSeleccionados);
+
+const TuComponente = () => {
+  const [seleccion, setSeleccion] = useState([]);
+  const [materiasDisponibles, setMateriasDisponibles] = useState([
+    "Matemáticas",
+    "Historia",
+    "Ciencias",
+    // Agrega más materias según sea necesario
+  ]);
+
+  const datosDeProfesor = [
+    { id: 1, nombre: "Juan", materias: ["Matemáticas", "Historia"] },
+    { id: 2, nombre: "María", materias: ["Ciencias"] },
+    // Agrega más profesores según sea necesario
+  ];
+
+  const handleSeleccionChange = (index, campo, valor) => {
+    const nuevaSeleccion = [...seleccion];
+    nuevaSeleccion[index] = { ...nuevaSeleccion[index], [campo]: valor };
+    setSeleccion(nuevaSeleccion);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Aquí puedes realizar acciones con la información seleccionada, como enviarla a un servidor.
+    console.log("Información seleccionada:", seleccion);
+  };
+
+  return (
+    <div>
+      <h2>Selecciona tus profesores y materias</h2>
+      <form onSubmit={handleSubmit}>
+        {materiasDisponibles.map((materia, index) => (
+          <div key={index}>
+            <label htmlFor={`profesor-${index}`}>
+              Profesor para {materia}:
+            </label>
+            <select
+              id={`profesor-${index}`}
+              value={seleccion[index]?.profesor || ""}
+              onChange={(e) =>
+                handleSeleccionChange(index, "profesor", e.target.value)
+              }
+            >
+              <option value="">Selecciona un profesor</option>
+              {datosDeProfesor
+                .filter((profesor) => profesor.materias.includes(materia))
+                .map((profesor) => (
+                  <option key={profesor.id} value={profesor.id}>
+                    {profesor.nombre}
+                  </option>
+                ))}
+            </select>
+
+            <label htmlFor={`jornada-${index}`}>Jornada para {materia}:</label>
+            <select
+              id={`jornada-${index}`}
+              value={seleccion[index]?.jornada || ""}
+              onChange={(e) =>
+                handleSeleccionChange(index, "jornada", e.target.value)
+              }
+            >
+              <option value="">Selecciona la jornada</option>
+              <option value="mañana">Mañana</option>
+              <option value="tarde">Tarde</option>
+            </select>
+          </div>
+        ))}
+        <button type="submit">Guardar selección</button>
+      </form>
+    </div>
+  );
+};
+
+const TuComponentes = () => {
+  const { control, handleSubmit } = useForm();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "materias",
+  });
+
+  const onSubmit = (data) => {
+    // Realiza la lógica de la segunda etapa aquí, verificando la disponibilidad de los profesores.
+    console.log(data);
+  };
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <h2>Primera etapa</h2>
+      {fields.map((field, index) => (
+        <div key={field.id}>
+          <Controller
+            control={control}
+            name={`materias[${index}].profesor`}
+            render={({ field }) => <input {...field} placeholder="Profesor" />}
+          />
+          <Controller
+            control={control}
+            name={`materias[${index}].materia`}
+            render={({ field }) => <input {...field} placeholder="Materia" />}
+          />
+          <label>
+            Mañana
+            <Controller
+              control={control}
+              name={`materias[${index}].jornada`}
+              render={({ field }) => (
+                <input type="radio" value="mañana" {...field} />
+              )}
+            />
+          </label>
+          <label>
+            Tarde
+            <Controller
+              control={control}
+              name={`materias[${index}].jornada`}
+              render={({ field }) => (
+                <input type="radio" value="tarde" {...field} />
+              )}
+            />
+          </label>
+          <button type="button" onClick={() => remove(index)}>
+            Eliminar
+          </button>
+        </div>
+      ))}
+      <button type="button" onClick={() => append({})}>
+        Agregar Materia
+      </button>
+
+      <h2>Segunda etapa</h2>
+      {/* Aquí debes mostrar la información de la segunda etapa según la lógica */}
+      {/* Puedes utilizar la información de 'fields' para verificar la disponibilidad de los profesores */}
+
+      <button type="submit">Enviar</button>
+    </form>
+  );
+};

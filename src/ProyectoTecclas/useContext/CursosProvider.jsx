@@ -15,7 +15,7 @@ export const CursosProvider = ({ children }) => {
   // const [cursos, setCursos] = useState(nombresDeCursos);
   const [cursosDisponibles, setCursosDisponibles] = useState(nombresDeCursos);
   const [selectedCursos, setSelectedCursos] = useState([]);
-  const [setSelectVisible, selectVisible] = useState(false);
+  const [setSelectVisible, selectVisible] = useState([]);
   const [selectAppend1Booleano, setSelectAppend1Booleano] = useState(false);
   const [desactivarSubmit, setDesactivarSubmit] = useState(true);
   const [showAppendCursos, setShowAppendCursos] = useState(false);
@@ -27,12 +27,14 @@ export const CursosProvider = ({ children }) => {
   const [showButton, setShowButton] = useState(false);
 
   // HOOKS DE  PROFESOR
-  // compartir estado 
+  // compartir estado
   const [fieldArrayData, setFieldArrayData] = useState([]);
   // data de profesor
   const [datosDeProfesor, setDatosDeProfesor] = useState(datosProfesor);
+  const [cantidadNombresPorCurso, setCantidadNombresPorCurso] = useState([]);
   // data de jornada
   const [datosDeJornada, setDatosDeJornada] = useState(datosJornadas);
+  const [cursoDeProfesor, setCursoDeProfesor] = useState([]);
   const agregarCursos = (nombre) => {
     const nuevaMateria = {
       id: uuidv4(),
@@ -87,6 +89,12 @@ export const CursosProvider = ({ children }) => {
     // compartir estados
     setFieldArrayData,
     fieldArrayData,
+    // curso para seleccionar el profesor
+    cursoDeProfesor,
+    setCursoDeProfesor,
+    // 
+    cantidadNombresPorCurso,
+    setCantidadNombresPorCurso,
   };
   return (
     <MateriasContext.Provider value={{ contextTodosHookLogica }}>
