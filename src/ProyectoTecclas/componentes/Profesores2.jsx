@@ -42,6 +42,10 @@ export const Profesores2 = () => {
   //   section de  eventos
   // FUNCIONES DEL FORMULARIO
   //
+
+
+
+  
   const [historia, setHistoria] = useState([]);
   const [seleccionadosName, setSeleccionadosName] = useState([]);
   const [seleccionNombre, setSeleccionNombre] = useState("");
