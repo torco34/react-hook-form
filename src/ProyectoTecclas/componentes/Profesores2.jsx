@@ -43,9 +43,6 @@ export const Profesores2 = () => {
   // FUNCIONES DEL FORMULARIO
   //
 
-
-
-  
   const [historia, setHistoria] = useState([]);
   const [seleccionadosName, setSeleccionadosName] = useState([]);
   const [seleccionNombre, setSeleccionNombre] = useState("");
@@ -58,22 +55,20 @@ export const Profesores2 = () => {
       console.log(seleccionadosName);
     } else {
       console.log("hola mundo");
-      setSeleccionNombre(value)
+      setSeleccionNombre(value);
       const nuevaArray = datosDeProfesor.filter((item) => item.name !== value);
       setDatosDeProfesor(nuevaArray);
     }
   };
   const handleJornadaOnchange = (value) => {
-    console.log(value)
-    console.log(seleccionNombre)
+    console.log(value);
+    console.log(seleccionNombre);
     if (seleccionNombre === "jose" && value === "mañana") {
       setSeleccionTurno("tarde");
     }
-  }
- 
-  const handleCursosOnchange = () => {
-    
-  }
+  };
+
+  const handleCursosOnchange = () => {};
   // const handleClick = (datos) => {
   //   // Realiza la acción que necesitas con el nombre actual
   //   console.log(`Clic ${datos}`);
