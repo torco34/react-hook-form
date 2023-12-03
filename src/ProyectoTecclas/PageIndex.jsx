@@ -6,7 +6,7 @@ import { useMaterias } from "./useContext/CursosProvider";
 import "./css/styles.css";
 import { v4 as uuidv4 } from "uuid";
 import { Profesores } from "./componentes/Profesores";
-
+import { Profesores2 } from "./componentes/Profesores2";
 export const PageIndex = () => {
   const {
     control,
@@ -93,24 +93,17 @@ export const PageIndex = () => {
     // Actualiza el estado con el nombre actual
     setNombreActual(nombre);
   };
-  const [nombresSeleccionados, setNombresSeleccionados] = useState("");
+
+  //
   const handleSelectChange = (value) => {
-    //
+    if (cursoDeProfesor.length != 0) {
+      console.log("son iguales");
+    }
+    console.log(cursoDeProfesor.length);
     const selectedCurso = cursosDisponibles.find(
       (curso) => curso.name === value
     );
-    datosDeProfesor.map((item) => {
-      {
-        item.name;
-      }
-      console.log(item.name);
-      const nose = datosDeProfesor.filter((n) => n === item);
-      // console.log(nose, "nose");
-    });
-    const nombres = datosDeProfesor.map((item) => item.name);
-   
-    console.log(nombres, "nombre");
-    
+
     // FILTRANDO PARA QUE SE VEA LOS CURSO SELECT EN LOS  PROFESOR
     // Actualizar el estado de profesores disponibles
     if (!cursoDeProfesor.includes(value)) {
@@ -121,16 +114,6 @@ export const PageIndex = () => {
     //
     //
     // SECTION DE NOMBRE PROFESORES
-
-    datosDeProfesor.forEach((profesor) => {
-      if (profesor.name === profesor) {
-        handleClick(profesor.name);
-
-      }
-      console.log(profesor);
-    });
-
-    //
 
     setCopiaSelectedCursos([...copiaSelectedCursos, selectedCurso.name]);
     setSelectedCursos([...selectedCursos, selectedCurso.name]);
@@ -253,6 +236,7 @@ export const PageIndex = () => {
     // reset();
     // setSelectedCursos([""]);
   };
+
   return (
     <>
       <div className="header-formulario">
@@ -400,7 +384,7 @@ export const PageIndex = () => {
             ) : (
               <>
                 {showAppend ? null : (
-                  <Button type="button" onClick={handleAppend}>
+                  <Button style={{ width: "50%" }} onClick={handleAppend}>
                     Seleccionar cursos
                   </Button>
                 )}
@@ -499,13 +483,13 @@ export const PageIndex = () => {
 
           <div>
             {copiaSelectedCursos.length === 0 || !showButtons ? null : (
-              <Button type="button" onClick={handleAppend2}>
+              <Button style={{ width: "50%" }} onClick={handleAppend2}>
                 Agregar el horario
               </Button>
             )}
           </div>
           <br></br>
-          <Profesores />
+          <Profesores2 />
           <Form.Item wrapperCol={{ offset: 10, span: 1 }}>
             <Button
               type="primary"
@@ -523,19 +507,6 @@ export const PageIndex = () => {
             </Button>
           </Form.Item>
         </form>
-
-        <div>
-          <p>Nombre actual: {nombreActual}</p>
-          {datosDeProfesor.map((profesor, index) => (
-            <div
-              key={index}
-              onClick={() => handleClick(profesor.name)}
-              style={{ cursor: "pointer", marginBottom: "10px" }}
-            >
-              {profesor.name}
-            </div>
-          ))}
-        </div>
       </div>
     </>
   );

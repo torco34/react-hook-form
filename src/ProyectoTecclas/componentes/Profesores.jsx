@@ -74,39 +74,61 @@ export const Profesores = () => {
     console.log(datosDeProfesor, "datos de profeso hook");
     // appendProfe({ name: "" });
   };
+  // onchange de curso
+  const handleCursosOnchange = (value) => {
+    const arrayCursos = cursoDeProfesor.filter((items) => items !== value);
+    console.log(value, "value");
+    // setCursoDeProfesor(['']);
+    setCursoDeProfesor(arrayCursos);
+    console.log(arrayCursos, "arrraycursos");
+    console.log(cursoDeProfesor);
+    if (arrayCursos.length > 0) {
+      console.log("hola mundo");
+      appendProfe({ name: "" });
+    }
+  };
   const [nombreProfe, setNombreProfe] = useState(null);
   const [nombreCursos, setNombreCursos] = useState(null);
   const [nombreJornada, setNombreJornada] = useState([]);
-  const handleClick = (datos) => {
-    // Realiza la acción que necesitas con el nombre actual
-    console.log(`Clic ${datos}`);
-    console.log(nombreProfe, "dxffffffffffff");
-    // Actualiza el estado con el nombre actual
-    setNombreProfe(datos);
-    appendProfe({ name: "" });
-  };
-  const handleClickCurso = (curso) => {
-    // Realiza la acción que necesitas con el nombre actual
-    console.log(`Clic ${curso}`);
-    console.log(nombreCursos, "nombreCursos");
-    // Actualiza el estado con el nombre actual
-    setNombreCursos(curso);
-    appendCursos({ name: "" });
-  };
-  const handleClickJornada = (jornada) => {
-    // Realiza la acción que necesitas con el nombre actual
-    console.log(`Clic ${jornada}`);
-    console.log(nombreJornada, "dxffffffffffff");
-    // Actualiza el estado con el nombre actual
-    setNombreJornada([...nombreJornada, jornada]);
-  };
+  // const handleClick = (datos) => {
+  //   // Realiza la acción que necesitas con el nombre actual
+  //   console.log(`Clic ${datos}`);
+  //   const arrayCursos = cursoDeProfesor.filter((items) => items !== datos);
+  //   setCursoDeProfesor(arrayCursos);
+
+  //   if (arrayCursos.length === 0) {
+  //     console.log("hola mundo");
+  //     appendProfe({ name: "" });
+  //   }
+  //   console.log(nombreProfe, "dxffffffffffff");
+  //   // Actualiza el estado con el nombre actual
+  //   setNombreProfe(datos);
+  // };
+  // const handleClickCurso = (curso) => {
+  //   // Realiza la acción que necesitas con el nombre actual
+  //   console.log(`Clic ${curso}`);
+  //   console.log(nombreCursos, "nombreCursos");
+  //   // Actualiza el estado con el nombre actual
+  //   setNombreCursos(curso);
+  //   // appendCursos({ name: "" });
+  // };
+  // const handleClickJornada = (jornada) => {
+  //   // Realiza la acción que necesitas con el nombre actual
+  //   console.log(`Clic ${jornada}`);
+  //   console.log(nombreJornada, "dxffffffffffff");
+  //   // Actualiza el estado con el nombre actual
+  //   setNombreJornada([...nombreJornada, jornada]);
+  // };
 
   return (
-    <div>
+    <div className="container">
       {fields.map((field, index) => (
         <div key={field.id} className="containerProfesor">
           {/* TENER EN CUENTA QUE AQUI CAMBIA EL ORDEN DEL FIEL ARRAY */}
           <div>
+            <div className="profesores">
+              <p className="profesor">Profesor:</p>
+            </div>
             {fieldProfe.map((fieldP, index) => (
               <div key={fieldP.id} className="div-fil-profe">
                 <Controller
@@ -115,7 +137,6 @@ export const Profesores = () => {
                   defaultValues=""
                   render={({ field }) => (
                     <div style={{ width: "100%", display: "flex" }}>
-                      <p>Profesor:</p>
                       <Select
                         {...field}
                         style={{ width: "100%" }}
@@ -126,10 +147,11 @@ export const Profesores = () => {
                           handleProfeOnchange(value, index);
                         }}
                       >
-                        {datosDeProfesor.map((datos, cursoIndex) => (
+                        {datosDeProfesor.map((datos, datosIndex) => (
                           <Select.Option
-                            key={cursoIndex}
+                            key={datosIndex}
                             value={datos.name}
+                            className="selectProfe"
                             // onClick={() => handleClick(datos.name)}
                             onMouseDown={() => handleClick(datos.name)}
                           >
@@ -161,6 +183,9 @@ export const Profesores = () => {
             ))}
           </div>
           <div>
+            <div className="profesores">
+              <p>Cursos:</p>
+            </div>
             {fieldCursos.map((fieldC, cursoIndex) => (
               <div key={fieldC.id} className="div-fil-cursos">
                 <Controller
@@ -168,11 +193,14 @@ export const Profesores = () => {
                   control={control}
                   render={({ field }) => (
                     <div style={{ width: "100%", display: "flex" }}>
-                      <p>Cursos:</p>
                       <Select
                         {...field}
                         style={{ width: "100%" }}
                         value={field.curso}
+                        onChange={(value) => {
+                          field.onChange(value);
+                          handleCursosOnchange(value, index);
+                        }}
                       >
                         {cursoDeProfesor.map((curso, cursoIndex) => (
                           <Select.Option
@@ -197,6 +225,9 @@ export const Profesores = () => {
             ))}
           </div>
           <div>
+            <div className="profesores">
+              <p>Jornada:</p>
+            </div>
             {fieldJornada.map((fieldJ, jornadaIndex) => (
               <div key={fieldJ.id} className="div-fil-jornada">
                 <Controller
@@ -204,7 +235,6 @@ export const Profesores = () => {
                   control={control}
                   render={({ field }) => (
                     <div style={{ width: "100%", display: "flex" }}>
-                      <p>Jornada:</p>
                       <Select
                         {...field}
                         style={{ width: "100%" }}
@@ -245,21 +275,23 @@ export const Profesores = () => {
           </div>
         </div>
       ))}
-      <div className=" profesores">
+      {/* <div className=" profesores">
         <p>{nombreProfe}</p>
         <p>{nombreCursos}</p>
         <p>{nombreJornada}</p>
-      </div>
-      <Button
-        type="button"
-        onClick={() => {
-          append({ name: "" }), appendJornada({ name: "" });
-          appendProfe({ name: "" });
-          appendCursos({ name: "" });
-        }}
-      >
-        Seleccionar Profesores
-      </Button>
+      </div> */}
+      <dir>
+        <Button
+          type="button"
+          onClick={() => {
+            append({ name: "" }), appendJornada({ name: "" });
+            appendProfe({ name: "" });
+            appendCursos({ name: "" });
+          }}
+        >
+          Seleccionar Profesores
+        </Button>
+      </dir>
     </div>
   );
 };
