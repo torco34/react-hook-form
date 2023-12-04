@@ -70,6 +70,7 @@ export const Profesores2 = () => {
     }
     setDatosDeJornada(datosDeJornada);
   };
+
   const handleJornadaOnchange = (value) => {
     console.log(value, seleccionaNombre);
     console.log(value.length, "tor");
@@ -102,15 +103,6 @@ export const Profesores2 = () => {
       setDatosDeJornada(nuevosCurso);
       console.log(nuevosCurso);
     }
-    if (nombreProfesor.length === 0) {
-      // setDatosDeJornada([]);
-      //  setDatosDeJornada(datosDeJornada);
-    }
-
-    // if (datosDeProfesor.length < 5) {
-    //   setDatosDeJornada(datosDeJornada);
-    // }
-    //
   };
 
   const handleCursosOnchange = (value) => {
