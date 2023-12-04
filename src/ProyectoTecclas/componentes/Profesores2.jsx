@@ -89,10 +89,6 @@ export const Profesores2 = () => {
       setDatosDeJornada(nuevosCurso);
       console.log(nuevosCurso, "filtro");
       console.log(seleccionaNombre, "nombre");
-      // if (value.length >= 6) {
-      //   console.log(value, "torcoroma");
-      //   // setDatosDeJornada([...datosDeJornada, value]);
-      // }
     }
     if (value === "Tarde") {
       console.log("hola........juan");
