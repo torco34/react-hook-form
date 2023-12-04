@@ -35,6 +35,7 @@ export const CursosProvider = ({ children }) => {
   // data de jornada
   const [datosDeJornada, setDatosDeJornada] = useState(datosJornadas);
   const [cursoDeProfesor, setCursoDeProfesor] = useState([]);
+  const [nombreProfesor, setNombreProfesor] = useState([]);
   const agregarCursos = (nombre) => {
     const nuevaMateria = {
       id: uuidv4(),
@@ -95,6 +96,8 @@ export const CursosProvider = ({ children }) => {
     // 
     cantidadNombresPorCurso,
     setCantidadNombresPorCurso,
+    setNombreProfesor,
+    nombreProfesor
   };
   return (
     <MateriasContext.Provider value={{ contextTodosHookLogica }}>

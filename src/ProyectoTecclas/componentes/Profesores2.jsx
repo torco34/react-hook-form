@@ -25,6 +25,7 @@ export const Profesores2 = () => {
     // hooks
     // name the teacher
     datosDeProfesor,
+
     setDatosDeProfesor,
     // course the teacher
     cursoDeProfesor,
@@ -34,70 +35,89 @@ export const Profesores2 = () => {
     setCantidadNombresPorCurso,
     // jornada
     datosDeJornada,
-
+    setDatosDeJornada,
     // datos de los cursos
     cursosDisponibles,
     copiaSelectedCursos,
+    // datos nombre profesor
+    setNombreProfesor,
+    nombreProfesor,
   } = contextTodosHookLogica;
   //   section de  eventos
   // FUNCIONES DEL FORMULARIO
   //
 
-  const [historia, setHistoria] = useState([]);
+  const [filterJuan, setFilterJuan] = useState([]);
+  const [filterJose, setFilterJose] = useState([]);
+  const [filterSergio, setFilterSergio] = useState([]);
+  const [filterAgustin, setFilterAgustin] = useState([]);
+  const [filterEsteban, setFilterEsteban] = useState([]);
   const [seleccionadosName, setSeleccionadosName] = useState([]);
-  const [seleccionNombre, setSeleccionNombre] = useState("");
+  const [seleccionaNombre, setSeleccionaNombre] = useState("");
+
   const handleProfeOnchange = (value) => {
     const index = seleccionadosName.indexOf(value);
-    console.log(index);
+    setSeleccionaNombre(value);
+
     if (index === -1) {
-      // Si el nombre no está en la lista, agrégalo
       setSeleccionadosName([...seleccionadosName, value]);
-      console.log(seleccionadosName);
     } else {
-      console.log("hola mundo");
-      setSeleccionNombre(value);
-      const nuevaArray = datosDeProfesor.filter((item) => item.name !== value);
+      setSeleccionadosName(value);
+      const nuevaArray = nombreProfesor.filter((item) => item.name !== value);
+      setNombreProfesor(nuevaArray);
+      setSeleccionadosName([value]); // Cambiado para que sea un array con un solo elemento
       setDatosDeProfesor(nuevaArray);
     }
+    setDatosDeJornada(datosDeJornada);
   };
   const handleJornadaOnchange = (value) => {
-    console.log(value);
-    console.log(seleccionNombre);
-    if (seleccionNombre === "jose" && value === "mañana") {
-      setSeleccionTurno("tarde");
+    console.log(value, seleccionaNombre);
+    console.log(value.length, "tor");
+    console.log(nombreProfesor.length, "n");
+    console.log(datosDeJornada.length);
+    console.log(cursoDeProfesor.length, "curso p");
+    if (
+      seleccionaNombre === "Juan" ||
+      seleccionaNombre === "Jose" ||
+      seleccionaNombre === "Agustin" ||
+      seleccionaNombre === "Sergio" ||
+      seleccionaNombre === "Esteban"
+    ) {
+      console.log("hola.......tttt.", seleccionaNombre);
+      const nuevosCurso = datosDeJornada.filter((item) => item.name !== value);
+      setDatosDeJornada(nuevosCurso);
+      console.log(nuevosCurso, "filtro");
+      console.log(seleccionaNombre, "nombre");
+      // if (value.length >= 6) {
+      //   console.log(value, "torcoroma");
+      //   // setDatosDeJornada([...datosDeJornada, value]);
+      // }
     }
+    if (value === "Tarde") {
+      console.log("hola........juan");
+    }
+    if (seleccionaNombre === "Jose") {
+      console.log("hola.......tttt.", seleccionaNombre);
+      const nuevosCurso = datosDeJornada.filter((item) => item.name !== value);
+      setDatosDeJornada(nuevosCurso);
+      console.log(nuevosCurso);
+    }
+    if (nombreProfesor.length === 0) {
+      // setDatosDeJornada([]);
+      //  setDatosDeJornada(datosDeJornada);
+    }
+
+    // if (datosDeProfesor.length < 5) {
+    //   setDatosDeJornada(datosDeJornada);
+    // }
+    //
   };
 
-  const handleCursosOnchange = () => {};
-  // const handleClick = (datos) => {
-  //   // Realiza la acción que necesitas con el nombre actual
-  //   console.log(`Clic ${datos}`);
-  //   const arrayCursos = cursoDeProfesor.filter((items) => items !== datos);
-  //   setCursoDeProfesor(arrayCursos);
-
-  //   if (arrayCursos.length === 0) {
-  //     console.log("hola mundo");
-  //     appendProfe({ name: "" });
-  //   }
-  //   console.log(nombreProfe, "dxffffffffffff");
-  //   // Actualiza el estado con el nombre actual
-  //   setNombreProfe(datos);
-  // };
-  // const handleClickCurso = (curso) => {
-  //   // Realiza la acción que necesitas con el nombre actual
-  //   console.log(`Clic ${curso}`);
-  //   console.log(nombreCursos, "nombreCursos");
-  //   // Actualiza el estado con el nombre actual
-  //   setNombreCursos(curso);
-  //   // appendCursos({ name: "" });
-  // };
-  // const handleClickJornada = (jornada) => {
-  //   // Realiza la acción que necesitas con el nombre actual
-  //   console.log(`Clic ${jornada}`);
-  //   console.log(nombreJornada, "dxffffffffffff");
-  //   // Actualiza el estado con el nombre actual
-  //   setNombreJornada([...nombreJornada, jornada]);
-  // };
+  const handleCursosOnchange = (value) => {
+    const nuevosCurso = cursoDeProfesor.filter((item) => item !== value);
+    setCursoDeProfesor(nuevosCurso);
+    console.log(cursoDeProfesor);
+  };
 
   return (
     <div className="container">
@@ -125,7 +145,7 @@ export const Profesores2 = () => {
                         handleProfeOnchange(value, index);
                       }}
                     >
-                      {datosDeProfesor.map((datos, datosIndex) => (
+                      {nombreProfesor.map((datos, datosIndex) => (
                         <Select.Option
                           key={datosIndex}
                           value={datos.name}
@@ -224,14 +244,20 @@ export const Profesores2 = () => {
       ))}
 
       <div className="selectedProfe">
-        <Button
-          onClick={(value) => {
-            append({ name: "" });
-            setDatosDeProfesor(datosDeProfesor);
-          }}
-        >
-          Seleccionar Profesores
-        </Button>
+        {cursoDeProfesor.length === 0 ? null : (
+          <>
+            <Button
+              type="button"
+              onClick={() => {
+                append({ name: "" });
+                // setDatosDeJornada([...datosDeJornada]);
+              }}
+              style={{ width: "50%" }}
+            >
+              Seleccionar Profesores
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );

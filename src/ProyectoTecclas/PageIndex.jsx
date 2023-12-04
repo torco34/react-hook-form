@@ -77,6 +77,8 @@ export const PageIndex = () => {
     setCursoDeProfesor,
     setDatosDeProfesor,
     datosDeProfesor,
+    setNombreProfesor,
+    nombreProfesor,
   } = contextTodosHookLogica;
 
   const showButtons = copiaSelectedCursos.length > 0 || showButton;
@@ -85,16 +87,9 @@ export const PageIndex = () => {
   //
   //
   //
-  const [nombreActual, setNombreActual] = useState(null);
-  const handleClick = (nombre) => {
-    // Realiza la acción que necesitas con el nombre actual
-    console.log(`Clic en ${nombre}`);
-
-    // Actualiza el estado con el nombre actual
-    setNombreActual(nombre);
-  };
-
-  //
+  const [nombreJuan, setNombreJuan] = useState("");
+ 
+  const [nombreJose, setNombreJose] = useState("");
   const handleSelectChange = (value) => {
     if (cursoDeProfesor.length != 0) {
       console.log("son iguales");
@@ -114,13 +109,58 @@ export const PageIndex = () => {
     //
     //
     // SECTION DE NOMBRE PROFESORES
+    if (cursoDeProfesor.length === 0) {
+      console.log("Hola mundo es... 0");
+      const nombre = datosDeProfesor[0];
+      setNombreProfesor([...nombreProfesor, nombre]);
+      console.log(nombre, "holaaaa");
+      console.log(nombreProfesor, "nombreProfesor");
+    }
+    if (cursoDeProfesor.length == 1) {
+      console.log("Hola mundo es... 1");
+      const nombre = datosDeProfesor[1];
+      setNombreProfesor([...nombreProfesor, nombre]);
+      console.log(datosDeProfesor[1]);
+    }
+    if (cursoDeProfesor.length === 2) {
+      console.log("Hola mundo es... 2");
+      const nombre = datosDeProfesor[2];
+      setNombreProfesor([...nombreProfesor, nombre]);
+      console.log(nombreProfesor);
+      console.log(datosDeProfesor[2]);
+    }
 
+    if (cursoDeProfesor.length === 3) {
+      console.log("Hola mundo es... 3");
+      const nombre = datosDeProfesor[3];
+      setNombreProfesor([...nombreProfesor, nombre]);
+      console.log(nombreProfesor);
+    }
+
+    if (cursoDeProfesor.length === 4) {
+      console.log("Hola mundo es... 4");
+      const nombre = datosDeProfesor[4];
+      setNombreProfesor([...nombreProfesor, nombre]);
+      console.log(nombreProfesor);
+    }
+
+    if (cursoDeProfesor.length === 5) {
+      console.log("Hola mundo es... 4");
+      const nombre = datosDeProfesor[5];
+      setNombreProfesor([...nombreProfesor, nombre]);
+      console.log(nombreProfesor);
+    }
+    // console.log(datosDeProfesor[1], "hhhhhhhh");
+
+    // setNombreJose(datosDeProfesor[1]);
+    // setNombreAgustin(datosDeProfesor[2]);
+    // console.log(nombreAgustin, nombreJuan, nombreJose, "hfgf");
     setCopiaSelectedCursos([...copiaSelectedCursos, selectedCurso.name]);
     setSelectedCursos([...selectedCursos, selectedCurso.name]);
     const cursosRestantes = cursosDisponibles.filter(
       (curso) => curso.name !== value
     );
-    console.log(cursosRestantes);
+
     setCursosDisponibles(cursosRestantes);
     setShowAppend(true);
     if (cursosRestantes.length === 0) {
