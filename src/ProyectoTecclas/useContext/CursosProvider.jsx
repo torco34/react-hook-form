@@ -36,6 +36,8 @@ export const CursosProvider = ({ children }) => {
   const [datosDeJornada, setDatosDeJornada] = useState(datosJornadas);
   const [cursoDeProfesor, setCursoDeProfesor] = useState([]);
   const [nombreProfesor, setNombreProfesor] = useState([]);
+  // filtrado de profesor
+  const [seleccionadosName, setSeleccionadosName] = useState([]);
   const agregarCursos = (nombre) => {
     const nuevaMateria = {
       id: uuidv4(),
@@ -97,7 +99,11 @@ export const CursosProvider = ({ children }) => {
     cantidadNombresPorCurso,
     setCantidadNombresPorCurso,
     setNombreProfesor,
-    nombreProfesor
+    nombreProfesor,
+    // nombres de profesores filtrados
+    seleccionadosName,
+    setSeleccionadosName
+
   };
   return (
     <MateriasContext.Provider value={{ contextTodosHookLogica }}>

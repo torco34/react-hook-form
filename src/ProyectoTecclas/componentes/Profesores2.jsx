@@ -42,62 +42,67 @@ export const Profesores2 = () => {
     // datos nombre profesor
     setNombreProfesor,
     nombreProfesor,
+    // nombre seleccionado i filtrado de profesor
+    seleccionadosName,
+    setSeleccionadosName,
   } = contextTodosHookLogica;
   //   section de  eventos
   // FUNCIONES DEL FORMULARIO
   //
 
-  const [filterJuan, setFilterJuan] = useState([]);
-  const [filterJose, setFilterJose] = useState([]);
-  const [filterSergio, setFilterSergio] = useState([]);
-  const [filterAgustin, setFilterAgustin] = useState([]);
-  const [filterEsteban, setFilterEsteban] = useState([]);
-  const [seleccionadosName, setSeleccionadosName] = useState([]);
-  const [seleccionaNombre, setSeleccionaNombre] = useState("");
+  // const [filterJuan, setFilterJuan] = useState([]);
+  // const [filterJose, setFilterJose] = useState([]);
+  // const [filterSergio, setFilterSergio] = useState([]);
+  // const [filterAgustin, setFilterAgustin] = useState([]);
+  // const [filterEsteban, setFilterEsteban] = useState([]);
+  // setSeleccionadosName([value]); // Cambiado para que sea un array con un solo elemento
+  const [seleccionaJornada, setSeleccionaJornada] = useState([]);
+
+  // const [seleccionNombre, setSeleccionNombre] = useState("");
 
   const handleProfeOnchange = (value) => {
     const index = seleccionadosName.indexOf(value);
-    setSeleccionaNombre(value);
 
+    console.log(index, "index");
+    console.log(seleccionadosName, "seleccionadosName");
     if (index === -1) {
       setSeleccionadosName([...seleccionadosName, value]);
     } else {
-      setSeleccionadosName(value);
       const nuevaArray = nombreProfesor.filter((item) => item.name !== value);
       setNombreProfesor(nuevaArray);
-      setSeleccionadosName([value]); // Cambiado para que sea un array con un solo elemento
-      setDatosDeProfesor(nuevaArray);
     }
-    setDatosDeJornada(datosDeJornada);
   };
 
   const handleJornadaOnchange = (value) => {
-    console.log(value, seleccionaNombre);
-    console.log(value.length, "tor");
-    console.log(nombreProfesor.length, "n");
-    console.log(datosDeJornada.length);
-    console.log(cursoDeProfesor.length, "curso p");
-    if (
-      seleccionaNombre === "Juan" ||
-      seleccionaNombre === "Jose" ||
-      seleccionaNombre === "Agustin" ||
-      seleccionaNombre === "Sergio" ||
-      seleccionaNombre === "Esteban"
-    ) {
-      console.log("hola.......tttt.", seleccionaNombre);
-      const nuevosCurso = datosDeJornada.filter((item) => item.name !== value);
-      setDatosDeJornada(nuevosCurso);
-      console.log(nuevosCurso, "filtro");
-      console.log(seleccionaNombre, "nombre");
-    }
-    if (value === "Tarde") {
-      console.log("hola........juan");
-    }
-    if (seleccionaNombre === "Jose") {
-      console.log("hola.......tttt.", seleccionaNombre);
-      const nuevosCurso = datosDeJornada.filter((item) => item.name !== value);
-      setDatosDeJornada(nuevosCurso);
-      console.log(nuevosCurso);
+    // console.log(value.length, "tor");
+    // console.log(nombreProfesor, "n");
+    // console.log(datosDeJornada);
+    // console.log(cursoDeProfesor, "curso p");
+
+    const index = seleccionaJornada.indexOf(value);
+    console.log(index, "index");
+    if (index === -1) {
+      console.log("hola mundo");
+      setSeleccionaJornada([...seleccionaJornada, value]);
+      console.log(seleccionaJornada, "hola hora");
+      console.log(seleccionadosName.length, "seleccionadosName nombre lentgh");
+    } else {
+      if (seleccionaJornada === "Mañana") {
+        console.log(seleccionadosName, "nombre pofesr");
+        console.log(
+          seleccionadosName.length,
+          "seleccionadosName nombre lentgh"
+        );
+      }
+      console.log("hola mundo else");
+      const nuevaDatosDeJornada = datosDeJornada.filter(
+        (item) => item.name !== value
+      );
+      setDatosDeJornada(nuevaDatosDeJornada);
+      console.log(datosDeJornada, "dao");
+      console.log(seleccionaJornada, "seleccionaJornada");
+      console.log(seleccionadosName, "seleccionadosName nombre");
+      console.log(seleccionadosName.length, "seleccionadosName nombre lentgh");
     }
   };
 
@@ -238,7 +243,7 @@ export const Profesores2 = () => {
               type="button"
               onClick={() => {
                 append({ name: "" });
-                // setDatosDeJornada([...datosDeJornada]);
+                // setDatosDeJornada(datosDeJornada);
               }}
               style={{ width: "50%" }}
             >
