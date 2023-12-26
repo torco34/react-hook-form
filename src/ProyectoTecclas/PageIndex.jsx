@@ -88,7 +88,7 @@ export const PageIndex = () => {
   //
   //
   const [nombreJuan, setNombreJuan] = useState("");
- 
+
   const [nombreJose, setNombreJose] = useState("");
   const handleSelectChange = (value) => {
     if (cursoDeProfesor.length != 0) {
@@ -394,22 +394,6 @@ export const PageIndex = () => {
                             </Select.Option>
                           ))}
                         </Select>
-
-                        {/* <Button
-                    onClick={() => {
-                      // Obtén el curso a eliminar
-                      setShowAgregarHorario(false);
-                      setShowAppend(false);
-                      removeCursos(index);
-                    }}
-                  >
-                    <DeleteFilled
-                      style={{
-                        fontSize: "16px",
-                        color: "#b91010",
-                      }}
-                    />
-                  </Button> */}
                       </div>
                     )}
                   />
@@ -488,7 +472,7 @@ export const PageIndex = () => {
                           ...field2,
                           horas: value === null ? undefined : value,
                         });
-                        // handleDesactivarSubmit(value, index);
+                       
                       }}
                       value={field2.horas}
                     />

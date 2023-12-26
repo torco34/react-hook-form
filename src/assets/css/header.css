@@ -1,0 +1,25 @@
+.header {
+  width: 100vw;
+  background-color: #334257;
+}
+.brand {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  justify-content: baseline;
+  gap: 20px;
+}
+.brand a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #fff;
+  width: 100%;
+  gap: 20px;
+}
+.login{
+  font-size: 2rem;
+ 
+}

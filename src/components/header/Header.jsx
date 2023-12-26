@@ -1,43 +1,32 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./style.css";
+import "../../assets/css/header.css";
+import { Container, Navbar } from "react-bootstrap";
+import logo from "../../assets/img/log.png";
+import { BsFillPersonFill } from "react-icons/bs";
 export const Header = () => {
   return (
     <>
-      <nav className="header">
-        <ul className="cont-nav  ">
-          <li className=" ">
-            <Link to="/pages">Curso Antd </Link>
-          </li>
-          <li className="border border-info  btn list-inline-item text-center ">
-            <Link to="/form">Validación </Link>
-          </li>
-          <li className="border border-info btn list-inline-item ">
-            <Link to="/stud">Reto two</Link>
-          </li>
-          <li className="border border-info btn list-inline-item ">
-            <Link to="/practicas">Practicas</Link>
-          </li>
-          <li className="border border-info btn list-inline-item ">
-            <Link to="/page">curso</Link>
-          </li>
-          <li className="text-center btn list-inline-item ">
-            <Link to="/proyecto">Proyecto no</Link>
-          </li>
-          <li className="border border-info btn list-inline-item ">
-            <Link to="/bor">Proyecto funciona </Link>
-          </li>
-          <li className="border border-info btn list-inline-item ">
-            <Link to="/borrador">Borrador</Link>
-          </li>
-          <li className="border border-info btn list-inline-item ">
-            <Link to="/horas">Horas</Link>
-          </li>
-          <li className="border border-info btn list-inline-item ">
-            <Link to="/tecclas">Proyectos</Link>
-          </li>
-        </ul>
-      </nav>
+      <Navbar className="header">
+        <Navbar.Brand className="brand">
+          <Link to="/">
+            <img
+              alt=""
+              src={logo}
+              width="50"
+              height="50"
+              className="rounded-circle"
+            />{" "}
+            <h4>Inscripción de estudiante</h4>
+          </Link>
+
+          <Link to="/page"></Link>
+          <Link to="/tecclas">
+            <BsFillPersonFill className="login"/>
+            Login
+          </Link>
+        </Navbar.Brand>
+      </Navbar>
     </>
   );
 };
