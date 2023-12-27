@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { Row, Col } from "react-bootstrap";
+
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { DeleteFilled } from "@ant-design/icons";
-import { Alert, Button, Form, Input, InputNumber, Select } from "antd";
+import { Button, Form, Input, InputNumber, Select } from "antd";
 import { useHookCourse } from "../useContext/HooksAllProvider";
-
+import "../assets/css/pageEnrollCourser.css";
 import { v4 as uuidv4 } from "uuid";
 import { FieldsTeacher } from "../components/FieldsTeacher";
 export const PageEnrollCourse = () => {
@@ -49,121 +50,107 @@ export const PageEnrollCourse = () => {
   const { contextAllHooks } = useHookCourse();
   const {
     // SERVICIOS DE API
-
-    cursosDisponibles,
-    selectedCursos,
-    setCopiaSelectedCursos,
-    copiaSelectedCursos,
-
+    // array de curso
+    setDataNameCourse,
+    dataNameCourse,
+    // array nombre profesor
+    setDataNameTeacher,
+    dataNameTeacher,
+    // manipular la array
+    selectedCourse,
+    setSelectedCourse,
+    // mostrar botones booleano
     showAppend,
-    setCursosDisponibles,
-    setSelectedCursos,
     setShowAppend,
-
-    showAppendCursos,
-    setDesactivarSubmit,
-
-    setShowAgregarHorario,
-    desactivarSubmit,
-    historyOnchange,
-    setHistoryOnchange,
-    deleteFieldsArray,
-    setDeleteFieldsArray,
+    // booleano
     setShowButton,
     showButton,
+    // copia para mostrar los curso seleccionado
+    copeSelectedCourse,
+    setCopeSelectedCourse,
+    // boolean
+    setShowButtonTime,
+    showButtonTime,
+    // manipula
+    courseSelectedForTeacher,
+    setCourseSelectedForTeacher,
+
     // HOOK DE TRABAJO SELECCIÓN DE PROFESOR
-    cursoDeProfesor,
-    setCursoDeProfesor,
-    setDatosDeProfesor,
-    datosDeProfesor,
-    setNombreProfesor,
-    nombreProfesor,
+    setDesactivarSubmit,
+    desactivarSubmit,
+    historyOnchange,
+    setNameTeacher,
+    nameTeacher,
   } = contextAllHooks;
 
-  const showButtons = copiaSelectedCursos.length > 0 || showButton;
+  const showButtons = copeSelectedCourse.length > 0 || showButton;
 
   // PRIMER FIELD ARRAY
   //
   //
   //
-  const [nombreJuan, setNombreJuan] = useState("");
 
-  const [nombreJose, setNombreJose] = useState("");
   const handleSelectChange = (value) => {
-    if (cursoDeProfesor.length != 0) {
-      console.log("son iguales");
+    if (courseSelectedForTeacher.length != 0) {
     }
-    console.log(cursoDeProfesor.length);
-    const selectedCurso = cursosDisponibles.find(
-      (curso) => curso.name === value
-    );
+    console.log(courseSelectedForTeacher.length);
+    const selectedCurso = dataNameCourse.find((curso) => curso.name === value);
 
     // FILTRANDO PARA QUE SE VEA LOS CURSO SELECT EN LOS  PROFESOR
     // Actualizar el estado de profesores disponibles
-    if (!cursoDeProfesor.includes(value)) {
+    if (!courseSelectedForTeacher.includes(value)) {
       // Agregar el valor a la lista de seleccionados
-      setCursoDeProfesor([...cursoDeProfesor, value]);
+      setCourseSelectedForTeacher([...courseSelectedForTeacher, value]);
     }
 
     //
     //
     // SECTION DE NOMBRE PROFESORES
-    if (cursoDeProfesor.length === 0) {
-      console.log("Hola mundo es... 0");
-      const nombre = datosDeProfesor[0];
-      setNombreProfesor([...nombreProfesor, nombre]);
-      console.log(nombre, "holaaaa");
-      console.log(nombreProfesor, "nombreProfesor");
+    if (courseSelectedForTeacher.length === 0) {
+      const nombre = dataNameTeacher[0];
+      setNameTeacher([...nameTeacher, nombre]);
     }
-    if (cursoDeProfesor.length == 1) {
-      console.log("Hola mundo es... 1");
-      const nombre = datosDeProfesor[1];
-      setNombreProfesor([...nombreProfesor, nombre]);
-      console.log(datosDeProfesor[1]);
+    if (courseSelectedForTeacher.length == 1) {
+      const nombre = dataNameTeacher[1];
+      setNameTeacher([...nameTeacher, nombre]);
     }
-    if (cursoDeProfesor.length === 2) {
-      console.log("Hola mundo es... 2");
-      const nombre = datosDeProfesor[2];
-      setNombreProfesor([...nombreProfesor, nombre]);
-      console.log(nombreProfesor);
-      console.log(datosDeProfesor[2]);
+    if (courseSelectedForTeacher.length === 2) {
+      const nombre = dataNameTeacher[2];
+      setNameTeacher([...nameTeacher, nombre]);
+
+      console.log(dataNameTeacher[2]);
     }
 
-    if (cursoDeProfesor.length === 3) {
-      console.log("Hola mundo es... 3");
-      const nombre = datosDeProfesor[3];
-      setNombreProfesor([...nombreProfesor, nombre]);
-      console.log(nombreProfesor);
+    if (courseSelectedForTeacher.length === 3) {
+      const nombre = dataNameTeacher[3];
+      setNameTeacher([...nameTeacher, nombre]);
     }
 
-    if (cursoDeProfesor.length === 4) {
+    if (courseSelectedForTeacher.length === 4) {
       console.log("Hola mundo es... 4");
-      const nombre = datosDeProfesor[4];
-      setNombreProfesor([...nombreProfesor, nombre]);
-      console.log(nombreProfesor);
+      const nombre = dataNameTeacher[4];
+      setNameTeacher([...nameTeacher, nombre]);
     }
 
-    if (cursoDeProfesor.length === 5) {
+    if (courseSelectedForTeacher.length === 5) {
       console.log("Hola mundo es... 4");
-      const nombre = datosDeProfesor[5];
-      setNombreProfesor([...nombreProfesor, nombre]);
-      console.log(nombreProfesor);
+      const nombre = dataNameTeacher[5];
+      setNameTeacher([...nameTeacher, nombre]);
     }
     // console.log(datosDeProfesor[1], "hhhhhhhh");
 
     // setNombreJose(datosDeProfesor[1]);
     // setNombreAgustin(datosDeProfesor[2]);
     // console.log(nombreAgustin, nombreJuan, nombreJose, "hfgf");
-    setCopiaSelectedCursos([...copiaSelectedCursos, selectedCurso.name]);
-    setSelectedCursos([...selectedCursos, selectedCurso.name]);
-    const cursosRestantes = cursosDisponibles.filter(
+    setCopeSelectedCourse([...copeSelectedCourse, selectedCurso.name]);
+    setSelectedCourse([...selectedCourse, selectedCurso.name]);
+    const cursosRestantes = dataNameCourse.filter(
       (curso) => curso.name !== value
     );
 
-    setCursosDisponibles(cursosRestantes);
+    setDataNameCourse(cursosRestantes);
     setShowAppend(true);
     if (cursosRestantes.length === 0) {
-      console.log("hola mundo");
     }
   };
   //
@@ -172,27 +159,20 @@ export const PageEnrollCourse = () => {
   const handleSelectRemove = (cursoSelect, index) => {
     console.log({ index, cursoSelect });
 
-    const restanteCurso = selectedCursos.filter(
+    const restanteCurso = selectedCourse.filter(
       (curso) => curso !== cursoSelect
     );
-    setSelectedCursos(restanteCurso);
+    setSelectedCourse(restanteCurso);
 
-    const updatedCopiaSelectedCursos = copiaSelectedCursos.filter(
+    const updatedCopiaSelectedCursos = copeSelectedCourse.filter(
       (element) => element !== cursoSelect
     );
 
-    setCopiaSelectedCursos(updatedCopiaSelectedCursos);
+    setCopeSelectedCourse(updatedCopiaSelectedCursos);
     // actualiza el estado de los curso seleccionado del profesor
-    setCursoDeProfesor(updatedCopiaSelectedCursos);
-    setCursosDisponibles([
-      ...cursosDisponibles,
-      { id: uuidv4(), name: cursoSelect },
-    ]);
+    setCourseSelectedForTeacher(updatedCopiaSelectedCursos);
+    setDataNameCourse([...dataNameCourse, { id: uuidv4(), name: cursoSelect }]);
     const deleteFields2 = fieldsCourseSelected.filter((item, i) => i !== index);
-
-    // const indexToRemove = fieldsCursosSeleccionados.findIndex(
-    //   (e) => e.corsos === cursoSelect
-    // );
 
     console.log(fieldsCourseSelected);
     // console.log(deleteFields2);
@@ -204,7 +184,6 @@ export const PageEnrollCourse = () => {
     // setShowApend(false);
     setShowAppend(false);
     // removeCursos(index);
-    console.log("handleSelectRemove");
   };
   //
   //
@@ -241,12 +220,12 @@ export const PageEnrollCourse = () => {
     const elementoVacio = getValues("items").find((item) => !item.items);
     console.log(historyOnchange);
     setShowAppend(false);
-    const updatedSelectedCursos = copiaSelectedCursos.filter(
+    const updatedSelectedCursos = copeSelectedCourse.filter(
       (element) => element !== value
     );
-    setCopiaSelectedCursos(updatedSelectedCursos);
+    setCopeSelectedCourse(updatedSelectedCursos);
     setShowButton(false);
-    setShowAgregarHorario(false);
+    setShowButtonTime(false);
     setDesactivarSubmit(false);
     // if (updatedSelectedCursos.length > 0) {
     //   appendCursosSeleccionados({ items2: "", hours: "" });
@@ -257,7 +236,7 @@ export const PageEnrollCourse = () => {
   const handleAppend2 = (index) => {
     const elementoVacio = getValues("items2").find((item) => !item.items);
     if (fieldsCourseSelected.length === 0) {
-      setCopiaSelectedCursos(selectedCursos);
+      setCopeSelectedCourse(selectedCourse);
     }
     // if (!elementoVacio) {
     appendCourseSelected({ items2: "", hours: "" });
@@ -275,259 +254,277 @@ export const PageEnrollCourse = () => {
   };
 
   return (
-    <>
-      <div className="header-formulario">
-        <h2>Fields arrays</h2>
-      </div>
-      <div className="container">
-        <form onSubmit={handleSubmit(onSubmit)} className="formulario">
-          <Controller
-            name={"name"}
-            control={control}
-            defaultValue=""
-            rules={{
-              required: "Este campo  requiere apellido",
-              minLength: {
-                value: 2,
-                message: "Nombre debe tener al menos 2 caracteres",
-              },
-            }}
-            render={({ field, fieldState }) => (
-              <div key={field}>
-                <Input {...field} placeholder="Nombre" />
-                {fieldState.invalid && (
-                  <p style={{ color: "red" }}>{fieldState.error?.message}</p>
-                )}
-              </div>
-            )}
-          />
-
-          <br></br>
-          <Controller
-            name={"apellido"}
-            control={control}
-            defaultValue=""
-            rules={{
-              required: "Este campo  requiere apellido",
-              minLength: {
-                value: 2,
-                message: "Nombre debe tener al menos 2 caracteres",
-              },
-            }}
-            render={({ field, fieldState }) => (
-              <div>
-                <Input {...field} placeholder="Apellido" />
-                {fieldState.invalid && (
-                  <p style={{ color: "red" }}>{fieldState.error?.message}</p>
-                )}
-              </div>
-            )}
-          />
-          <br></br>
-          <Controller
-            name={`address`}
-            control={control}
-            defaultValue=""
-            rules={{
-              required: "Este campo  require correo ",
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                message: "Dirección de correo electrónico no válida",
-              },
-            }}
-            render={({ field, fieldState }) => (
-              <div>
-                <Input {...field} placeholder="Correo" />
-                {fieldState.invalid && (
-                  <p style={{ color: "red" }}>{fieldState.error?.message}</p>
-                )}
-              </div>
-            )}
-          />
+    <div className="body-fields">
+      {/* <Container> */}
+      <Row>
+        <Col xs lg="7">
+          <div>esta una materia nueva</div>
+        </Col>
+        <Col>
           <br />
-          <hr />
-
-          {selectedCursos.map((cursoSelect, index) => (
-            <div key={index} className="cursoSelect">
-              <p>{cursoSelect}</p>
-              <Button onClick={() => handleSelectRemove(cursoSelect, index)}>
-                <DeleteFilled
-                  style={{ fontSize: "15px", color: "#b91010cc" }}
-                />
-              </Button>
-            </div>
-          ))}
-
-          <br />
-          {showAppend
-            ? fieldsCourse.map((field1, index) => (
-                <div key={field1.id} className="containerFields">
-                  <Controller
-                    name={`items[${index}].cursosDisponibles`}
-                    control={control}
-                    defaultValues=""
-                    render={({ field, fieldState }) => (
-                      <div
-                        style={{
-                          display: "flex",
-                          width: "80%",
-                          justifyContent: "space-between",
-                          marginBottom: "20px",
-                          // border: "solid 1px red ",
-                        }}
-                      >
-                        <Select
-                          {...field}
-                          style={{ width: "60%" }}
-                          value={field1.corsos}
-                          onChange={(value) => {
-                            field.onChange(value);
-                            handleSelectChange(value, index);
-                          }}
-                        >
-                          {cursosDisponibles.map((curso) => (
-                            <Select.Option key={curso.id} value={curso.name}>
-                              {curso.name}
-                            </Select.Option>
-                          ))}
-                        </Select>
-                      </div>
-                    )}
-                  />
-                </div>
-              ))
-            : null}
-          <div className="">
-            {selectedCursos.length === 5 ? (
-              <>
-                <p>No hay cursos</p>
-              </>
-            ) : (
-              <>
-                {showAppend ? null : (
-                  <Button style={{ width: "50%" }} onClick={handleAppend}>
-                    Seleccionar cursos
-                  </Button>
-                )}
-              </>
-            )}
-          </div>
-          <br></br>
-          {fieldsCourseSelected.map((field2, index) => (
-            <div key={index} className="containerField2">
+          <div className="div-padre-form p-4 show rounded ">
+            <h2>Inscripción de materias</h2>
+            <form onSubmit={handleSubmit(onSubmit)} className="formulario p-5 ">
+              <label>Nombre:</label>
               <Controller
-                name={`items2.${index}.corsos`}
-                control={control}
-                defaultValue={null}
-                render={({ field }) => (
-                  <>
-                    <Select
-                      {...field}
-                      style={{ width: "50%" }}
-                      value={field2.corsos}
-                      onChange={(value) => {
-                        field.onChange(value);
-                        handleSelect2Onchange(value, index);
-                        updateCourseSelected(index, {
-                          ...field2,
-                          corsos: value,
-                        });
-                      }}
-                      disabled={
-                        field2.corsos !== null &&
-                        field2.corsos !== undefined &&
-                        field2.corsos !== ""
-                      }
-                    >
-                      {copiaSelectedCursos.map((curso, cursoIndex) => (
-                        <Select.Option
-                          onClick={handleSelectRemove}
-                          key={curso}
-                          value={curso.name}
-                        >
-                          {curso.name}
-                        </Select.Option>
-                      ))}
-                    </Select>
-                  </>
-                )}
-              />
-              <br />
-
-              <Controller
-                name={`items2[${index}].horas`}
+                name={"name"}
                 control={control}
                 defaultValue=""
-                render={({ field }) => (
-                  <div>
-                    <InputNumber
-                      {...field}
-                      placeholder="Horas"
-                      onChange={(value) => {
-                        field.onChange(value);
-                        updateCourseSelected(index, {
-                          ...field2,
-                          horas: value === null ? undefined : value,
-                        });
-                      }}
-                      value={field2.horas}
-                    />
+                rules={{
+                  required: "Este campo  requiere apellido",
+                  minLength: {
+                    value: 2,
+                    message: "Nombre debe tener al menos 2 caracteres",
+                  },
+                }}
+                render={({ field, fieldState }) => (
+                  <div key={field}>
+                    <Input {...field} placeholder="Nombre" />
+                    {fieldState.invalid && (
+                      <p style={{ color: "red" }}>
+                        {fieldState.error?.message}
+                      </p>
+                    )}
                   </div>
                 )}
               />
 
-              <Button
-                onClick={() => {
-                  console.log({ index });
-                  removeCourseSelected(index);
-                  setCopiaSelectedCursos([
-                    ...copiaSelectedCursos,
-                    field2.corsos,
-                  ]);
-                  setShowAppend(false);
+              <br></br>
+              <label>Apellidos:</label>
+              <Controller
+                name={"apellido"}
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: "Este campo  requiere apellido",
+                  minLength: {
+                    value: 2,
+                    message: "Nombre debe tener al menos 2 caracteres",
+                  },
                 }}
-              >
-                <DeleteFilled
-                  style={{ fontSize: "16px", color: "#b91010cc" }}
-                />
-              </Button>
-            </div>
-          ))}
+                render={({ field, fieldState }) => (
+                  <div className="inputs">
+                    <Input {...field} placeholder="Apellido" />
+                    {fieldState.invalid && (
+                      <p style={{ color: "red" }}>
+                        {fieldState.error?.message}
+                      </p>
+                    )}
+                  </div>
+                )}
+              />
+              <br></br>
+              <label>Correo:</label>
+              <Controller
+                name={`address`}
+                control={control}
+                defaultValue=""
+                rules={{
+                  required: "Este campo  require correo ",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: "Dirección de correo electrónico no válida",
+                  },
+                }}
+                render={({ field, fieldState }) => (
+                  <div>
+                    <Input {...field} placeholder="Correo" />
+                    {fieldState.invalid && (
+                      <p style={{ color: "red" }}>
+                        {fieldState.error?.message}
+                      </p>
+                    )}
+                  </div>
+                )}
+              />
+              <br />
+              <hr />
 
-          <br></br>
+              {selectedCourse.map((cursoSelect, index) => (
+                <div key={index} className="cursoSelect">
+                  <p>{cursoSelect}</p>
+                  <Button
+                    onClick={() => handleSelectRemove(cursoSelect, index)}
+                    className="button"
+                  >
+                    <DeleteFilled style={{ color: "#b91010cc" }} />
+                  </Button>
+                </div>
+              ))}
 
-          {/* <Button type="button" onClick={handleAppend}>
+              <br />
+              {showAppend
+                ? fieldsCourse.map((field1, index) => (
+                    <div key={field1.id} className="containerFields">
+                      <Controller
+                        name={`items[${index}].cursosDisponibles`}
+                        control={control}
+                        defaultValues=""
+                        render={({ field, fieldState }) => (
+                          <div>
+                            <Select
+                              {...field}
+                              style={{
+                                width: "80%",
+                              }}
+                              value={field1.corsos}
+                              onChange={(value) => {
+                                field.onChange(value);
+                                handleSelectChange(value, index);
+                              }}
+                            >
+                              {dataNameCourse.map((curso) => (
+                                <Select.Option
+                                  key={curso.id}
+                                  value={curso.name}
+                                >
+                                  {curso.name}
+                                </Select.Option>
+                              ))}
+                            </Select>
+                          </div>
+                        )}
+                      />
+                    </div>
+                  ))
+                : null}
+              <div className="">
+                {selectedCourse.length === 5 ? (
+                  <>
+                    <p>No hay cursos</p>
+                  </>
+                ) : (
+                  <>
+                    {showAppend ? null : (
+                      <Button style={{ width: "50%" }} onClick={handleAppend}>
+                        Seleccionar cursos
+                      </Button>
+                    )}
+                  </>
+                )}
+              </div>
+              <br></br>
+              {fieldsCourseSelected.map((field2, index) => (
+                <div key={index} className="containerField2">
+                  <Controller
+                    name={`items2.${index}.corsos`}
+                    control={control}
+                    defaultValue={null}
+                    render={({ field }) => (
+                      <>
+                        <Select
+                          {...field}
+                          style={{
+                            width: "80%",
+                          }}
+                          value={field2.corsos}
+                          onChange={(value) => {
+                            field.onChange(value);
+                            handleSelect2Onchange(value, index);
+                            updateCourseSelected(index, {
+                              ...field2,
+                              corsos: value,
+                            });
+                          }}
+                          disabled={
+                            field2.corsos !== null &&
+                            field2.corsos !== undefined &&
+                            field2.corsos !== ""
+                          }
+                        >
+                          {copeSelectedCourse.map((curso, cursoIndex) => (
+                            <Select.Option
+                              onClick={handleSelectRemove}
+                              key={curso}
+                              value={curso.name}
+                            >
+                              {curso.name}
+                            </Select.Option>
+                          ))}
+                        </Select>
+                      </>
+                    )}
+                  />
+                  <br />
+
+                  <Controller
+                    name={`items2[${index}].horas`}
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <div className="">
+                        <InputNumber
+                          {...field}
+                          placeholder="Horas"
+                          onChange={(value) => {
+                            field.onChange(value);
+                            updateCourseSelected(index, {
+                              ...field2,
+                              horas: value === null ? undefined : value,
+                            });
+                          }}
+                          value={field2.horas}
+                        />
+                      </div>
+                    )}
+                  />
+
+                  <Button
+                    onClick={() => {
+                      console.log({ index });
+                      removeCourseSelected(index);
+                      setCopeSelectedCourse([
+                        ...copeSelectedCourse,
+                        field2.corsos,
+                      ]);
+                      setShowAppend(false);
+                    }}
+                    className="button"
+                  >
+                    <DeleteFilled style={{ color: "#b91010cc" }} />
+                  </Button>
+                </div>
+              ))}
+
+              <br></br>
+
+              {/* <Button type="button" onClick={handleAppend}>
           Seleccionar cursos
         </Button> */}
-          <br></br>
+              <br></br>
 
-          <div>
-            {copiaSelectedCursos.length === 0 || !showButtons ? null : (
-              <Button style={{ width: "50%" }} onClick={handleAppend2}>
-                Agregar el horario
-              </Button>
-            )}
+              <div>
+                {copeSelectedCourse.length === 0 || !showButtons ? null : (
+                  <Button style={{ width: "50%" }} onClick={handleAppend2}>
+                    Agregar el horario
+                  </Button>
+                )}
+              </div>
+              <br></br>
+              <FieldsTeacher />
+              <br></br>
+              <Form.Item wrapperCol={{ offset: 10, span: 1 }}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  disabled={
+                    !fieldsCourseSelected.length ||
+                    fieldsCourseSelected.some(
+                      (e) =>
+                        e.corsos === "" ||
+                        e.horas === undefined ||
+                        e.horas === 0
+                    )
+                  }
+                >
+                  Enviar
+                </Button>
+              </Form.Item>
+            </form>
           </div>
-          <br></br>
-          <FieldsTeacher />
-          <Form.Item wrapperCol={{ offset: 10, span: 1 }}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              disabled={
-                !fieldsCourseSelected.length ||
-                fieldsCourseSelected.some(
-                  (e) =>
-                    e.corsos === "" || e.horas === undefined || e.horas === 0
-                )
-              }
-              // disabled={!!desactivarSubmit}
-            >
-              Submit
-            </Button>
-          </Form.Item>
-        </form>
-      </div>
-    </>
+        </Col>
+      </Row>
+      {/* </Container> */}
+    </div>
   );
 };

@@ -1,9 +1,8 @@
-import { useForm, Controller, useFieldArray, useWatch } from "react-hook-form";
-import { Alert, Button, Form, Input, InputNumber, Select } from "antd";
+import { useForm, Controller, useFieldArray } from "react-hook-form";
+import { Button, Select } from "antd";
 import { DeleteFilled } from "@ant-design/icons";
 import { useHookCourse } from "../useContext/HooksAllProvider";
-
-import { useEffect, useState } from "react";
+import "../assets/css/fieldsTeacher.css";
 
 export const FieldsTeacher = () => {
   // sección de  fields array
@@ -23,8 +22,6 @@ export const FieldsTeacher = () => {
   const { contextAllHooks } = useHookCourse();
   const {
     // SERVICIOS DE API
-    setDataNameTeacher,
-    dataNameTeacher,
 
     setDataNameTime,
     dataNameTime,
@@ -36,34 +33,33 @@ export const FieldsTeacher = () => {
     selectedName,
     setSelectedName,
     //
-    selectedTime,
-    setSelectedTime,
-    //
+
+    setNameTeacher,
+    nameTeacher,
   } = contextAllHooks;
 
   const handleProfeOnchange = (value) => {
     const index = selectedName.indexOf(value);
+
     if (index === -1) {
       setSelectedName([...selectedName, value]);
     } else {
-      const nuevaArray = dataNameTeacher.filter((item) => item.name !== value);
-      setDataNameTeacher(nuevaArray);
+      const nuevaArray = nameTeacher.filter((item) => item.name !== value);
+      setNameTeacher(nuevaArray);
     }
   };
 
   const handleJornadaOnchange = (value) => {
-    const index = selectedTime.indexOf(value);
-    console.log(index, "index");
-    if (index === -1) {
-      setSelectedTime([...selectedTime, value]);
-    } else {
-      if (selectedTime === "Mañana") {
-      }
+    const time = value;
+    const nuevoArray = dataNameTime.filter((item) => item.name !== time);
+    console.log(value);
+    setDataNameTime(nuevoArray);
 
-      const nuevaDatosDeJornada = dataNameTime.filter(
-        (item) => item.name !== value
-      );
-      setDataNameTime(nuevaDatosDeJornada);
+    if (nuevoArray.length === 0) {
+      console.log("hola cero");
+      setDataNameTime(dataNameTime);
+      const { name } = dataNameTime;
+      console.log(name);
     }
   };
 
@@ -72,28 +68,26 @@ export const FieldsTeacher = () => {
       (item) => item !== value
     );
     setCourseSelectedForTeacher(nuevosCurso);
-    console.log(courseSelectedForTeacher, "hola mundo hp");
   };
 
   return (
-    <div className="container">
+    <div className="div-padre-teacher">
       {fields.map((field, index) => (
         <div key={field.id} className="containerProfesor">
           {/* TENER EN CUENTA QUE AQUI CAMBIA EL ORDEN DEL FIEL ARRAY */}
           <div>
             <div className="div-fil-spaces">
-              <div className="profesores">
-                <p className="profesor">Profesor:</p>
-              </div>
+              <br />
+              <label>Profesor:</label>
               <Controller
                 name={`profe.${index}.profesor`}
                 control={control}
                 defaultValues=""
                 render={({ field }) => (
-                  <div style={{ width: "80%", display: "flex" }}>
+                  <div>
                     <Select
                       {...field}
-                      style={{ width: "60%" }}
+                      style={{ width: "80%" }}
                       //  esto hace que lo seleccionado se vea en el input
                       value={field.corso}
                       onChange={(value) => {
@@ -101,11 +95,10 @@ export const FieldsTeacher = () => {
                         handleProfeOnchange(value, index);
                       }}
                     >
-                      {dataNameTeacher.map((datos, datosIndex) => (
+                      {nameTeacher.map((datos, datosIndex) => (
                         <Select.Option
                           key={datosIndex}
                           value={datos.name}
-                          className="selectProfe"
 
                           //   onMouseDown={() => handleClick(datos.name)}
                         >
@@ -120,17 +113,16 @@ export const FieldsTeacher = () => {
           </div>
           <div>
             <div className="div-fil-spaces">
-              <div className="profesores">
-                <p>Cursos:</p>
-              </div>
+              <br />
+              <label>Cursos:</label>
               <Controller
                 name={`test.${index}.jornada`}
                 control={control}
                 render={({ field }) => (
-                  <div style={{ width: "80%", display: "flex" }}>
+                  <div>
                     <Select
                       {...field}
-                      style={{ width: "60%" }}
+                      style={{ width: "80%" }}
                       value={field.curso}
                       onChange={(value) => {
                         field.onChange(value);
@@ -142,7 +134,6 @@ export const FieldsTeacher = () => {
                           onClick={handleProfeOnchange}
                           key={curso}
                           value={curso.name}
-                          //   onMouseDown={() => handleClickCurso(curso)}
                         >
                           {curso.name}
                         </Select.Option>
@@ -155,17 +146,16 @@ export const FieldsTeacher = () => {
           </div>
           <div>
             <div className="div-fil-spaces">
-              <div className="profesores">
-                <p>Jornada:</p>
-              </div>
+              <br />
+              <label>Jornada:</label>
               <Controller
                 name={`test.${index}.jornada`}
                 control={control}
                 render={({ field }) => (
-                  <div style={{ width: "80%", display: "flex" }}>
+                  <div>
                     <Select
                       {...field}
-                      style={{ width: "60%" }}
+                      style={{ width: "80%" }}
                       value={field.jornada}
                       onChange={(value) => {
                         field.onChange(value);
@@ -187,26 +177,27 @@ export const FieldsTeacher = () => {
               />
             </div>
           </div>
-          <div className="button">
+          <br />
+          <div>
             <Button
               onClick={() => {
                 remove(index);
               }}
+              className="button"
             >
-              <DeleteFilled style={{ fontSize: "15px", color: "#b91010cc" }} />
+              <DeleteFilled style={{ color: "#b91010cc" }} />
             </Button>
           </div>
         </div>
       ))}
 
-      <div className="selectedProfe">
+      <div className="selectedProfe ">
+        <br />
         {courseSelectedForTeacher.length === 0 ? null : (
           <>
             <Button
-              type="button"
               onClick={() => {
                 append({ name: "" });
-                // setDatosDeJornada(datosDeJornada);
               }}
               style={{ width: "50%" }}
             >

@@ -1,0 +1,56 @@
+.div-padre-form {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: #f0f0f0;
+}
+.div-padre-form h2 {
+  color: #4f709c;
+  text-align: center;
+  padding: 20px;
+}
+.formulario {
+  width: 70%;
+}
+.formulario input {
+  width: 100%;
+}
+
+.cursoSelect {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+  scroll-behavior: smooth;
+}
+.containerField2 {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.button {
+  display: flex;
+  height: 35px;
+  width: 30%;
+  font-size: 18px;
+  align-items: center;
+  justify-content: center;
+}
+.body-fields {
+  background-color: var(--lightBlue);
+  background-image: url("../img/univecity.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--blue);
+  opacity: 0.8;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  padding: 20px;
+  scroll-behavior: smooth;
+  /* background-color: #f1c376; */
+}

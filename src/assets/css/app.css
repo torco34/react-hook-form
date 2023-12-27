@@ -1,0 +1,23 @@
+:root {
+ 
+  --negro: #212A3E;
+  --blue: #334257;
+  --blanco: #f1f6f9;
+  /* --blanco2: #f5f5f5; */
+  --lightBlue: #dde6ed;
+}
+.app {
+  background-color: var(--lightBlue);
+  /* background-image: url('../img/univecity.jpg'); */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--blue);
+  /* Establecer márgenes y relleno para centrar el contenido */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  scroll-behavior: smooth;
+  /* background-color: #f1c376; */
+}

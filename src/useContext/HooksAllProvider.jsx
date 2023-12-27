@@ -22,17 +22,23 @@ export const HooksAllProvider = ({ children }) => {
   const [selectedTime, setSelectedTime] = useState([]);
 
   //
-  const [selectedCursos, setSelectedCursos] = useState([]);
+  // HOOK DE PAGES
+
+  const [showAppend, setShowAppend] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+  const [showAgregarHorario, setShowAgregarHorario] = useState(false);
+  const [showButtonTime, setShowButtonTime] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState([]);
+  const [copeSelectedCourse, setCopeSelectedCourse] = useState([]);
+  const [historyOnchange, setHistoryOnchange] = useState([]);
+  //
   const [setSelectVisible, selectVisible] = useState([]);
   const [selectAppend1Booleano, setSelectAppend1Booleano] = useState(false);
   const [desactivarSubmit, setDesactivarSubmit] = useState(true);
   const [showAppendCursos, setShowAppendCursos] = useState(false);
-  const [showAppend, setShowAppend] = useState(false);
-  const [copiaSelectedCursos, setCopiaSelectedCursos] = useState([]);
-  const [historyOnchange, setHistoryOnchange] = useState([]);
-  const [showAgregarHorario, setShowAgregarHorario] = useState(false);
+  const [nombreProfesor, setNombreProfesor] = useState([]);
+  const [nameTeacher, setNameTeacher] = useState([]);
   const [deleteFieldsArray, setDeleteFieldsArray] = useState();
-  const [showButton, setShowButton] = useState(false);
 
   // HOOKS DE  PROFESOR
 
@@ -44,7 +50,7 @@ export const HooksAllProvider = ({ children }) => {
   // data de jornada
 
   // const [cursoDeProfesor, setCursoDeProfesor] = useState([]);
-  const [nombreProfesor, setNombreProfesor] = useState([]);
+
   // filtrado de profesor
   const [seleccionadosName, setSeleccionadosName] = useState([]);
   const agregarCursos = (nombre) => {
@@ -59,33 +65,43 @@ export const HooksAllProvider = ({ children }) => {
     //HOOK DE SERVICIO DE API
     setDataNameCourse,
     dataNameCourse,
-
     setDataNameTeacher,
     dataNameTeacher,
-
     setDataNameTime,
     dataNameTime,
 
     // HOOK DEL COMPONENTE fieldTeacher
     courseSelectedForTeacher,
     setCourseSelectedForTeacher,
-
     // nombre del profe
     selectedName,
     setSelectedName,
-    
     // jornada tarde o manana
     selectedTime,
     setSelectedTime,
 
+    // HOOK DEL COMPONENTE pagesEnrollCourse
+    // hook primer selector
+    selectedCourse,
+    setSelectedCourse,
+    //  hook mostrar botones
+    setShowAppend,
+    showAppend,
+    // boolean
+    setShowButton,
+    showButton,
     // hook copia para mapear el segundo fields array
-    setCopiaSelectedCursos,
-    copiaSelectedCursos,
+    copeSelectedCourse,
+    setCopeSelectedCourse,
     // hook guarda  los curso seleccionados
-    setSelectedCursos,
-    selectedCursos,
-    //  hook donde van la array de objeto
+    setShowButtonTime,
+    showButtonTime,
+    // des
+    setNameTeacher,
+    nameTeacher,
 
+    setShowAgregarHorario,
+    showAgregarHorario,
     //  hook muestra   texto cuando ya no hay  curso seleccionado
     setSelectVisible,
     selectVisible,
@@ -96,11 +112,9 @@ export const HooksAllProvider = ({ children }) => {
 
     showAppendCursos,
     // hook muestra el texto segundo  append
-    setShowAppend,
-    showAppend,
+
     // hook mostrar texto agregar horario
-    setShowAgregarHorario,
-    showAgregarHorario,
+
     // guardar historia  en onchei
     setHistoryOnchange,
     historyOnchange,
@@ -111,8 +125,6 @@ export const HooksAllProvider = ({ children }) => {
     setDesactivarSubmit,
     desactivarSubmit,
 
-    setShowButton,
-    showButton,
     // HOOKS PROFESOR
 
     // jornada

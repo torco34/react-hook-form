@@ -8,7 +8,7 @@ export const Home = () => {
     <div>
       <LoginForm />
       <CredentialForm />
-      <FieldsTeacher/>
+     
     </div>
   );
 };

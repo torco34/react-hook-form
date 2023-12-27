@@ -10,6 +10,7 @@ export const LoginForm = () => {
   return (
     <div className="">
       <Button onClick={handleInicioSesion}>Iniciar sesión</Button>
+     
       <Button onClick={handleRegistro}>Registrarse</Button>
     </div>
   );
