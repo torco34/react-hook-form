@@ -5,6 +5,7 @@ import { Container, Navbar } from "react-bootstrap";
 import logo from "../../assets/img/log.png";
 import { BsFillPersonFill } from "react-icons/bs";
 export const Header = () => {
+
   return (
     <>
       <Navbar className="header">
@@ -20,10 +21,13 @@ export const Header = () => {
             <h4>Inscripción de estudiante</h4>
           </Link>
 
-          <Link to="/page"></Link>
+          <Link to="/page">
+            pages courser
+          </Link>
           <Link to="/tecclas">
-            <BsFillPersonFill className="login"/>
-            Login
+            <BsFillPersonFill className="login" />
+            <p> iniciar sesión</p>
+            <p>Registrarse</p>
           </Link>
         </Navbar.Brand>
       </Navbar>
