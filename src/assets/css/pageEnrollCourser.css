@@ -4,8 +4,9 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  background-color: #f0f0f0;
+  font-family: "Arial", sans-serif;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .div-padre-form h2 {
   color: #4f709c;
@@ -53,4 +54,16 @@
   padding: 20px;
   scroll-behavior: smooth;
   /* background-color: #f1c376; */
+}
+.input-field {
+  margin-bottom: 20px;
+
+
+}
+
+.input-field label {
+  display: block;
+  margin-bottom: 5px;
+  color: #334257;
+  
 }

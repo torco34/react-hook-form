@@ -199,7 +199,7 @@ export const FieldsTeacher = () => {
               onClick={() => {
                 append({ name: "" });
               }}
-              style={{ width: "50%" }}
+              style={{ width: "50%", color: "#334257"}}
             >
               Seleccionar Profesores
             </Button>

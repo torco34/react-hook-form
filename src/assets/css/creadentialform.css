@@ -1,3 +1,86 @@
-.credential-form{
-background-color: #EEEEEE;
+.credential-form {
+  background-color: #eeeeee;
+}
+
+/* Estilos generales */
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Estilos para el formulario */
+.credential-form {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(205, 14, 14, 0.1);
+}
+
+.input-field {
+  margin-bottom: 15px;
+}
+
+.input-field label {
+  display: block;
+  margin-bottom: 5px;
+  color: #334257;
+}
+
+.input-field input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.input-field input[type="password"] {
+  margin-top: 5px;
+}
+
+.error-message {
+  color: #e74c3c;
+  margin-top: 5px;
+}
+
+.submit-button {
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* Estilos para las columnas */
+.border {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 20px;
+  /* background-color: #fff; */
+  border-radius: 5px;
+}
+
+/* Estilos para la respuesta "Registrarse" o "Iniciar Sesión" */
+.response-text {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Estilos para botones */
+.button-primary {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-primary:hover {
+  background-color: #2980b9;
 }

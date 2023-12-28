@@ -69,15 +69,14 @@ export const PageEnrollCourse = () => {
     copeSelectedCourse,
     setCopeSelectedCourse,
     // boolean
-    setShowButtonTime,
-    showButtonTime,
+    // setShowButtonTime,
+    // showButtonTime,
     // manipula
     courseSelectedForTeacher,
     setCourseSelectedForTeacher,
 
     // HOOK DE TRABAJO SELECCIÓN DE PROFESOR
-    setDesactivarSubmit,
-    desactivarSubmit,
+
     historyOnchange,
     setNameTeacher,
     nameTeacher,
@@ -141,7 +140,7 @@ export const PageEnrollCourse = () => {
 
     // setNombreJose(datosDeProfesor[1]);
     // setNombreAgustin(datosDeProfesor[2]);
-    // console.log(nombreAgustin, nombreJuan, nombreJose, "hfgf");
+
     setCopeSelectedCourse([...copeSelectedCourse, selectedCurso.name]);
     setSelectedCourse([...selectedCourse, selectedCurso.name]);
     const cursosRestantes = dataNameCourse.filter(
@@ -212,24 +211,15 @@ export const PageEnrollCourse = () => {
   //
   //
   const handleSelect2Onchange = (value, index) => {
-    // if (!historyOnchange.includes(value)) {
-    //   // Si no está presente, agregar el nuevo valor al historial
-    //   setHistoryOnchange([...historyOnchange, value]);
-    // }
-    console.log({ index });
     const elementoVacio = getValues("items").find((item) => !item.items);
-    console.log(historyOnchange);
+
     setShowAppend(false);
     const updatedSelectedCursos = copeSelectedCourse.filter(
       (element) => element !== value
     );
     setCopeSelectedCourse(updatedSelectedCursos);
     setShowButton(false);
-    setShowButtonTime(false);
-    setDesactivarSubmit(false);
-    // if (updatedSelectedCursos.length > 0) {
-    //   appendCursosSeleccionados({ items2: "", hours: "" });
-    // }
+
     removeCourse(index);
   };
 
@@ -262,9 +252,12 @@ export const PageEnrollCourse = () => {
         </Col>
         <Col>
           <br />
-          <div className="div-padre-form p-4 show rounded ">
+          <div className="div-padre-form  p-4 show rounded ">
             <h2>Inscripción de materias</h2>
-            <form onSubmit={handleSubmit(onSubmit)} className="formulario p-5 ">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="formulario p-5 input-field"
+            >
               <label>Nombre:</label>
               <Controller
                 name={"name"}
@@ -396,7 +389,10 @@ export const PageEnrollCourse = () => {
                 ) : (
                   <>
                     {showAppend ? null : (
-                      <Button style={{ width: "50%" }} onClick={handleAppend}>
+                      <Button
+                        style={{ width: "50%", color: "#334257" }}
+                        onClick={handleAppend}
+                      >
                         Seleccionar cursos
                       </Button>
                     )}

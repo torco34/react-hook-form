@@ -43,23 +43,14 @@ export const HooksAllProvider = ({ children }) => {
   // HOOKS DE  PROFESOR
 
   // compartir estado
-  const [fieldArrayData, setFieldArrayData] = useState([]);
+  // const [fieldArrayData, setFieldArrayData] = useState([]);
   // data de profesor
 
-  const [cantidadNombresPorCurso, setCantidadNombresPorCurso] = useState([]);
+  // const [cantidadNombresPorCurso, setCantidadNombresPorCurso] = useState([]);
   // data de jornada
 
-  // const [cursoDeProfesor, setCursoDeProfesor] = useState([]);
-
   // filtrado de profesor
-  const [seleccionadosName, setSeleccionadosName] = useState([]);
-  const agregarCursos = (nombre) => {
-    const nuevaMateria = {
-      id: uuidv4(),
-      name: nombre,
-    };
-    setCursosDisponibles([...cursosDisponibles, nuevaMateria]);
-  };
+  // const [seleccionadosName, setSeleccionadosName] = useState([]);
 
   const contextAllHooks = {
     //HOOK DE SERVICIO DE API
@@ -69,7 +60,6 @@ export const HooksAllProvider = ({ children }) => {
     dataNameTeacher,
     setDataNameTime,
     dataNameTime,
-
     // HOOK DEL COMPONENTE fieldTeacher
     courseSelectedForTeacher,
     setCourseSelectedForTeacher,
@@ -79,7 +69,6 @@ export const HooksAllProvider = ({ children }) => {
     // jornada tarde o manana
     selectedTime,
     setSelectedTime,
-
     // HOOK DEL COMPONENTE pagesEnrollCourse
     // hook primer selector
     selectedCourse,
@@ -99,22 +88,17 @@ export const HooksAllProvider = ({ children }) => {
     // des
     setNameTeacher,
     nameTeacher,
-
     setShowAgregarHorario,
     showAgregarHorario,
     //  hook muestra   texto cuando ya no hay  curso seleccionado
-    setSelectVisible,
     selectVisible,
+    setSelectVisible,
     setSelectAppend1Booleano,
     selectAppend1Booleano,
     // hook 5
     setShowAppendCursos,
-
     showAppendCursos,
     // hook muestra el texto segundo  append
-
-    // hook mostrar texto agregar horario
-
     // guardar historia  en onchei
     setHistoryOnchange,
     historyOnchange,
@@ -124,22 +108,10 @@ export const HooksAllProvider = ({ children }) => {
     //  desactiva submit
     setDesactivarSubmit,
     desactivarSubmit,
-
     // HOOKS PROFESOR
 
-    // jornada
-
-    // compartir estados
-    setFieldArrayData,
-    fieldArrayData,
-
-    cantidadNombresPorCurso,
-    setCantidadNombresPorCurso,
     setNombreProfesor,
     nombreProfesor,
-    // nombres de profesores filtrados
-    seleccionadosName,
-    setSeleccionadosName,
   };
   return (
     <HooksContext.Provider value={{ contextAllHooks }}>

@@ -4,7 +4,7 @@ import "../../assets/css/header.css";
 import { Container, Navbar } from "react-bootstrap";
 import logo from "../../assets/img/log.png";
 import { BsFillPersonFill } from "react-icons/bs";
-import { LoginForm } from "../LoginForm";
+
 export const Header = () => {
   return (
     <>
@@ -22,11 +22,10 @@ export const Header = () => {
           </Link>
 
           <Link to="/page">pages courser</Link>
-          <Link to="/tecclas">
+          <Link to="/login">
             <BsFillPersonFill className="login" />
-            <p>Perfil</p>
+            Login
           </Link>
-          <LoginForm />
         </Navbar.Brand>
       </Navbar>
     </>

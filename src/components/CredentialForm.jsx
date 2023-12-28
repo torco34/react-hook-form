@@ -1,24 +1,36 @@
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Alert } from "antd";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Row, Container, Col } from "react-bootstrap";
 import "../assets/css/creadentialform.css";
 export const CredentialForm = ({}) => {
   const [isRegistration, setIsRegistration] = useState(false);
+  const handleOnRegistro = () => {
+    setIsRegistration(!isRegistration);
+  };
   const { control, handleSubmit } = useForm();
+  const { getValues } = control;
   const onSubmit = (data) => {
-    console.log(data);
+    if (isRegistration && data.confirmPassword !== data.password) {
+      alert("La clave no coinciden")
 
+      return;
+    }
+    console.log(data);
+    setIsRegistration(!isRegistration);
     // reset();
     // setSelectedCursos([""]);
   };
   return (
     <>
+      <br />
       <Row>
-        <Col xs={12} md={4}></Col>
-        <Col xs={12} md={5}>
+        <Col xs={12} md={6} className="border">
+          hola mundo cruel
+        </Col>
+        <Col xs={12} md={4} className="border">
           <Form
-            className="credential-form p-5"
+            className="credential-form p-5   rounded"
             onFinish={handleSubmit(onSubmit)}
           >
             <div className="input-field">
@@ -84,10 +96,7 @@ export const CredentialForm = ({}) => {
                   control={control}
                   defaultValue=""
                   rules={{
-                    validate: (value) =>
-                      value === control.getValues("password")
-                        ? undefined
-                        : "Las contraseñas no coinciden",
+                    required: "Este campo es obligatorio",
                   }}
                   render={({ field, fieldState }) => (
                     <div>
@@ -105,15 +114,18 @@ export const CredentialForm = ({}) => {
                 />
               </div>
             )}
-            {isRegistration ? "Registrarse" : "Iniciar Sesión"}
-            <div className="submit-button">
+            <Button onClick={handleOnRegistro}>
+              {isRegistration ? "Iniciar Sesión" : "Registrarse"}
+            </Button>
+            <div className="submit-button ">
               <Button type="primary" htmlType="submit">
-                enviar
+                {isRegistration ? "Registrarse" : "Iniciar Sesión"}
               </Button>
             </div>
           </Form>
         </Col>
       </Row>
+      <br></br>
     </>
   );
 };
