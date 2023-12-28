@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const PerfilStudy = () => {
+export const PerfilStudyPage = () => {
   return (
     <div>PerfilStudy</div>
   )

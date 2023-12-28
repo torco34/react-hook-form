@@ -1,0 +1,15 @@
+.body-page {
+  background-color: var();
+  background-image: url("../img/univecity.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--blue);
+  opacity: 0.8;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  padding: 20px;
+  scroll-behavior: smooth;
+  /* background-color: #f1c376; */
+}

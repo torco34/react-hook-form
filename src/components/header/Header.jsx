@@ -4,6 +4,7 @@ import "../../assets/css/header.css";
 import { Container, Navbar } from "react-bootstrap";
 import logo from "../../assets/img/log.png";
 import { BsFillPersonFill } from "react-icons/bs";
+import { Button } from "antd";
 
 export const Header = () => {
   return (
@@ -22,10 +23,16 @@ export const Header = () => {
           </Link>
 
           <Link to="dashboard">pages courser</Link>
-          <Link to="login">
-            <BsFillPersonFill className="login" />
-            Login
-          </Link>
+          <div className="login">
+            <Link to="login">
+              <BsFillPersonFill className="login" />
+              Login
+            </Link>
+            <div className="user">
+              <span>torcoroma</span>
+              <Button>Cerras sesión</Button>
+            </div>
+          </div>
         </Navbar.Brand>
       </Navbar>
       <Outlet />

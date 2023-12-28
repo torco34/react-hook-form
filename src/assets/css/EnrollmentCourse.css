@@ -1,5 +1,5 @@
 .div-padre-form {
-  width: 95%;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,29 +41,20 @@
   justify-content: center;
 }
 .body-fields {
+  
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   background-color: var(--lightBlue);
-  background-image: url("../img/univecity.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: var(--blue);
-  opacity: 0.8;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  padding: 20px;
   scroll-behavior: smooth;
-  /* background-color: #f1c376; */
+  padding: 30px;
 }
 .input-field {
   margin-bottom: 20px;
-
-
 }
 
 .input-field label {
   display: block;
   margin-bottom: 5px;
   color: #334257;
-  
 }

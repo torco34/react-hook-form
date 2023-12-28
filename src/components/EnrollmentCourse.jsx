@@ -1,13 +1,16 @@
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { DeleteFilled } from "@ant-design/icons";
 import { Button, Form, Input, InputNumber, Select } from "antd";
-import { useHookCourse } from "../useContext/HooksAllProvider";
-import "../assets/css/pageEnrollCourser.css";
+
+import "../assets/css/EnrollmentCourse.css";
 import { v4 as uuidv4 } from "uuid";
-import { FieldsTeacher } from "../components/FieldsTeacher";
-export const PageEnrollCourse = () => {
+
+import { useHookCourse } from "../useContext/HooksAllProvider";
+import { FieldsTeacher } from "./FieldsTeacher";
+useHookCourse;
+export const EnrollmentCourse = () => {
   const {
     control,
     handleSubmit,
@@ -245,13 +248,8 @@ export const PageEnrollCourse = () => {
 
   return (
     <div className="body-fields">
-      {/* <Container> */}
       <Row>
-        <Col xs lg="7">
-          <div>esta una materia nueva</div>
-        </Col>
-        <Col>
-          <br />
+        <Col xs lg="12">
           <div className="div-padre-form  p-4 show rounded ">
             <h2>Inscripción de materias</h2>
             <form
@@ -520,7 +518,6 @@ export const PageEnrollCourse = () => {
           </div>
         </Col>
       </Row>
-      {/* </Container> */}
     </div>
   );
 };

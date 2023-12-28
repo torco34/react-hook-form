@@ -4,10 +4,12 @@ import "./assets/css/app.css";
 import { UserLogicProvider } from "./useContext/UseLogicProvider";
 // import { CursosProvider } from "./ProyectoTecclas/useContext/CursosProvider";
 import { HooksAllProvider } from "./useContext/HooksAllProvider";
-// import { PageIndex } from "./ProyectoTecclas/PageIndex";
-import { Home } from "./page/Home";
-import { PageEnrollCourse } from "./page/PageEnrollCourse";
+
+
+import { EnrollCoursePage, HomePage, } from "./page";
 import { CredentialForm } from "./components/CredentialForm";
+
+
 function App() {
   return (
     <div className="app">
@@ -16,13 +18,10 @@ function App() {
           <HooksAllProvider>
             <Routes>
               <Route path="/" element={<Header />}>
-                <Route index element={<Home />} />
-                <Route path="/login" element={<CredentialForm />} />
-                <Route path="/dashboard" element={<PageEnrollCourse />} />
+                <Route index element={<HomePage />} />
+                <Route path="login" element={<CredentialForm />} />
+                <Route path="dashboard" element={<EnrollCoursePage />} />
               </Route>
-              {/* <Route path="/" element={<Home />}></Route>
-              <Route path="/page" element={<PageEnrollCourse />}></Route>
-              <Route path="/login" element={<CredentialForm />}></Route> */}
             </Routes>
           </HooksAllProvider>
         </UserLogicProvider>

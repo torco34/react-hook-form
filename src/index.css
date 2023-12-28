@@ -1,9 +1,8 @@
 body {
-  margin: 0;
   display: flex;
-  justify-content: center;
-  background-color: rgb(34, 182, 133);
-  min-width: 320px;
+  margin: 0;
+  padding: 0;
   min-height: 100vh;
-  scroll-behavior: smooth;
+  flex-direction: column;
+  /* overflow: hidden; */
 }
