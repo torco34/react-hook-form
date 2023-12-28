@@ -3,23 +3,28 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Row, Container, Col } from "react-bootstrap";
 import "../assets/css/creadentialform.css";
+import { useNavigate } from "react-router-dom";
 export const CredentialForm = ({}) => {
+  const navigate = useNavigate();
   const [isRegistration, setIsRegistration] = useState(false);
   const handleOnRegistro = () => {
     setIsRegistration(!isRegistration);
   };
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit } = useForm({});
   const { getValues } = control;
+
   const onSubmit = (data) => {
     if (isRegistration && data.confirmPassword !== data.password) {
-      alert("La clave no coinciden")
+      alert("La clave no coinciden");
 
       return;
     }
     console.log(data);
-    setIsRegistration(!isRegistration);
-    // reset();
-    // setSelectedCursos([""]);
+    localStorage.setItem("userData", JSON.stringify(data));
+    navigate("/dashboard", {
+      replace: true,
+      state: { logged: true, name: data.usernameOrEmail },
+    });
   };
   return (
     <>
@@ -35,12 +40,12 @@ export const CredentialForm = ({}) => {
           >
             <div className="input-field">
               <label>
-                {isRegistration ? "Nombre de usuario" : "Correo electrónico"}
+                {isRegistration ? "Correo electrónico" : " Nombre de usuario"}
               </label>
               <Controller
                 name="usernameOrEmail"
                 control={control}
-                defaultValue=""
+                value=""
                 rules={{
                   required: "Este campo es obligatorio",
                 }}
