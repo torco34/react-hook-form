@@ -3,7 +3,7 @@ import { useHookCourse } from "./HooksAllProvider";
 const UserAuthContext = createContext();
 
 export const UserLogicProvider = ({ children }) => {
-  const { contextAllHooks } = useContext(useHookCourse);
+
   const ReusableLogicContext = {
     //HOOK DE SERVICIO DE API
   };

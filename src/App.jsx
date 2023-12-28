@@ -14,11 +14,15 @@ function App() {
       <Router>
         <UserLogicProvider>
           <HooksAllProvider>
-            <Header />
             <Routes>
-              <Route path="/" element={<Home />}></Route>
+              <Route path="/" element={<Header />}>
+                <Route index element={<Home />} />
+                <Route path="/login" element={<CredentialForm />} />
+                <Route path="/dashboard" element={<PageEnrollCourse />} />
+              </Route>
+              {/* <Route path="/" element={<Home />}></Route>
               <Route path="/page" element={<PageEnrollCourse />}></Route>
-              <Route path="/login" element={<CredentialForm />}></Route>
+              <Route path="/login" element={<CredentialForm />}></Route> */}
             </Routes>
           </HooksAllProvider>
         </UserLogicProvider>

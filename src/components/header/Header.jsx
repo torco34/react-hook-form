@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import "../../assets/css/header.css";
 import { Container, Navbar } from "react-bootstrap";
 import logo from "../../assets/img/log.png";
@@ -21,13 +21,14 @@ export const Header = () => {
             <h4>Inscripción de estudiante</h4>
           </Link>
 
-          <Link to="/page">pages courser</Link>
-          <Link to="/login">
+          <Link to="dashboard">pages courser</Link>
+          <Link to="login">
             <BsFillPersonFill className="login" />
             Login
           </Link>
         </Navbar.Brand>
       </Navbar>
+      <Outlet />
     </>
   );
 };
