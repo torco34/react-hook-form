@@ -2,11 +2,13 @@
 .profile-container {
   display: flex;
   align-items: center;
-  padding: 20px;
-  /* border: 1px solid #fdfdfd; */
-  /* background-color: var(--blanco2); */
+  background-color: var(--blanco2);
   border-radius: 8px;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.containerFather {
+  background-color: var(--lightBlue);
+  height: auto;
 }
 
 /* Estilos para la imagen de perfil */
@@ -15,13 +17,14 @@
   height: 150px;
   border-radius: 50%;
   margin-right: 20px;
-  border:solid #fff;
+  border: solid #fff;
 }
 
 /* Estilos para el contenido del perfil */
 .profile-content {
- 
   margin-top: 30px;
+  font-family: "Arial", sans-serif;
+
 }
 
 /* Estilos para el nombre de usuario */

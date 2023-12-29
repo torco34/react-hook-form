@@ -34,7 +34,34 @@ export const CredentialForm = ({}) => {
           >
             <div className="input-field">
               <label>
-                {isRegistration ? "Correo electrónico" : " Nombre de usuario"}
+                {isRegistration ? "Nombre y apellido" : " Nombre de usuario"}
+              </label>
+              {isRegistration && (
+                <Controller
+                  name="username"
+                  control={control}
+                  value=""
+                  rules={{
+                    required: "Este campo es obligatorio",
+                  }}
+                  render={({ field, fieldState }) => (
+                    <div>
+                      <Input
+                        {...field}
+                        placeholder={isRegistration ? " Nombre y apellidos" : "Usuario "}
+                      />
+                      {fieldState.invalid && (
+                        <p className="error-message">
+                          {fieldState.error?.message}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                />
+              )}
+              <label>
+               
+                {isRegistration ? "Correo electrónico" : null}
               </label>
               <Controller
                 name="usernameOrEmail"
@@ -48,7 +75,7 @@ export const CredentialForm = ({}) => {
                     <Input
                       {...field}
                       placeholder={
-                        isRegistration ? "Usuario" : "Correo electrónico"
+                        isRegistration ? " Correo electrónico" : "Usuario "
                       }
                     />
                     {fieldState.invalid && (
@@ -117,11 +144,11 @@ export const CredentialForm = ({}) => {
               </div>
             )}
             <Button onClick={handleOnRegistro}>
-              {isRegistration ? "Iniciar Sesión" : "Registrarse"}
+              {isRegistration ? "Ingresar" : "Registrarse"}
             </Button>
             <div className="submit-button ">
               <Button type="primary" htmlType="submit">
-                {isRegistration ? "Registrarse" : "Iniciar Sesión"}
+                {isRegistration ? "Registrarse" : "Ingresar"}
               </Button>
             </div>
           </Form>

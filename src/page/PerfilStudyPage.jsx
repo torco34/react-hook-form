@@ -1,5 +1,5 @@
 import React from "react";
-import perfil from "../assets/img/perfil2.jpg";
+import perfil from "../assets/img/icon.png";
 import "../assets/css/perfil.css";
 import { Link, useLocation, useNavigate, Outlet } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
@@ -7,6 +7,8 @@ import { Button } from "antd";
 import { useState } from "react";
 import { EnrollCoursePage } from "./EnrollCoursePage";
 import { BiSolidHide } from "react-icons/bi";
+import { EnrollmentCourse } from "../components";
+import { BiUserCircle } from "react-icons/bi";
 export const PerfilStudyPage = () => {
   const [show, setShow] = useState(false);
   const { state } = useLocation();
@@ -16,40 +18,48 @@ export const PerfilStudyPage = () => {
     setShow(!show);
   };
   return (
-    <div className=" containerFather">
+    <div className="container containerFather">
       <Row>
-        <Col xs={12} md={12}>
-          <div className="container  profile-container">
-            <img
-              src={perfil}
-              alt="Imagen de perfil"
-              className="profile-image"
-            />
+        <Col xs={12} md={6}>
+          <div className="container-color">
+            <div className="container  profile-container">
+              <img
+                src={perfil}
+                alt="Imagen de perfil"
+                className="profile-image"
+              />
 
-            <div className="profile-content  ">
-              <div className="">
-                Nombre del alumno:
+              <div className="text-profile">
+                Nombre estudiante:
                 <p className="username">{state?.name}</p>
               </div>
-              <div className="profile-info">
-                Especialización:
-                <p className="username">Matemático</p>
-                <p>
-                  La información del perfil solo la visualiza usted. Solo el
-                  nombre de usuario es visible para los demás en.{" "}
-                  <BiSolidHide />
-                </p>
-                <hr></hr>
-              </div>
             </div>
-            <Button onClick={handleMaterial}>
-              {!show ? "Inscripción de materias" : "Cerrar formulario"}
+          </div>
+
+          <div className="profile-content  ">
+            <Button
+              onClick={handleMaterial}
+              style={{
+                background: "#fff",
+                color: "#666",
+                height: "40px",
+                textAlign: "center",
+              }}
+            >
+              {!show ? "Inscripción de materias" : "Cerrar   formulario    "}
             </Button>
           </div>
         </Col>
 
-        <Col xs={12} md={12}>
-          {show && <EnrollCoursePage />}
+        <Col xs={12} md={6}>
+          <div className="body-perfil">{show && <EnrollmentCourse />}</div>
+        </Col>
+        <Col xs={12} md={6}>
+          <p>
+            en este perfil encontraras un formulario donde podras escribir la
+            materias y asignales un profeso en este formulario esta hecho con
+            fieldes array de
+          </p>
         </Col>
       </Row>
     </div>

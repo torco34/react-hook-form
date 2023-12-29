@@ -250,7 +250,7 @@ export const EnrollmentCourse = () => {
     <div className="body-fields">
       <Row>
         <Col xs lg="12">
-          <div className="div-padre-form  p-4 show rounded ">
+          <div className="div-padre-form   show rounded ">
             <h2>Inscripción de materias</h2>
             <form
               onSubmit={handleSubmit(onSubmit)}

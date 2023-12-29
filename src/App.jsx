@@ -9,6 +9,7 @@ import { EnrollCoursePage, HomePage, PerfilStudyPage } from "./page";
 import { CredentialForm } from "./components/CredentialForm";
 import {} from "./page/PerfilStudyPage";
 import { PrivateRouter } from "./components/PrivateRouter";
+import { Footer } from "./components/header/Footer";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
                 <Route path="enrollment" element={<EnrollCoursePage />} />
               </Route>
             </Routes>
+            <Footer />
           </HooksAllProvider>
         </UserLogicProvider>
       </Router>
