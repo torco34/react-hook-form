@@ -1,0 +1,39 @@
+/* Estilos para el contenedor del perfil */
+.profile-container {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  /* border: 1px solid #fdfdfd; */
+  /* background-color: var(--blanco2); */
+  border-radius: 8px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+
+/* Estilos para la imagen de perfil */
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-right: 20px;
+  border:solid #fff;
+}
+
+/* Estilos para el contenido del perfil */
+.profile-content {
+ 
+  margin-top: 30px;
+}
+
+/* Estilos para el nombre de usuario */
+.username {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #666;
+}
+
+/* Estilos para la información adicional del perfil */
+.profile-info {
+  font-size: 1rem;
+  color: #666;
+}

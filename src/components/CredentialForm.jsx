@@ -1,7 +1,7 @@
 import { Form, Input, Button, Alert } from "antd";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Row, Container, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import "../assets/css/creadentialform.css";
 import { useNavigate } from "react-router-dom";
 export const CredentialForm = ({}) => {
@@ -10,15 +10,9 @@ export const CredentialForm = ({}) => {
   const handleOnRegistro = () => {
     setIsRegistration(!isRegistration);
   };
-  const { control, handleSubmit } = useForm({});
-  const { getValues } = control;
+  const { control, handleSubmit, getValues } = useForm({});
 
   const onSubmit = (data) => {
-    if (isRegistration && data.confirmPassword !== data.password) {
-      alert("La clave no coinciden");
-
-      return;
-    }
     console.log(data);
     localStorage.setItem("userData", JSON.stringify(data));
     navigate("/dashboard", {
@@ -102,6 +96,9 @@ export const CredentialForm = ({}) => {
                   defaultValue=""
                   rules={{
                     required: "Este campo es obligatorio",
+                    validate: (value) =>
+                      value === getValues("password") ||
+                      "Las contraseñas no coinciden",
                   }}
                   render={({ field, fieldState }) => (
                     <div>

@@ -12,7 +12,6 @@ export const EnrollCoursePage = () => {
         </Col>
 
         <Col>
-      
           <EnrollmentCourse />
         </Col>
       </Row>

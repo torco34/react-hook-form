@@ -5,10 +5,10 @@ import { UserLogicProvider } from "./useContext/UseLogicProvider";
 // import { CursosProvider } from "./ProyectoTecclas/useContext/CursosProvider";
 import { HooksAllProvider } from "./useContext/HooksAllProvider";
 
-
-import { EnrollCoursePage, HomePage, } from "./page";
+import { EnrollCoursePage, HomePage, PerfilStudyPage } from "./page";
 import { CredentialForm } from "./components/CredentialForm";
-
+import {} from "./page/PerfilStudyPage";
+import { PrivateRouter } from "./components/PrivateRouter";
 
 function App() {
   return (
@@ -20,7 +20,15 @@ function App() {
               <Route path="/" element={<Header />}>
                 <Route index element={<HomePage />} />
                 <Route path="login" element={<CredentialForm />} />
-                <Route path="dashboard" element={<EnrollCoursePage />} />
+                <Route
+                  path="dashboard"
+                  element={
+                    <PrivateRouter>
+                      <PerfilStudyPage />
+                    </PrivateRouter>
+                  }
+                />
+                <Route path="enrollment" element={<EnrollCoursePage />} />
               </Route>
             </Routes>
           </HooksAllProvider>
