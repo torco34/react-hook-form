@@ -39,20 +39,38 @@ export const HooksAllProvider = ({ children }) => {
   const [nombreProfesor, setNombreProfesor] = useState([]);
   const [nameTeacher, setNameTeacher] = useState([]);
   const [deleteFieldsArray, setDeleteFieldsArray] = useState();
+  //  HOOK DE PAGES  PERFIL
 
-  // HOOKS DE  PROFESOR
+  const [show, setShow] = useState(false);
+  const [showHome, setShowHome] = useState(false);
+  const [showText, setShowText] = useState(false);
 
-  // compartir estado
-  // const [fieldArrayData, setFieldArrayData] = useState([]);
-  // data de profesor
+  const handleFormulario = () => {
+    setShowHome(true);
+    setShow(false);
+  };
+  const handleHomePage = () => {
+    setShow(true);
+    setShowHome(false);
+  };
 
-  // const [cantidadNombresPorCurso, setCantidadNombresPorCurso] = useState([]);
-  // data de jornada
-
-  // filtrado de profesor
-  // const [seleccionadosName, setSeleccionadosName] = useState([]);
-
+  const handleShowText = () => {
+    setShowText(true);
+    console.log("hola mundo");
+  };
   const contextAllHooks = {
+    // FUNCIÓN DE PAGES PERFIL
+    handleHomePage,
+    handleFormulario,
+    handleShowText,
+    // HOOK DE PAGES PERFIL
+    setShowHome,
+    showHome,
+    setShow,
+    show,
+    setShowText,
+    showText,
+
     //HOOK DE SERVICIO DE API
     setDataNameCourse,
     dataNameCourse,

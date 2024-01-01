@@ -29,9 +29,8 @@
 
 .user {
   display: flex;
-
   color: #fff;
-  width: 50%;
+ 
   gap: 20px;
   align-items: center;
   justify-content: center;

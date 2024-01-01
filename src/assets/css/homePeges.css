@@ -1,0 +1,61 @@
+/* HomePage.css */
+/* HomePage.css */
+
+.university-homepages {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: var();
+  background-image: url("../img/univecity.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--blue);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  padding: 20px;
+  height: 80vh;
+  scroll-behavior: smooth;
+}
+.university-homepage {
+  background-color: #f0f0f0;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  /* text-align: center; */
+  border-radius: 8px;
+}
+.university-homepage h1 {
+  color: #333;
+  margin-bottom: 20px;
+  /* font-weight: bold; */
+ 
+}
+
+.university-homepage p {
+  color: #666;
+ 
+}
+
+.project-explanation {
+  margin-top: 20px;
+  background-color: #f0f0f0;
+}
+
+.project-explanation h2 {
+  padding:  20px;
+  /* font-weight: bold; */
+  color: #333;
+  /* border: solid; */
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.project-explanation p {
+  margin-bottom: 20px;
+  color: #444;
+  line-height: 1.5;
+  padding: 10px;
+}
+span{
+    font-weight: bold;
+}

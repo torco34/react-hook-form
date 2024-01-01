@@ -8,15 +8,10 @@
 }
 .app {
   background-color: var(--lightBlue);
-  /* background-image: url('../img/univecity.jpg'); */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: var(--blue);
-  /* Establecer márgenes y relleno para centrar el contenido */
-
   box-sizing: border-box;
-
   scroll-behavior: smooth;
-  /* background-color: #f1c376; */
 }

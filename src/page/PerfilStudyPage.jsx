@@ -1,22 +1,52 @@
-import React from "react";
 import perfil from "../assets/img/icon.png";
 import "../assets/css/perfil.css";
-import { Link, useLocation, useNavigate, Outlet } from "react-router-dom";
-import { Container, Row, Col } from "react-bootstrap";
-import { Button } from "antd";
-import { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { Row, Col } from "react-bootstrap";
 import { EnrollCoursePage } from "./EnrollCoursePage";
-import { BiSolidHide } from "react-icons/bi";
-import { EnrollmentCourse } from "../components";
-import { BiUserCircle } from "react-icons/bi";
+import { ButtonReutilizar, EnrollmentCourse, ProfileInfo } from "../components";
+import { useHookCourse } from "../useContext/HooksAllProvider";
+import { useContext, useEffect } from "react";
+
 export const PerfilStudyPage = () => {
-  const [show, setShow] = useState(false);
+  const { contextAllHooks } = useHookCourse();
+  const {
+    showHome,
+    setShowHome,
+    show,
+    setShow,
+    setShowText,
+    handleShowText,
+    showText,
+  } = contextAllHooks;
   const { state } = useLocation();
-  const navigation = useNavigate();
-  const handleMaterial = () => {
-    // navigation("/enrollment", { replace: true });
-    setShow(!show);
+  const handleFormulario = () => {
+    setShowHome(true);
+    setShow(false);
   };
+  const handleHomePage = () => {
+    setShow(true);
+    setShowHome(false);
+    setShowText(false);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("show", JSON.stringify(show));
+    localStorage.setItem("showHome", JSON.stringify(showHome));
+  }, [show, showHome]);
+
+  useEffect(() => {
+    const savedShow = localStorage.getItem("show");
+    const savedShowHome = localStorage.getItem("showHome");
+
+    if (savedShow) {
+      setShow(JSON.parse(savedShow));
+    }
+
+    if (savedShowHome) {
+      setShowHome(JSON.parse(savedShowHome));
+    }
+  }, []);
+
   return (
     <div className="container containerFather">
       <Row>
@@ -31,35 +61,66 @@ export const PerfilStudyPage = () => {
 
               <div className="text-profile">
                 Nombre estudiante:
-                <p className="username">{state?.name}</p>
+                <p className="username text-uppercase">{state?.name}</p>
               </div>
             </div>
           </div>
 
-          <div className="profile-content  ">
-            <Button
-              onClick={handleMaterial}
-              style={{
-                background: "#fff",
-                color: "#666",
-                height: "40px",
-                textAlign: "center",
-              }}
-            >
-              {!show ? "Inscripción de materias" : "Cerrar   formulario    "}
-            </Button>
+          <div className="profile-content d-flex  gap-3  ">
+            <ButtonReutilizar
+              text="Inscripción cursos"
+              onClick={handleFormulario}
+            />
+            <ButtonReutilizar
+              text="Cursos en procesos"
+              onClick={handleHomePage}
+            />
+
+            <ButtonReutilizar
+              text="inscricion de projecto"
+              onClick={handleShowText}
+            />
           </div>
+
+          <ProfileInfo
+            name={state?.name}
+            location="Colombia"
+            education="Formación media"
+          />
         </Col>
 
         <Col xs={12} md={6}>
-          <div className="body-perfil">{show && <EnrollmentCourse />}</div>
+          <div className="body-perfil">
+            {show ? <EnrollmentCourse /> : null}
+            {showHome ? <EnrollCoursePage /> : null}
+            {showText && (
+              <div className="bg-light border p-5 mb-5">
+                <p>
+                  En mi aplicación, implementé React Hook Form para gestionar
+                  formularios, haciendo uso especialmente de FieldArray para
+                  manejar campos dinámicos. Además, incorporé validaciones en
+                  tiempo real para mejorar la experiencia del usuario.
+                </p>
+                <p>
+                  Para la navegación, utilicé React Router con rutas anidadas
+                  para organizar la estructura de la aplicación de manera
+                  eficiente. Además, implementé medidas de seguridad mediante
+                  rutas protegidas, asegurando que ciertas secciones solo sean
+                  accesibles para usuarios autorizados.
+                </p>
+                <p>
+                  En resumen, construí una aplicación que aprovecha las
+                  capacidades de React Hook Form para la gestión de formularios
+                  dinámicos, integra validaciones en tiempo real y utiliza React
+                  Router con rutas anidadas y protegidas para una navegación
+                  segura y organizada.
+                </p>
+              </div>
+            )}
+          </div>
         </Col>
         <Col xs={12} md={6}>
-          <p>
-            en este perfil encontraras un formulario donde podras escribir la
-            materias y asignales un profeso en este formulario esta hecho con
-            fieldes array de
-          </p>
+          <div className="body-perfil"></div>
         </Col>
       </Row>
     </div>

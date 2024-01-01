@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "../../assets/css/header.css";
 import { Container, Navbar } from "react-bootstrap";
@@ -34,21 +34,22 @@ export const Header = () => {
           </div>
 
           <div className="login">
-            <BsFillPersonFill
-              style={{
-                fontSize: "30px",
-                color: "#fff",
-              }}
-            />
             {state?.logged ? (
               <div className="user">
+                <BsFillPersonFill
+                  style={{
+                    fontSize: "30px",
+                    color: "#fff",
+                  }}
+                />
                 <span>{state?.name}</span>
                 <Button onClick={onLogout}>Cerras sesión</Button>
-               
               </div>
             ) : (
               <div className="user">
-                <Button onClick={onLogout}>iniciar sesion</Button>
+                <Link to="login">
+                  <Button onClick={onLogout}>iniciar sesión</Button>
+                </Link>
               </div>
             )}
           </div>
