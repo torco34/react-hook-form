@@ -1,84 +1,65 @@
 import "../assets/css/homePeges.css"; // Importa el archivo CSS
 import Carousel from "react-bootstrap/Carousel";
 
-import ExampleCarouselImage from "../assets/img/univecity.jpg";
-
+import universityImage from "../assets/img/university.jpg";
+import universityImage1 from "../assets/img/univesity0.jpg";
+import universityImage2 from "../assets/img/university3.jpg";
+import { CarouselImagen } from "../components/CarouselImagen";
+import { CarouselText } from "../components/CarouselText";
 export const HomePage = () => {
   return (
     <Carousel>
       <Carousel.Item>
-        <ExampleCarouselImage text="First slide" />
-        <img src={ExampleCarouselImage} alt="" />
+        <CarouselImagen src={universityImage} text="First slide" />
         <Carousel.Caption>
-          <div className="university-homepages container">
-            <div className="university-homepage container">
-              <h1>Bienvenido a la Universidad XYZ</h1>
-              <p>Explora nuestras oportunidades educativas de clase mundial.</p>
-
-              {/* Sección de explicación del proyecto */}
-              <section className="project-explanation">
-                <h2>Proyecto: Página Principal</h2>
-                <p>
-                  En esta página, he construido la página principal de mi
-                  aplicación. Diseñé un formulario utilizando{" "}
-                  <span>`react-hook-form`</span> que incorpora
-                  <span> ` FieldArray`</span> para gestionar un conjunto
-                  dinámico de campos.
-                </p>
-                <p>
-                  También incluí un enlace <span> `Link`</span>que redirige a la
-                  ruta anidada `/nested`. Al hacer clic en este enlace, utilicé
-                  el contexto global
-                  <span> `useAppContext`</span>para establecer un valor,
-                  permitiendo una navegación y gestión de estado más fluida en
-                  la ruta anidada.
-                </p>
-              </section>
-            </div>
+          <div className="university-homepages ">
+            <CarouselText
+              textH1="Bienvenido a la Universidad"
+              textH2="Proyecto: Página Principal"
+              textH5=" También incluí un enlace  `Link` que redirige a la
+                ruta anidada `/nested`. Al hacer clic en este enlace, utilicé
+                el contexto global
+                <span> `useAppContext`</span>para establecer un valor,
+                permitiendo una navegación y gestión de estado más fluida en
+                la ruta anidada. "
+            />
           </div>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <ExampleCarouselImage text="Second slide" />
+        <CarouselImagen src={universityImage1} text="Second slide" />
         <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <div className="university-homepages ">
+            <CarouselText
+              textH1="Bienvenido a la Universidad"
+              textH2="Proyecto: Página Principal"
+              textH5=" También incluí un enlace  `Link` que redirige a la
+                ruta anidada `/nested`. Al hacer clic en este enlace, utilicé
+                el contexto global
+                <span> `useAppContext`</span>para establecer un valor,
+                permitiendo una navegación y gestión de estado más fluida en
+                la ruta anidada. "
+            />
+          </div>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <ExampleCarouselImage text="Third slide" />
+        <CarouselImagen src={universityImage2} text="Third slide" />
         <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
+          <div className="university-homepages ">
+            <CarouselText
+              textH1="Bienvenido a la Universidad"
+              textH2="Proyecto: Página Principal"
+              textH5=" También incluí un enlace  `Link` que redirige a la
+                ruta anidada `/nested`. Al hacer clic en este enlace, utilicé
+                el contexto global
+                <span> `useAppContext`</span>para establecer un valor,
+                permitiendo una navegación y gestión de estado más fluida en
+                la ruta anidada. "
+            />
+          </div>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
-    // <div className="university-homepages container">
-    //   <div className="university-homepage container">
-    //     <h1>Bienvenido a la Universidad XYZ</h1>
-    //     <p>Explora nuestras oportunidades educativas de clase mundial.</p>
-
-    //     {/* Sección de explicación del proyecto */}
-    //     <section className="project-explanation">
-    //       <h2>Proyecto: Página Principal</h2>
-    //       <p>
-    //         En esta página, he construido la página principal de mi aplicación.
-    //         Diseñé un formulario utilizando <span>`react-hook-form`</span> que
-    //         incorpora
-    //         <span> ` FieldArray`</span> para gestionar un conjunto dinámico de
-    //         campos.
-    //       </p>
-    //       <p>
-    //         También incluí un enlace <span> `Link`</span>que redirige a la ruta
-    //         anidada `/nested`. Al hacer clic en este enlace, utilicé el contexto
-    //         global
-    //         <span> `useAppContext`</span>para establecer un valor, permitiendo
-    //         una navegación y gestión de estado más fluida en la ruta anidada.
-    //       </p>
-    //     </section>
-    //   </div>
-    // </div>
   );
 };
