@@ -4,11 +4,18 @@
   align-items: center;
   background-color: var(--blanco2);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Añadí "2px" y "solid" para especificar el grosor y tipo de borde */
+  width: 100%;
 }
+
 .containerFather {
   background-color: var(--lightBlue);
-  height: auto;
+
+  padding: 20px; /* Añadí un padding de 20px, pero puedes ajustarlo según tus preferencias */
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
 }
 
 /* Estilos para la imagen de perfil */
@@ -17,12 +24,13 @@
   height: 150px;
   border-radius: 50%;
   margin-right: 20px;
-  border: solid #fff;
+  border: 2px solid var(--blanco2);
 }
 
 /* Estilos para el contenido del perfil */
 .profile-content {
   margin-top: 30px;
+
   font-family: "Arial", sans-serif;
 }
 
@@ -30,8 +38,10 @@
 .username {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 28px;
   color: #666;
+
+  /* Añadí "2px" y "solid" para especificar el grosor y tipo de borde */
 }
 
 /* Estilos para la información adicional del perfil */
@@ -39,10 +49,27 @@
   font-size: 1rem;
   color: #666;
 }
-.containerFather {
-  border: solid #d50606;
-  display: flex;
-  /* align-items: center; */
-  /* justify-content: center; */
-  height: 100vh;
+
+.body-perfil {
+  border-right: 7px solid var(--blue);
+
+  width: 40rem;
+}
+
+/* Estilos para los botones con efecto de hover */
+.button-reutilizar {
+  background-color: #007bff;
+  color: #fff;
+  border: 2px solid #007bff;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-right: 1px solid #7f1919;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button-reutilizar:hover {
+  background-color: #0056b3;
+  border: 2px solid #0056b3;
+  color: #fff;
+  border-right: 1px solid #7f1919;
 }

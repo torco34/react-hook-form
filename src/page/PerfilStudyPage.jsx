@@ -62,16 +62,16 @@ export const PerfilStudyPage = () => {
 
           <div className="profile-content d-flex  gap-3  ">
             <ButtonReutilizar
-              text="Inscripción cursos"
+              text="Materias en proceso"
               onClick={handleFormulario}
             />
             <ButtonReutilizar
-              text="Cursos en procesos"
+              text="formulario dinámico"
               onClick={handleHomePage}
             />
 
             <ButtonReutilizar
-              text="inscricion de projecto"
+              text="descripción del proyecto"
               onClick={handleShowText}
             />
           </div>

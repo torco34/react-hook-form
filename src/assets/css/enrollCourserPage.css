@@ -1,6 +1,6 @@
 .body-page {
   background-color: var();
-  background-image: url("../img/univecity.jpg");
+  background-image: url("../img/university1.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -12,7 +12,10 @@
   padding: 20px;
   scroll-behavior: smooth;
   height: 90vh;
-  border: solid;
-  
+  background-color: var(--blanco);
+  width: 100%;
+  display: flex;
+  gap: 20px;
+
   /* background-color: #f1c376; */
 }
