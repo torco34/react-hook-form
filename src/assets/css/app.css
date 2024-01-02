@@ -1,18 +1,20 @@
 :root {
-  --negro: #212a3e;
+  --gris2: #ccc;
   --blue: #334257;
   --gris: #666;
   --blanco: #f1f6f9;
   --blanco2: #fff;
   --lightBlue: #dde6ed;
+  --red: #e74c3c;
 }
 .app {
   background-color: var(--lightBlue);
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: var(--blue);
-
+  /* color: var(--gris2); */
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
