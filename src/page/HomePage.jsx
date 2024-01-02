@@ -4,8 +4,8 @@ import Carousel from "react-bootstrap/Carousel";
 import universityImage from "../assets/img/university.jpg";
 import universityImage1 from "../assets/img/univesity0.jpg";
 import universityImage2 from "../assets/img/university3.jpg";
-import { CarouselImagen } from "../components/CarouselImagen";
-import { CarouselText } from "../components/CarouselText";
+
+import { CarouselText, CarouselImagen } from "../components";
 export const HomePage = () => {
   return (
     <Carousel>

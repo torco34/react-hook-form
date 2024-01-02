@@ -1,6 +1,6 @@
 import { Row, Col } from "react-bootstrap";
 import "../assets/css/enrollCourserPage.css";
-import { Bs0SquareFill, Bs1CircleFill } from "react-icons/bs";
+
 import img0 from "../assets/img/ingle.jpeg";
 import img1 from "../assets/img/int.jpeg";
 import img2 from "../assets/img/computer.jpeg";

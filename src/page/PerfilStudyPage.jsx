@@ -3,10 +3,10 @@ import "../assets/css/perfil.css";
 import { useLocation } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import { EnrollCoursePage } from "./EnrollCoursePage";
-import { ButtonReutilizar, EnrollmentCourse, ProfileInfo } from "../components";
+import { ButtonReutilizar, EnrollmentCourse, ProfileInfo, CarouselText } from "../components";
 import { useHookCourse } from "../useContext/HooksAllProvider";
 import { useContext, useEffect } from "react";
-import { CarouselText } from "../components/CarouselText";
+
 
 export const PerfilStudyPage = () => {
   const { contextAllHooks } = useHookCourse();

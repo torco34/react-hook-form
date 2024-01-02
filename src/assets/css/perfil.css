@@ -24,7 +24,6 @@
 .profile-content {
   margin-top: 30px;
   font-family: "Arial", sans-serif;
-
 }
 
 /* Estilos para el nombre de usuario */
@@ -33,7 +32,6 @@
   font-weight: bold;
   margin-bottom: 8px;
   color: #666;
-  
 }
 
 /* Estilos para la información adicional del perfil */
@@ -41,6 +39,10 @@
   font-size: 1rem;
   color: #666;
 }
-.containerFather{
+.containerFather {
   border: solid #d50606;
+  display: flex;
+  /* align-items: center; */
+  /* justify-content: center; */
+  height: 100vh;
 }
