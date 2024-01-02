@@ -12,5 +12,7 @@
   padding: 20px;
   scroll-behavior: smooth;
   height: 90vh;
+  border: solid;
+  
   /* background-color: #f1c376; */
 }

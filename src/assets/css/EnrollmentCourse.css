@@ -4,7 +4,8 @@
   align-items: center;
   flex-direction: column;
   font-family: "Arial", sans-serif;
-  background-color: #ffffff;
+  background-color: var(--blanco2);
+
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .div-padre-form h2 {
@@ -17,7 +18,6 @@
 }
 .formulario {
   width: 80%;
- 
 }
 .formulario input {
   width: 100%;
@@ -33,7 +33,6 @@
   margin-top: 20px;
   display: flex;
   gap: 20px;
-
 }
 
 .button {
@@ -48,9 +47,9 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+
   background-color: var(--lightBlue);
   scroll-behavior: smooth;
-
 }
 .input-field {
   margin-bottom: 20px;
@@ -59,5 +58,5 @@
 .input-field label {
   display: block;
   margin-bottom: 5px;
-  color: #334257;
+  color: var(--gris);
 }

@@ -6,6 +6,7 @@ import { EnrollCoursePage } from "./EnrollCoursePage";
 import { ButtonReutilizar, EnrollmentCourse, ProfileInfo } from "../components";
 import { useHookCourse } from "../useContext/HooksAllProvider";
 import { useContext, useEffect } from "react";
+import { CarouselText } from "../components/CarouselText";
 
 export const PerfilStudyPage = () => {
   const { contextAllHooks } = useHookCourse();
@@ -17,17 +18,10 @@ export const PerfilStudyPage = () => {
     setShowText,
     handleShowText,
     showText,
+    handleFormulario,
+    handleHomePage,
   } = contextAllHooks;
   const { state } = useLocation();
-  const handleFormulario = () => {
-    setShowHome(true);
-    setShow(false);
-  };
-  const handleHomePage = () => {
-    setShow(true);
-    setShowHome(false);
-    setShowText(false);
-  };
 
   useEffect(() => {
     localStorage.setItem("show", JSON.stringify(show));
@@ -95,26 +89,31 @@ export const PerfilStudyPage = () => {
             {showHome ? <EnrollCoursePage /> : null}
             {showText && (
               <div className="bg-light border p-5 mb-5">
-                <p>
-                  En mi aplicación, implementé React Hook Form para gestionar
+                <CarouselText
+                  textH1="React Hook Form"
+                  textP="En mi aplicación, implementé React Hook Form para gestionar
                   formularios, haciendo uso especialmente de FieldArray para
                   manejar campos dinámicos. Además, incorporé validaciones en
-                  tiempo real para mejorar la experiencia del usuario.
-                </p>
-                <p>
-                  Para la navegación, utilicé React Router con rutas anidadas
+                  tiempo real para mejorar la experiencia del usuario."
+                />
+
+                <CarouselText
+                  textH1=" React Router "
+                  textP=" Para la navegación, utilicé React Router con rutas anidadas
                   para organizar la estructura de la aplicación de manera
                   eficiente. Además, implementé medidas de seguridad mediante
                   rutas protegidas, asegurando que ciertas secciones solo sean
-                  accesibles para usuarios autorizados.
-                </p>
-                <p>
-                  En resumen, construí una aplicación que aprovecha las
+                  accesibles para usuarios autorizados."
+                  
+                />
+                <CarouselText
+                  textP=" 
+                   En resumen, construí una aplicación que aprovecha las
                   capacidades de React Hook Form para la gestión de formularios
                   dinámicos, integra validaciones en tiempo real y utiliza React
                   Router con rutas anidadas y protegidas para una navegación
-                  segura y organizada.
-                </p>
+                  segura y organizada."
+                />
               </div>
             )}
           </div>

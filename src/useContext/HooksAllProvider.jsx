@@ -48,14 +48,18 @@ export const HooksAllProvider = ({ children }) => {
   const handleFormulario = () => {
     setShowHome(true);
     setShow(false);
+    setShowText(false);
   };
   const handleHomePage = () => {
     setShow(true);
     setShowHome(false);
+    setShowText(false);
   };
 
   const handleShowText = () => {
     setShowText(true);
+    setShowHome(false);
+    setShow(false);
     console.log("hola mundo");
   };
   const contextAllHooks = {

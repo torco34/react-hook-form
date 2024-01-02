@@ -139,10 +139,7 @@ export const EnrollmentCourse = () => {
       const nombre = dataNameTeacher[5];
       setNameTeacher([...nameTeacher, nombre]);
     }
-    // console.log(datosDeProfesor[1], "hhhhhhhh");
-
-    // setNombreJose(datosDeProfesor[1]);
-    // setNombreAgustin(datosDeProfesor[2]);
+  
 
     setCopeSelectedCourse([...copeSelectedCourse, selectedCurso.name]);
     setSelectedCourse([...selectedCourse, selectedCurso.name]);

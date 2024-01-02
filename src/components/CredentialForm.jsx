@@ -42,7 +42,7 @@ export const CredentialForm = ({}) => {
                       required: "Este campo es obligatorio",
                     }}
                     render={({ field, fieldState }) => (
-                      <div >
+                      <div>
                         <Input
                           {...field}
                           placeholder={
@@ -158,7 +158,6 @@ export const CredentialForm = ({}) => {
           </div>
         </Col>
       </Row>
-      <br></br>
     </>
   );
 };
