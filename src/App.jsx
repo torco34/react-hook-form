@@ -19,6 +19,7 @@ function App() {
         <UserLogicProvider>
           <HooksAllProvider>
             <Routes>
+              <Header/>
               <Route path="/" element={<Header />}>
                 <Route index element={<HomePage />} />
                 <Route path="login" element={<DashboardPage />} />
