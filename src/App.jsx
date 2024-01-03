@@ -19,7 +19,6 @@ function App() {
         <UserLogicProvider>
           <HooksAllProvider>
             <Routes>
-              <Header/>
               <Route path="/" element={<Header />}>
                 <Route index element={<HomePage />} />
                 <Route path="login" element={<DashboardPage />} />
@@ -31,7 +30,7 @@ function App() {
                     </PrivateRouter>
                   }
                 />
-                <Route path="enrollment" element={<EnrollCoursePage />} />
+                {/* <Route path="enrollment" element={<EnrollCoursePage />} /> */}
               </Route>
             </Routes>
             <Footer />

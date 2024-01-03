@@ -1,15 +1,3 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
-
-on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ['main']
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
@@ -25,7 +13,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{https://github.com/torco34/react-hook-proyecto}}
+      url: ${{ https://github.com/torco34/react-hook-proyecto}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -48,4 +36,4 @@ jobs:
           path: './dist'
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v2 cono configuri este deploy

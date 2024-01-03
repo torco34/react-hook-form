@@ -11,10 +11,10 @@ export const Header = () => {
   const navigation = useNavigate();
   const onLogout = () => {
     navigation("/login", { replace: true });
+  
   };
-  const handleMaterial = () => {
-    navigation("/enrollment", { replace: true });
-  };
+ 
+
   console.log(state);
   return (
     <>
