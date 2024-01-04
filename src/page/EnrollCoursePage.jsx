@@ -11,7 +11,7 @@ export const EnrollCoursePage = () => {
     <div className="body-page">
       <Row>
         <Col xs lg="12">
-          <div className="border bg-light text-dark-emphasis text-center mb-3 ">
+          <div className="border bg-light text-dark-emphasis text-center mb-3 border ">
             <h2> Mis programas</h2>
           </div>
 

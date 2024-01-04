@@ -1,12 +1,14 @@
 .header {
-  position: absolute;
+  /* position: absolute; */
   width: 100%;
 
+  justify-content: center;
   background-color: #334257;
 }
 .brand {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
   justify-content: space-between;
 }
@@ -23,14 +25,14 @@
   display: flex;
   gap: 40px;
   align-items: center;
-
-  width: 20%;
+  justify-content: end;
+  width: 100%;
 }
 
 .user {
   display: flex;
   color: #fff;
- 
+
   gap: 20px;
   align-items: center;
   justify-content: center;

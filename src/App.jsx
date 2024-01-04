@@ -3,12 +3,7 @@ import "./assets/css/app.css";
 import { UserLogicProvider } from "./useContext/UseLogicProvider";
 import { HooksAllProvider } from "./useContext/HooksAllProvider";
 import { PrivateRouter } from "./components/PrivateRouter";
-import {
-  EnrollCoursePage,
-  HomePage,
-  PerfilStudyPage,
-  DashboardPage,
-} from "./page";
+import { HomePage, PerfilStudyPage, DashboardPage } from "./page";
 import { Footer } from "./components/header/Footer";
 import { Header } from "./components/header/Header";
 
@@ -30,7 +25,6 @@ function App() {
                     </PrivateRouter>
                   }
                 />
-                {/* <Route path="enrollment" element={<EnrollCoursePage />} /> */}
               </Route>
             </Routes>
             <Footer />

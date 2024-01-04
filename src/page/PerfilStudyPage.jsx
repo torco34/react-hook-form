@@ -3,10 +3,14 @@ import "../assets/css/perfil.css";
 import { useLocation } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import { EnrollCoursePage } from "./EnrollCoursePage";
-import { ButtonReutilizar, EnrollmentCourse, ProfileInfo, CarouselText } from "../components";
+import {
+  ButtonReutilizar,
+  EnrollmentCourse,
+  ProfileInfo,
+  DescriptionProject,
+} from "../components";
 import { useHookCourse } from "../useContext/HooksAllProvider";
 import { useContext, useEffect } from "react";
-
 
 export const PerfilStudyPage = () => {
   const { contextAllHooks } = useHookCourse();
@@ -44,7 +48,7 @@ export const PerfilStudyPage = () => {
   return (
     <div className="container containerFather">
       <Row>
-        <Col xs={12} md={6}>
+        <Col xs lg="6">
           <div className="container-color">
             <div className="container  profile-container">
               <img
@@ -60,7 +64,7 @@ export const PerfilStudyPage = () => {
             </div>
           </div>
 
-          <div className="profile-content d-flex  gap-3  ">
+          <div className="profile-content    ">
             <ButtonReutilizar
               text="Materias en proceso"
               onClick={handleFormulario}
@@ -76,46 +80,20 @@ export const PerfilStudyPage = () => {
             />
           </div>
 
-          <ProfileInfo
-            name={state?.name}
-            location="Colombia"
-            education="Formación media"
-          />
+          <div className="text-perfil">
+            <ProfileInfo
+              name={state?.name}
+              location="Colombia"
+              education="Formación media"
+            />
+          </div>
         </Col>
 
-        <Col xs={12} md={6}>
+        <Col xs="6">
           <div className="body-perfil">
             {show ? <EnrollmentCourse /> : null}
             {showHome ? <EnrollCoursePage /> : null}
-            {showText && (
-              <div className="bg-light border p-5 mb-5">
-                <CarouselText
-                  textH1="React Hook Form"
-                  textP="En mi aplicación, implementé React Hook Form para gestionar
-                  formularios, haciendo uso especialmente de FieldArray para
-                  manejar campos dinámicos. Además, incorporé validaciones en
-                  tiempo real para mejorar la experiencia del usuario."
-                />
-
-                <CarouselText
-                  textH1=" React Router "
-                  textP=" Para la navegación, utilicé React Router con rutas anidadas
-                  para organizar la estructura de la aplicación de manera
-                  eficiente. Además, implementé medidas de seguridad mediante
-                  rutas protegidas, asegurando que ciertas secciones solo sean
-                  accesibles para usuarios autorizados."
-                  
-                />
-                <CarouselText
-                  textP=" 
-                   En resumen, construí una aplicación que aprovecha las
-                  capacidades de React Hook Form para la gestión de formularios
-                  dinámicos, integra validaciones en tiempo real y utiliza React
-                  Router con rutas anidadas y protegidas para una navegación
-                  segura y organizada."
-                />
-              </div>
-            )}
+            {showText && <DescriptionProject />}
           </div>
         </Col>
         <Col xs={12} md={6}>

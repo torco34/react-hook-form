@@ -1,6 +1,6 @@
 import { Button } from "antd";
 
-export const ButtonReutilizar = ({ text, onClick, style }) => {
+export const ButtonReutilizar = ({ text, onClick }) => {
   return (
     <div className="profile-content d-flex ">
       <Button

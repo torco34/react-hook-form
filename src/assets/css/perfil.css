@@ -29,15 +29,17 @@
 
 /* Estilos para el contenido del perfil */
 .profile-content {
-  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  padding: 1rem;
 
   font-family: "Arial", sans-serif;
 }
 
 /* Estilos para el nombre de usuario */
 .username {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1rem;
+
   margin-bottom: 28px;
   color: #666;
 
@@ -51,9 +53,10 @@
 }
 
 .body-perfil {
-  border-right: 7px solid var(--blue);
-
-  width: 40rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  padding: 2rem;
+  width: 100%;
 }
 
 /* Estilos para los botones con efecto de hover */
@@ -72,4 +75,9 @@
   border: 2px solid #0056b3;
   color: #fff;
   border-right: 1px solid #7f1919;
+}
+.text-perfil {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  padding: 2rem;
 }

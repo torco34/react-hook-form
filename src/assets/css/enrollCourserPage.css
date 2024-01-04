@@ -6,16 +6,15 @@
   background-repeat: no-repeat;
   color: var(--blue);
   opacity: 0.8;
-  margin: 0;
-  padding: 0;
+
   box-sizing: border-box;
   padding: 20px;
   scroll-behavior: smooth;
-  height: 90vh;
+ 
   background-color: var(--blanco);
   width: 100%;
   display: flex;
-  gap: 20px;
+
 
   /* background-color: #f1c376; */
 }

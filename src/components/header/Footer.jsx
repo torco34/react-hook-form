@@ -10,14 +10,18 @@ export const Footer = () => {
       <div className="footer-content">
         <p>Conéctate conmigo en las redes sociales:</p>
         <div className="social-icons">
-          <a href="{URL_DEL_GITHUB}" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://github.com/torco34/react-hook-proyecto"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaGithub />
           </a>
-          <a href="{URL_DEL_TWITTER}" target="_blank" rel="noopener noreferrer">
+          <a href="#">
             <FaTwitter />
           </a>
           <a
-            href="{URL_DEL_LINKEDIN}"
+            href="https://www.linkedin.com/in/torcoroma-arias-ascanio-a20315227/"
             target="_blank"
             rel="noopener noreferrer"
           >
