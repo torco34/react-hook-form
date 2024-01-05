@@ -55,7 +55,7 @@
 .body-perfil {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  padding: 2rem;
+  /* padding: 2rem; */
   width: 100%;
 }
 

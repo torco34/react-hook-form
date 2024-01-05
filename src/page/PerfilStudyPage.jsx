@@ -11,6 +11,7 @@ import {
 } from "../components";
 import { useHookCourse } from "../useContext/HooksAllProvider";
 import { useContext, useEffect } from "react";
+import { CursosPages } from "./CursosPages";
 
 export const PerfilStudyPage = () => {
   const { contextAllHooks } = useHookCourse();
@@ -87,6 +88,7 @@ export const PerfilStudyPage = () => {
               education="Formación media"
             />
           </div>
+        
         </Col>
 
         <Col xs="6">

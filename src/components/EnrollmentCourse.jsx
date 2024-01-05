@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { useHookCourse } from "../useContext/HooksAllProvider";
 import { FieldsTeacher } from "./FieldsTeacher";
+import { useState } from "react";
 useHookCourse;
 export const EnrollmentCourse = () => {
   const {
@@ -83,6 +84,8 @@ export const EnrollmentCourse = () => {
     historyOnchange,
     setNameTeacher,
     nameTeacher,
+    getDataInforma,
+    setGetDataInforma,
   } = contextAllHooks;
 
   const showButtons = copeSelectedCourse.length > 0 || showButton;
@@ -139,7 +142,6 @@ export const EnrollmentCourse = () => {
       const nombre = dataNameTeacher[5];
       setNameTeacher([...nameTeacher, nombre]);
     }
-  
 
     setCopeSelectedCourse([...copeSelectedCourse, selectedCurso.name]);
     setSelectedCourse([...selectedCourse, selectedCurso.name]);
@@ -236,11 +238,10 @@ export const EnrollmentCourse = () => {
     setShowAppend(false);
   };
 
+  console.log(getDataInforma, "get informacion");
   const onSubmit = (data) => {
     console.log(data);
-
-    // reset();
-    // setSelectedCursos([""]);
+    setGetDataInforma([...getDataInforma, data]);
   };
 
   return (

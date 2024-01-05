@@ -40,11 +40,11 @@ export const HooksAllProvider = ({ children }) => {
   const [nameTeacher, setNameTeacher] = useState([]);
   const [deleteFieldsArray, setDeleteFieldsArray] = useState();
   //  HOOK DE PAGES  PERFIL
-
+  const [getDataInforma, setGetDataInforma] = useState([]);
   const [show, setShow] = useState(false);
   const [showHome, setShowHome] = useState(false);
   const [showText, setShowText] = useState(false);
-
+  const [showIconsCrud, setShowIconsCrud] = useState(false);
   const handleFormulario = () => {
     setShowHome(true);
     setShow(false);
@@ -74,7 +74,9 @@ export const HooksAllProvider = ({ children }) => {
     show,
     setShowText,
     showText,
-
+    // HOOK CARD CREADA
+    showIconsCrud,
+    setShowIconsCrud,
     //HOOK DE SERVICIO DE API
     setDataNameCourse,
     dataNameCourse,
@@ -134,6 +136,8 @@ export const HooksAllProvider = ({ children }) => {
 
     setNombreProfesor,
     nombreProfesor,
+    getDataInforma,
+    setGetDataInforma,
   };
   return (
     <HooksContext.Provider value={{ contextAllHooks }}>

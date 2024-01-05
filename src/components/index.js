@@ -9,5 +9,4 @@ export * from "./CarouselText.jsx";
 export * from "./CarouselImagen.jsx";
 export * from "./PrivateRouter.jsx";
 export * from "./DescriptionProject.jsx";
-
-
+export * from "./CardCursoSelected.jsx";
