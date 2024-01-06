@@ -49,7 +49,15 @@ export const EnrollmentCourse = () => {
     control,
     name: "items2",
   });
-
+  const {
+    fields: fieldsTeacherSelected,
+    append: appendTeacherSelected,
+    remove: removeTeacherSelected,
+    update: updateTeacherSelected,
+  } = useFieldArray({
+    control,
+    name: "items3",
+  });
   const items2Watch = watch("items2", []);
 
   // console.log({ error });
