@@ -4,27 +4,28 @@ import { DeleteFilled } from "@ant-design/icons";
 import { useHookCourse } from "../useContext/HooksAllProvider";
 import "../assets/css/fieldsTeacher.css";
 
-export const FieldsTeacher = () => {
+export const FieldsTeacher = ({ onSubmit }) => {
+  console.log("Form Data in FieldsTeacher:");
   // sección de  fields array
-  const { register, control, handleSubmit, reset, trigger, setError } = useForm(
-    {
-      defaultValues: {
-        items: [],
-        jornadas: [],
-      },
-    }
-  );
-  const { fields, append, remove } = useFieldArray({
+  const { control, register, getValues, handleSubmit } = useForm({
+    defaultValues: {
+      items: [],
+      jornadas: [],
+    },
+  });
+  const { fields, append, remove, setGetValue } = useFieldArray({
     control,
     name: "item",
   });
-
+  console.log(fields, "fields");
   const { contextAllHooks } = useHookCourse();
   const {
     // SERVICIOS DE API
 
     setDataNameTime,
     dataNameTime,
+    setDataTeacher,
+    dataTeacher,
     //
     // curso seleccionados para agregar profesor
     courseSelectedForTeacher,
@@ -40,7 +41,7 @@ export const FieldsTeacher = () => {
 
   const handleProfeOnchange = (value) => {
     const index = selectedName.indexOf(value);
-
+    setDataTeacher([...dataTeacher, value])
     if (index === -1) {
       setSelectedName([...selectedName, value]);
     } else {
@@ -51,6 +52,7 @@ export const FieldsTeacher = () => {
 
   const handleJornadaOnchange = (value) => {
     const time = value;
+    setDataTeacher([...dataTeacher, time])
     const nuevoArray = dataNameTime.filter((item) => item.name !== time);
     console.log(value);
     setDataNameTime(nuevoArray);
@@ -64,11 +66,13 @@ export const FieldsTeacher = () => {
   };
 
   const handleCursosOnchange = (value) => {
+    setDataTeacher([...dataTeacher, value])
     const nuevosCurso = courseSelectedForTeacher.filter(
       (item) => item !== value
     );
     setCourseSelectedForTeacher(nuevosCurso);
   };
+ 
 
   return (
     <div className="div-padre-teacher">
@@ -196,6 +200,7 @@ export const FieldsTeacher = () => {
         {courseSelectedForTeacher.length === 0 ? null : (
           <>
             <Button
+            
               onClick={() => {
                 append({ name: "" });
               }}

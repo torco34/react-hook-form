@@ -45,6 +45,7 @@ export const HooksAllProvider = ({ children }) => {
   const [showHome, setShowHome] = useState(false);
   const [showText, setShowText] = useState(false);
   const [showIconsCrud, setShowIconsCrud] = useState(false);
+  const [dataTeacher, setDataTeacher] = useState([]);
   const handleFormulario = () => {
     setShowHome(true);
     setShow(false);
@@ -77,6 +78,8 @@ export const HooksAllProvider = ({ children }) => {
     // HOOK CARD CREADA
     showIconsCrud,
     setShowIconsCrud,
+    setDataTeacher,
+    dataTeacher,
     //HOOK DE SERVICIO DE API
     setDataNameCourse,
     dataNameCourse,

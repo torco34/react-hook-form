@@ -21,13 +21,14 @@ export const PerfilStudyPage = () => {
     show,
     setShow,
     setShowText,
+    getDataInforma,
     handleShowText,
     showText,
     handleFormulario,
     handleHomePage,
   } = contextAllHooks;
   const { state } = useLocation();
-
+  console.log(getDataInforma.length);
   useEffect(() => {
     localStorage.setItem("show", JSON.stringify(show));
     localStorage.setItem("showHome", JSON.stringify(showHome));
@@ -66,12 +67,15 @@ export const PerfilStudyPage = () => {
           </div>
 
           <div className="profile-content    ">
+            {getDataInforma.length === 0 ? null : (
+              <ButtonReutilizar
+                text="Cursos seleccionados"
+                onClick={handleFormulario}
+              />
+            )}
+
             <ButtonReutilizar
-              text="Materias en proceso"
-              onClick={handleFormulario}
-            />
-            <ButtonReutilizar
-              text="formulario dinámico"
+              text="Seleccionar cursos"
               onClick={handleHomePage}
             />
 
@@ -88,13 +92,15 @@ export const PerfilStudyPage = () => {
               education="Formación media"
             />
           </div>
-        
         </Col>
 
         <Col xs="6">
           <div className="body-perfil">
             {show ? <EnrollmentCourse /> : null}
-            {showHome ? <EnrollCoursePage /> : null}
+            {getDataInforma.length === 0 ? null : (
+              <div>{showHome ? <EnrollCoursePage /> : null}</div>
+            )}
+
             {showText && <DescriptionProject />}
           </div>
         </Col>

@@ -13,32 +13,10 @@ export const EnrollCoursePage = () => {
     <div className="body-page">
       <Row>
         <Col xs lg="12">
-          <div className="border bg-light text-dark-emphasis text-center mb-3 border ">
-            <h2> Mis cursos</h2>
+          <div className="rounded bg-light p-3 text-dark-emphasis text-center mb-3 show ">
+            <h4> Mis cursos seleccionados</h4>
           </div>
           <CursosPages />
-          {/* <StudyProgress
-            img={img0}
-            titulo={Item.name}
-            estado1="finalizado"
-            estado2="enProgreso"
-            estado3="restante"
-          /> */}
-
-          <StudyProgress
-            img={img1}
-            titulo="Learning Python for Data Sciences"
-            estado1="finalizado"
-            estado2="enProgreso"
-            estado3="restante"
-          />
-          <StudyProgress
-            img={img2}
-            titulo="Computer Science for Python Programming"
-            estado1="finalizado"
-            estado2="enProgreso"
-            estado3="restante"
-          />
         </Col>
       </Row>
     </div>

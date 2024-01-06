@@ -20,12 +20,14 @@ export const EnrollmentCourse = () => {
     setValue,
     register,
     watch,
+    setGetValue,
     getFieldState: { error },
     ...restFormMethods
   } = useForm({
     defaultValues: {
       items: [],
       cursosSeleccionados: [],
+      jornadas: [],
     },
   });
 
@@ -55,6 +57,8 @@ export const EnrollmentCourse = () => {
   const {
     // SERVICIOS DE API
     // array de curso
+    setDataTeacher,
+    dataTeacher,
     setDataNameCourse,
     dataNameCourse,
     // array nombre profesor
@@ -238,7 +242,6 @@ export const EnrollmentCourse = () => {
     setShowAppend(false);
   };
 
-  console.log(getDataInforma, "get informacion");
   const onSubmit = (data) => {
     console.log(data);
     setGetDataInforma([...getDataInforma, data]);
@@ -494,6 +497,7 @@ export const EnrollmentCourse = () => {
               </div>
               <br></br>
               <FieldsTeacher />
+
               <br></br>
               <Form.Item wrapperCol={{ offset: 10, span: 1 }}>
                 <Button
