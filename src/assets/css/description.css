@@ -1,7 +1,6 @@
-
 .carouselComponent h2 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
-
+  border: solid red;
   width: 100%;
 }

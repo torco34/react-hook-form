@@ -66,7 +66,7 @@ export const PerfilStudyPage = () => {
             </div>
           </div>
 
-          <div className="profile-content    ">
+          <div className="profile-content  ">
             {getDataInforma.length === 0 ? null : (
               <ButtonReutilizar
                 text="Cursos seleccionados"

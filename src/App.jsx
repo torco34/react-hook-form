@@ -13,7 +13,7 @@ function App() {
       <Router>
         <HooksAllProvider>
           <Header />
-          {/* <Route path="/" element={<Header />} /> */}
+         
 
           <Routes>
             <Route path="/" element={<HomePage />}></Route>

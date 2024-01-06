@@ -30,20 +30,16 @@
 /* Estilos para el contenido del perfil */
 .profile-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  padding: 1rem;
-
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   font-family: "Arial", sans-serif;
+
+  margin-top: 20px;
 }
 
 /* Estilos para el nombre de usuario */
 .username {
-  font-size: 1rem;
-
   margin-bottom: 28px;
   color: #666;
-
-  /* Añadí "2px" y "solid" para especificar el grosor y tipo de borde */
 }
 
 /* Estilos para la información adicional del perfil */
@@ -55,29 +51,14 @@
 .body-perfil {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  /* padding: 2rem; */
+  height: auto;
   width: 100%;
 }
 
-/* Estilos para los botones con efecto de hover */
-.button-reutilizar {
-  background-color: #007bff;
-  color: #fff;
-  border: 2px solid #007bff;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-right: 1px solid #7f1919;
-  transition: background-color 0.3s, color 0.3s;
-}
 
-.button-reutilizar:hover {
-  background-color: #0056b3;
-  border: 2px solid #0056b3;
-  color: #fff;
-  border-right: 1px solid #7f1919;
-}
 .text-perfil {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   padding: 2rem;
+  margin-top: 10px;
 }

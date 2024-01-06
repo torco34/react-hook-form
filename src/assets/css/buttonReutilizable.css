@@ -1,0 +1,23 @@
+.profile-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  text-align: center;
+  gap: 1rem;
+
+  /* border: solid rgb(17, 255, 0); */
+}
+
+.profile-content Button {
+  background: var(--blue);
+  color: var(--blanco2);
+  /* font-size: ; */
+  height: auto;
+  text-decoration: none;
+}
+
+.profile-content Button:hover {
+  text-decoration: none;
+  list-style: none;
+  background-color: var(--blanco);
+  color: #334257;
+}

@@ -3,13 +3,14 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-family: "Arial", sans-serif;
+  border: solid;
   background-color: var(--blanco2);
-
+  width: 100%;
+ 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .div-padre-form h2 {
-  color: var(--gris);
+  color: var(--blue);
   text-align: center;
   padding-top: 40px;
   font-size: 1.5rem;
@@ -17,16 +18,24 @@
   /* margin-bottom: 8px; */
 }
 .formulario {
-  width: 80%;
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  font-family: "Arial", sans-serif;
 }
 .formulario input {
   width: 100%;
+  display: grid;
+  border: solid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  font-family: "Arial", sans-serif;
 }
 
 .cursoSelect {
   display: flex;
   justify-content: space-between;
   width: 40%;
+  padding: 20px;
   scroll-behavior: smooth;
 }
 .containerField2 {
@@ -42,6 +51,7 @@
   font-size: 18px;
   align-items: center;
   justify-content: center;
+  border: solid;
 }
 .body-fields {
   align-items: center;
