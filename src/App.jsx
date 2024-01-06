@@ -12,6 +12,7 @@ function App() {
     <div className="app">
       <Router>
         <HooksAllProvider>
+          <Header />
           <Routes>
             <Route path="/" element={<Header />}>
               <Route index element={<HomePage />} />
