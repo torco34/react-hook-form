@@ -41,7 +41,7 @@ export const FieldsTeacher = ({ onSubmit }) => {
 
   const handleProfeOnchange = (value) => {
     const index = selectedName.indexOf(value);
-    setDataTeacher([...dataTeacher, value])
+    setDataTeacher([...dataTeacher, index])
     if (index === -1) {
       setSelectedName([...selectedName, value]);
     } else {

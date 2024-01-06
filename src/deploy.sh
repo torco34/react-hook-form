@@ -1,51 +1,29 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+#!/usr/bin/env sh
 
-on:
+# abort on errors
+set -e
 
-  push:
-    branches: ['main']
+# build
+npm run build
 
+# navigate into the build output directory
+cd dist
 
-  workflow_dispatch:
+# place .nojekyll to bypass Jekyll processing
+echo > .nojekyll
 
+# if you are deploying to a custom domain
+# echo 'www.example.com' > CNAME
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+git init
+git checkout -B main
+git add -A
+git commit -m 'deploy'
 
+# if you are deploying to https://<USERNAME>.github.io
+# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git main
 
-concurrency:
-  group: 'pages'
-  cancel-in-progress: true
+# if you are deploying to https://<USERNAME>.github.io/<REPO>
+# git push -f git@github.com:torco34/react-hook-proyecto.git main:gh-pages
 
-jobs:
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{https://github.com/torco34/react-hook-proyecto}}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'npm'
-      - name: Install dependencies
-        run: npm install
-      - name: Build
-        run: npm run build
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          # Upload dist repository
-          path: './dist'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+cd 

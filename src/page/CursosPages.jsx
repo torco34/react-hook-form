@@ -50,6 +50,7 @@ export const CursosPages = ({}) => {
             <span className="font-weight-bold">Nombre:</span> {items.name}{" "}
             {items.apellido}{" "}
           </p>
+
           {items.items2.map((curso, cursoIndex) => (
             <div key={cursoIndex} className="d-fl">
               <p>
@@ -62,12 +63,19 @@ export const CursosPages = ({}) => {
               </p>
             </div>
           ))}
-          {dataTeacher.map((items, index) => (
-            <>
-             <span className="font-weight-bold">: </span>
-              <p>{items}</p>
-            </>
+          {items.items3.map((profe, indexx) => (
+            <div key={indexx} className="d-fl">
+              <p>
+                <span className="font-weight-bold">Materia: </span>{" "}
+                {profe.name}
+              </p>
+              <p>
+                {" "}
+                {/* <span className="font-weight-bold">Horas:</span> {curso.horas} */}
+              </p>
+            </div>
           ))}
+
           <StudyProgress
             estado1="finalizado"
             estado2="enProgreso"
