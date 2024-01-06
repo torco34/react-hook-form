@@ -11,7 +11,7 @@ export const Footer = () => {
         <p>Conéctate conmigo en las redes sociales:</p>
         <div className="social-icons">
           <a
-            href="https://github.com/torco34/react-hook-proyecto"
+            href="https://github.com/torco34/react-hook-form"
             target="_blank"
             rel="noopener noreferrer"
           >
