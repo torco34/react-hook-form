@@ -13,19 +13,19 @@ function App() {
       <Router>
         <HooksAllProvider>
           <Header />
+          {/* <Route path="/" element={<Header />} /> */}
+
           <Routes>
-            <Route path="/" element={<Header />}>
-              <Route index element={<HomePage />} />
-              <Route path="login" element={<DashboardPage />} />
-              <Route
-                path="dashboard"
-                element={
-                  <PrivateRouter>
-                    <PerfilStudyPage />
-                  </PrivateRouter>
-                }
-              />
-            </Route>
+            <Route path="/" element={<HomePage />}></Route>
+            <Route path="login" element={<DashboardPage />} />
+            <Route
+              path="dashboard"
+              element={
+                <PrivateRouter>
+                  <PerfilStudyPage />
+                </PrivateRouter>
+              }
+            />
           </Routes>
           <Footer />
         </HooksAllProvider>
