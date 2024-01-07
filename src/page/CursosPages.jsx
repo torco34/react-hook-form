@@ -63,15 +63,20 @@ export const CursosPages = ({}) => {
               </p>
             </div>
           ))}
-          {items.items3.map((profe, indexx) => (
-            <div key={indexx} className="d-fl">
+          <hr />
+          {items.items3.map((item3, index3) => (
+            <div key={index3} className="">
               <p>
-                <span className="font-weight-bold">Materia: </span>{" "}
-                {profe.name}
+                <span className="font-weight-bold">Profesor: </span>{" "}
+                {item3.profesor || "Nombre no disponible"}
               </p>
               <p>
-                {" "}
-                {/* <span className="font-weight-bold">Horas:</span> {curso.horas} */}
+                <span className="font-weight-bold">Jornada: </span>{" "}
+                {item3.jornada || "Nombre no disponible"},
+              </p>
+              <p>
+                <span className="font-weight-bold">curso: </span>{" "}
+                {item3.curso || "Nombre no disponible"},
               </p>
             </div>
           ))}

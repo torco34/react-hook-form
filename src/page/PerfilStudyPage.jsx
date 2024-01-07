@@ -28,7 +28,7 @@ export const PerfilStudyPage = () => {
     handleHomePage,
   } = contextAllHooks;
   const { state } = useLocation();
-  console.log(getDataInforma.length);
+ 
   useEffect(() => {
     localStorage.setItem("show", JSON.stringify(show));
     localStorage.setItem("showHome", JSON.stringify(showHome));

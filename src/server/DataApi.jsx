@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
 
 const dataNameTeachers = [
-  { id: uuidv4(), name: "Juan" },
-  { id: uuidv4(), name: "Jose" },
-  { id: uuidv4(), name: "Agustin" },
-  { id: uuidv4(), name: "Sergio" },
-  { id: uuidv4(), name: "Esteban" },
+  { id: uuidv4(), name: "Juan Vega" },
+  { id: uuidv4(), name: "Jose Sanchez" },
+  { id: uuidv4(), name: "Agustin Morales" },
+  { id: uuidv4(), name: "Sergio Baltra" },
+  { id: uuidv4(), name: "Esteban Meló" },
 ];
 
 const dataTimes = [

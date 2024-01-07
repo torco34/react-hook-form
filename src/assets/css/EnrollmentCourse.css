@@ -3,10 +3,13 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: solid;
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   background-color: var(--blanco2);
-  width: 100%;
- 
+  /* width: 100%; */
+
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 .div-padre-form h2 {
@@ -20,22 +23,18 @@
 .formulario {
   display: grid;
 
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
   font-family: "Arial", sans-serif;
 }
 .formulario input {
-  width: 100%;
   display: grid;
-  border: solid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  font-family: "Arial", sans-serif;
 }
 
 .cursoSelect {
   display: flex;
   justify-content: space-between;
-  width: 40%;
-  padding: 20px;
+  padding: 8px;
   scroll-behavior: smooth;
 }
 .containerField2 {
@@ -46,27 +45,27 @@
 
 .button {
   display: flex;
-  height: 35px;
-  width: 30%;
+
   font-size: 18px;
   align-items: center;
   justify-content: center;
-  border: solid;
 }
 .body-fields {
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+  font-family: "Arial", sans-serif;
   background-color: var(--lightBlue);
   scroll-behavior: smooth;
 }
 .input-field {
+  width: 100%;
+  font-family: "Arial", sans-serif;
   margin-bottom: 20px;
 }
 
 .input-field label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   color: var(--gris);
+
 }

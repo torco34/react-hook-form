@@ -8,7 +8,7 @@ import "../assets/css/EnrollmentCourse.css";
 import { v4 as uuidv4 } from "uuid";
 
 import { useHookCourse } from "../useContext/HooksAllProvider";
-import { FieldsTeacher } from "./FieldsTeacher";
+
 import { useState } from "react";
 useHookCourse;
 export const EnrollmentCourse = () => {
@@ -142,8 +142,6 @@ export const EnrollmentCourse = () => {
     if (courseSelectedForTeacher.length === 2) {
       const nombre = dataNameTeacher[2];
       setNameTeacher([...nameTeacher, nombre]);
-
-      console.log(dataNameTeacher[2]);
     }
 
     if (courseSelectedForTeacher.length === 3) {
@@ -178,8 +176,6 @@ export const EnrollmentCourse = () => {
   // función de remover   los seleccionados field array uno
   //
   const handleSelectRemove = (cursoSelect, index) => {
-    console.log({ index, cursoSelect });
-
     const restanteCurso = selectedCourse.filter(
       (curso) => curso !== cursoSelect
     );
@@ -195,7 +191,6 @@ export const EnrollmentCourse = () => {
     setDataNameCourse([...dataNameCourse, { id: uuidv4(), name: cursoSelect }]);
     const deleteFields2 = fieldsCourseSelected.filter((item, i) => i !== index);
 
-    console.log(fieldsCourseSelected);
     // console.log(deleteFields2);
     // setDeleteFieldsArray(deleteFields2);
     // setValue("items2", deleteFields2);
@@ -204,7 +199,6 @@ export const EnrollmentCourse = () => {
 
     // setShowApend(false);
     setShowAppend(false);
-    // removeCursos(index);
   };
   //
   //
@@ -272,10 +266,8 @@ export const EnrollmentCourse = () => {
     setDataNameTime(nuevoArray);
 
     if (nuevoArray.length === 0) {
-      console.log("hola cero");
       setDataNameTime(dataNameTime);
       const { name } = dataNameTime;
-      console.log(name);
     }
   };
   const handleCursosOnchange = (value) => {
@@ -284,9 +276,10 @@ export const EnrollmentCourse = () => {
     );
     setCourseSelectedForTeacher(nuevosCurso);
   };
-  const onSubmit = (data) => {
+  const onSubmit = (data, index) => {
     console.log(data);
     setGetDataInforma([...getDataInforma, data]);
+    reset([""]);
   };
 
   return (
@@ -381,7 +374,7 @@ export const EnrollmentCourse = () => {
                     onClick={() => handleSelectRemove(cursoSelect, index)}
                     className="button"
                   >
-                    <DeleteFilled style={{ color: "#b91010cc" }} />
+                    <DeleteFilled style={{ color: "#334257" }} />
                   </Button>
                 </div>
               ))}
@@ -430,10 +423,7 @@ export const EnrollmentCourse = () => {
                 ) : (
                   <>
                     {showAppend ? null : (
-                      <Button
-                        style={{ width: "50%", color: "#334257" }}
-                        onClick={handleAppend}
-                      >
+                      <Button style={{ width: "60%" }} onClick={handleAppend}>
                         Seleccionar cursos
                       </Button>
                     )}
@@ -518,7 +508,7 @@ export const EnrollmentCourse = () => {
                     }}
                     className="button"
                   >
-                    <DeleteFilled style={{ color: "#b91010cc" }} />
+                    <DeleteFilled style={{ color: "#334257" }} />
                   </Button>
                 </div>
               ))}
@@ -532,7 +522,7 @@ export const EnrollmentCourse = () => {
 
               <div>
                 {copeSelectedCourse.length === 0 || !showButtons ? null : (
-                  <Button style={{ width: "50%" }} onClick={handleAppend2}>
+                  <Button style={{ width: "60%" }} onClick={handleAppend2}>
                     Agregar el horario
                   </Button>
                 )}
@@ -547,7 +537,7 @@ export const EnrollmentCourse = () => {
                       <br />
                       <label>Profesor:</label>
                       <Controller
-                        name={`profe.${index}.profesor`}
+                        name={`items3.${index}.profesor`}
                         control={control}
                         defaultValues=""
                         render={({ field }) => (
@@ -583,7 +573,7 @@ export const EnrollmentCourse = () => {
                       <br />
                       <label>Cursos:</label>
                       <Controller
-                        name={`test.${index}.jornada`}
+                        name={`items3.${index}.curso`}
                         control={control}
                         render={({ field }) => (
                           <div>
@@ -618,7 +608,7 @@ export const EnrollmentCourse = () => {
                       <br />
                       <label>Jornada:</label>
                       <Controller
-                        name={`test.${index}.jornada`}
+                        name={`items3.${index}.jornada`}
                         control={control}
                         render={({ field }) => (
                           <div>
@@ -650,11 +640,11 @@ export const EnrollmentCourse = () => {
                   <div>
                     <Button
                       onClick={() => {
-                        remove(index);
+                        removeTeacherSelected(index);
                       }}
                       className="button"
                     >
-                      <DeleteFilled style={{ color: "#b91010cc" }} />
+                      <DeleteFilled style={{ color: "#334257" }} />
                     </Button>
                   </div>
                 </div>
@@ -667,7 +657,7 @@ export const EnrollmentCourse = () => {
                       onClick={() => {
                         appendTeacherSelected({ name: "" });
                       }}
-                      style={{ width: "50%", color: "#334257" }}
+                      style={{ width: "60%", color: "#334257" }}
                     >
                       Seleccionar Profesores
                     </Button>
