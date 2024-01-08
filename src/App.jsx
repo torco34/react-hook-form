@@ -13,8 +13,6 @@ function App() {
       <Router>
         <HooksAllProvider>
           <Header />
-         
-
           <Routes>
             <Route path="/" element={<HomePage />}></Route>
             <Route path="login" element={<DashboardPage />} />

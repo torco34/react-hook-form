@@ -4,24 +4,43 @@ import { Controller, useForm } from "react-hook-form";
 import { Row, Col } from "react-bootstrap";
 import "../assets/css/creadentialform.css";
 import { useNavigate } from "react-router-dom";
+import { Loading } from "./Loading";
 export const CredentialForm = ({}) => {
   const navigate = useNavigate();
   const [isRegistration, setIsRegistration] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const handleOnRegistro = () => {
     setIsRegistration(!isRegistration);
   };
   const { control, handleSubmit, getValues } = useForm({});
 
-  const onSubmit = (data) => {
-    console.log(data);
-    localStorage.setItem("userData", JSON.stringify(data));
-    navigate("/dashboard", {
-      replace: true,
-      state: { logged: true, name: data.usernameOrEmail },
-    });
+  const onSubmit = async (data) => {
+    try {
+      // Inicia la carga
+      setLoading(true);
+
+      // Simula la petición con un tiempo de espera (puedes reemplazar esto con tu lógica de solicitud real)
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Simula un error en la petición (puedes ajustar esto según tus necesidades)
+
+      localStorage.setItem("userData", JSON.stringify(data));
+      navigate("/dashboard", {
+        replace: true,
+        state: { logged: true, name: data.usernameOrEmail },
+      });
+    } catch (error) {
+      console.err(" A ocurrido un error ", data);
+    } finally {
+      // console.log(data);
+      setLoading(false);
+    }
   };
   return (
     <>
+      {loading && <Loading />}
+     
       <Row>
         <Col xs={12} md={12} className="  containerColumna ">
           <div className="form-wrapper rounded ">
