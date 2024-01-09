@@ -46,6 +46,13 @@ export const HooksAllProvider = ({ children }) => {
   const [showText, setShowText] = useState(false);
   const [showIconsCrud, setShowIconsCrud] = useState(false);
   const [dataTeacher, setDataTeacher] = useState([]);
+  // HOOK Y FUNCIÓN DE CREDENCIALES
+  const [isRegistration, setIsRegistration] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const handleOnRegistro = () => {
+    setIsRegistration(!isRegistration);
+  };
+  //
   const handleFormulario = () => {
     setShowHome(true);
     setShow(false);
@@ -64,6 +71,12 @@ export const HooksAllProvider = ({ children }) => {
     console.log("hola mundo");
   };
   const contextAllHooks = {
+    // HOOK DE CREDENTIAL FORM
+    isRegistration,
+    setIsRegistration,
+    loading,
+    setLoading,
+    handleOnRegistro,
     // FUNCIÓN DE PAGES PERFIL
     handleHomePage,
     handleFormulario,
