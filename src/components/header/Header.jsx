@@ -13,14 +13,17 @@ export const Header = () => {
     navigation("/login", { replace: true });
   };
 
-  console.log(state);
   return (
     <>
       <Navbar className="header ">
         <Navbar.Brand className="  brand">
           <Container>
-            <Row  >
-              <Col xs lg="4" className="d-flex align-item-center justify-content-center">
+            <Row>
+              <Col
+                xs
+                lg="4"
+                className="d-flex align-item-center justify-content-center"
+              >
                 <div className="logo  ">
                   <Link to="/dashboard">
                     <img
@@ -34,7 +37,7 @@ export const Header = () => {
                   </Link>
                 </div>
               </Col>
-              <Col  sm  lg="8" className="d-flex ">
+              <Col sm lg="8" className="d-flex ">
                 <div className="login borde">
                   {state?.logged ? (
                     <div className="user ">

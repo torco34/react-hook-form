@@ -76,7 +76,7 @@ export const CursosPages = ({}) => {
               </p>
               <p>
                 <span className="font-weight-bold">curso: </span>{" "}
-                {/* {item3.curso || "Nombre no disponible"}, */}
+                {item3.curso || "Nombre no disponible"},
               </p>
             </div>
           ))}

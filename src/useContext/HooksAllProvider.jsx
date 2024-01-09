@@ -68,7 +68,7 @@ export const HooksAllProvider = ({ children }) => {
     setShowText(true);
     setShowHome(false);
     setShow(false);
-    console.log("hola mundo");
+  
   };
   const contextAllHooks = {
     // HOOK DE CREDENTIAL FORM

@@ -9,13 +9,7 @@ import { useHookCourse } from "../useContext/HooksAllProvider";
 import { Loading } from "./Loading";
 export const CredentialForm = ({}) => {
   const { contextAllHooks } = useHookCourse();
-  const {
-    isRegistration,
-    setIsRegistration,
-    loading,
-    setLoading,
-    handleOnRegistro,
-  } = contextAllHooks;
+  const { isRegistration, setLoading, handleOnRegistro } = contextAllHooks;
   const navigate = useNavigate();
 
   const { control, handleSubmit, getValues } = useForm({});
@@ -23,7 +17,7 @@ export const CredentialForm = ({}) => {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       localStorage.setItem("userData", JSON.stringify(data));
       navigate("/dashboard", {
         replace: true,

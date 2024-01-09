@@ -60,7 +60,6 @@ export const EnrollmentCourse = () => {
   });
   const items2Watch = watch("items2", []);
 
-  // console.log({ error });
   const { contextAllHooks } = useHookCourse();
   const {
     // SERVICIOS DE API
@@ -105,6 +104,9 @@ export const EnrollmentCourse = () => {
 
     selectedName,
     setSelectedName,
+    // loading
+    setLoading,
+    loading,
     //
   } = contextAllHooks;
 
@@ -118,7 +120,7 @@ export const EnrollmentCourse = () => {
   const handleSelectChange = (value) => {
     if (courseSelectedForTeacher.length != 0) {
     }
-    console.log(courseSelectedForTeacher.length);
+
     const selectedCurso = dataNameCourse.find((curso) => curso.name === value);
 
     // FILTRANDO PARA QUE SE VEA LOS CURSO SELECT EN LOS  PROFESOR
@@ -150,13 +152,11 @@ export const EnrollmentCourse = () => {
     }
 
     if (courseSelectedForTeacher.length === 4) {
-      console.log("Hola mundo es... 4");
       const nombre = dataNameTeacher[4];
       setNameTeacher([...nameTeacher, nombre]);
     }
 
     if (courseSelectedForTeacher.length === 5) {
-      console.log("Hola mundo es... 4");
       const nombre = dataNameTeacher[5];
       setNameTeacher([...nameTeacher, nombre]);
     }
@@ -191,7 +191,6 @@ export const EnrollmentCourse = () => {
     setDataNameCourse([...dataNameCourse, { id: uuidv4(), name: cursoSelect }]);
     const deleteFields2 = fieldsCourseSelected.filter((item, i) => i !== index);
 
-    // console.log(deleteFields2);
     // setDeleteFieldsArray(deleteFields2);
     // setValue("items2", deleteFields2);
 
@@ -262,7 +261,7 @@ export const EnrollmentCourse = () => {
     const time = value;
 
     const nuevoArray = dataNameTime.filter((item) => item.name !== time);
-    console.log(value);
+
     setDataNameTime(nuevoArray);
 
     if (nuevoArray.length === 0) {
@@ -276,10 +275,20 @@ export const EnrollmentCourse = () => {
     );
     setCourseSelectedForTeacher(nuevosCurso);
   };
-  const onSubmit = (data, index) => {
-    console.log(data);
-    setGetDataInforma([...getDataInforma, data]);
-    reset([""]);
+  const onSubmit = async (data, index) => {
+    try {
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log(data);
+      setGetDataInforma([...getDataInforma, data]);
+    } catch (error) {
+      console.err(" A ocurrido un error ", data);
+    } finally {
+      setLoading(false);
+    }
+
+    reset([]);
+    setSelectedCourse([]);
   };
 
   return (
@@ -423,7 +432,14 @@ export const EnrollmentCourse = () => {
                 ) : (
                   <>
                     {showAppend ? null : (
-                      <Button style={{ width: "60%" }} onClick={handleAppend}>
+                      <Button
+                        style={{
+                          width: "60%",
+                          color: "#334257",
+                          background: "#dde6ed",
+                        }}
+                        onClick={handleAppend}
+                      >
                         Seleccionar cursos
                       </Button>
                     )}
@@ -498,7 +514,6 @@ export const EnrollmentCourse = () => {
 
                   <Button
                     onClick={() => {
-                      console.log({ index });
                       removeCourseSelected(index);
                       setCopeSelectedCourse([
                         ...copeSelectedCourse,
@@ -515,14 +530,18 @@ export const EnrollmentCourse = () => {
 
               <br></br>
 
-              {/* <Button type="button" onClick={handleAppend}>
-          Seleccionar cursos
-        </Button> */}
               <br></br>
 
               <div>
                 {copeSelectedCourse.length === 0 || !showButtons ? null : (
-                  <Button style={{ width: "60%" }} onClick={handleAppend2}>
+                  <Button
+                    style={{
+                      width: "60%",
+                      color: "#334257",
+                      background: "#dde6ed",
+                    }}
+                    onClick={handleAppend2}
+                  >
                     Agregar el horario
                   </Button>
                 )}
@@ -657,7 +676,11 @@ export const EnrollmentCourse = () => {
                       onClick={() => {
                         appendTeacherSelected({ name: "" });
                       }}
-                      style={{ width: "60%", color: "#334257" }}
+                      style={{
+                        width: "60%",
+                        color: "#334257",
+                        background: "#dde6ed",
+                      }}
                     >
                       Seleccionar Profesores
                     </Button>

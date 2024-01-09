@@ -12,6 +12,7 @@ import {
 import { useHookCourse } from "../useContext/HooksAllProvider";
 import { useContext, useEffect } from "react";
 import { CursosPages } from "./CursosPages";
+import { Loading } from "../components/Loading";
 
 export const PerfilStudyPage = () => {
   const { contextAllHooks } = useHookCourse();
@@ -20,7 +21,7 @@ export const PerfilStudyPage = () => {
     setShowHome,
     show,
     setShow,
-    setShowText,
+    loading,
     getDataInforma,
     handleShowText,
     showText,
@@ -28,7 +29,7 @@ export const PerfilStudyPage = () => {
     handleHomePage,
   } = contextAllHooks;
   const { state } = useLocation();
- 
+
   useEffect(() => {
     localStorage.setItem("show", JSON.stringify(show));
     localStorage.setItem("showHome", JSON.stringify(showHome));
@@ -96,13 +97,31 @@ export const PerfilStudyPage = () => {
 
         <Col xs="6">
           <div className="body-perfil">
+            {loading ? (
+              // Muestra un mensaje de carga mientras se espera a que los datos se carguen
+              <Loading />
+            ) : (
+              <>
+                {getDataInforma.length === 0 ? null : (
+                  <div>{showHome && <EnrollCoursePage />}</div>
+                )}
+                {show && <EnrollmentCourse />}
+
+                {showText && <DescriptionProject />}
+              </>
+            )}
+          </div>
+
+          {/* <div className="body-perfil">
+          <> {loading && "Corgando ..........."} </>
             {show ? <EnrollmentCourse /> : null}
+
             {getDataInforma.length === 0 ? null : (
               <div>{showHome ? <EnrollCoursePage /> : null}</div>
             )}
 
             {showText && <DescriptionProject />}
-          </div>
+          </div> */}
         </Col>
         <Col xs={12} md={6}>
           <div className="body-perfil"></div>
