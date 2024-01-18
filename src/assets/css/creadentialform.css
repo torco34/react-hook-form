@@ -2,7 +2,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 76vh;
+}
+.container a{
+  list-style: none; 
+  text-decoration: none;
+
 }
 .form-wrapper {
   max-width: 600px; /* Ancho máximo del formulario */
@@ -43,7 +48,8 @@
 .submit-button {
   margin-top: 15px;
   text-align: center;
-  background: var(--lightBlue);
+  width: 100%;
+  /* background: var(--lightBlue); */
 }
 
 .input-field {

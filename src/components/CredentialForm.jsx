@@ -3,10 +3,11 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Row, Col } from "react-bootstrap";
 import "../assets/css/creadentialform.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useHookCourse } from "../useContext/HooksAllProvider";
-
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { Loading } from "./Loading";
+
 export const CredentialForm = ({}) => {
   const { contextAllHooks } = useHookCourse();
   const { isRegistration, setLoading, handleOnRegistro } = contextAllHooks;
@@ -31,6 +32,14 @@ export const CredentialForm = ({}) => {
   };
   return (
     <>
+      <div className="container  p-5">
+        <Breadcrumb>
+          <Breadcrumb.Item>
+            <Link to="/">Home</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active>Formulario</Breadcrumb.Item>
+        </Breadcrumb>
+      </div>
       <Row>
         <Col xs={12} md={12} className="  containerColumna ">
           <div className="form-wrapper rounded ">

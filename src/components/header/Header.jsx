@@ -25,7 +25,7 @@ export const Header = () => {
                 className="d-flex align-item-center justify-content-center"
               >
                 <div className="logo  ">
-                  <Link to="/dashboard">
+                  <Link to="/">
                     <img
                       alt=""
                       src={logo}
