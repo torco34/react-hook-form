@@ -6,7 +6,7 @@ import { PrivateRouter } from "./components/PrivateRouter";
 import { HomePage, PerfilStudyPage, DashboardPage } from "./page";
 import { Footer } from "./components/header/Footer";
 import { Header } from "./components/header/Header";
-
+import { HomeEstudiante } from "./page";
 function App() {
   return (
     <div className="app">
@@ -16,7 +16,9 @@ function App() {
 
           <Routes>
             <Route path="" element={<HomePage />} />
+            
             <Route path="login" element={<DashboardPage />} />
+            <Route path="study" element={<HomeEstudiante />} />
             <Route
               path="dashboard"
               element={
@@ -26,7 +28,7 @@ function App() {
               }
             />
           </Routes>
-
+        
           <Footer />
         </HooksAllProvider>
       </Router>

@@ -1,7 +1,8 @@
 import perfil from "../assets/img/icon.png";
 import "../assets/css/perfil.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { EnrollCoursePage } from "./EnrollCoursePage";
 import {
   ButtonReutilizar,
@@ -50,9 +51,17 @@ export const PerfilStudyPage = () => {
 
   return (
     <div className="container containerFather">
+     
       <Row>
         <Col xs lg="6">
+        
           <div className="container-color">
+          <Breadcrumb>
+          <Breadcrumb.Item>
+            <Link to="" >Home</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active>Perfil Estudiante</Breadcrumb.Item>
+        </Breadcrumb>
             <div className="container  profile-container">
               <img
                 src={perfil}
@@ -81,7 +90,7 @@ export const PerfilStudyPage = () => {
             />
 
             <ButtonReutilizar
-              text="descripción del proyecto"
+              text="Descripción del proyecto"
               onClick={handleShowText}
             />
           </div>

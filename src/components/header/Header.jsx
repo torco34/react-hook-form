@@ -38,26 +38,26 @@ export const Header = () => {
                 </div>
               </Col>
               <Col sm lg="8" className="d-flex ">
-                <div className="login borde">
-                  {state?.logged ? (
-                    <div className="user ">
-                      <BsFillPersonFill
-                        style={{
-                          fontSize: "30px",
-                          color: "#fff",
-                        }}
-                      />
-                      <span>{state?.name}</span>
-                      <Button onClick={onLogout}>Cerras sesión</Button>
-                    </div>
-                  ) : (
-                    <div className="user ">
-                      <Link to="login">
-                        <Button onClick={onLogout}>iniciar sesión</Button>
-                      </Link>
-                    </div>
-                  )}
-                </div>
+              <div className="login borde">
+  {state?.logged ? (
+    <div className="user ">
+      <BsFillPersonFill
+        style={{
+          fontSize: "30px",
+          color: "#fff",
+        }}
+      />
+      <span>{state?.name}</span>
+      <Button onClick={onLogout}>Cerrar sesión</Button>
+    </div>
+  ) : (
+    <div className="user ">
+      <Link to="login">
+        <Button>Iniciar sesión</Button>
+      </Link>
+    </div>
+  )}
+</div>
               </Col>
             </Row>
           </Container>
