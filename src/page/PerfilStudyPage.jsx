@@ -1,19 +1,20 @@
-import perfil from "../assets/img/icon.png";
-import "../assets/css/perfil.css";
-import { useLocation, Link } from "react-router-dom";
-import { Row, Col } from "react-bootstrap";
+import { useEffect } from "react";
+
+import { Col, Row } from "react-bootstrap";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
-import { EnrollCoursePage } from "./EnrollCoursePage";
+import { Link, useLocation } from "react-router-dom";
+
 import {
   ButtonReutilizar,
+  DescriptionProject,
   EnrollmentCourse,
   ProfileInfo,
-  DescriptionProject,
 } from "../components";
-import { useHookCourse } from "../useContext/HooksAllProvider";
-import { useContext, useEffect } from "react";
-import { CursosPages } from "./CursosPages";
 import { Loading } from "../components/Loading";
+import { useHookCourse } from "../useContext/HooksAllProvider";
+import { EnrollCoursePage } from "./EnrollCoursePage";
+
+import "../assets/css/perfil.css";
 
 export const PerfilStudyPage = () => {
   const { contextAllHooks } = useHookCourse();
@@ -64,7 +65,7 @@ export const PerfilStudyPage = () => {
         </Breadcrumb>
             <div className="container  profile-container">
               <img
-                src={perfil}
+                src={"https://picsum.photos/200"}
                 alt="Imagen de perfil"
                 className="profile-image"
               />

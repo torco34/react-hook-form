@@ -1,21 +1,23 @@
-import React from "react";
+
+import { Col, Row } from "react-bootstrap";
+
 import { CredentialForm } from "../components";
-import { Row, Col } from "react-bootstrap";
-import { useHookCourse } from "../useContext/HooksAllProvider";
 import { Loading } from "../components/Loading";
+import { useHookCourse } from "../useContext/HooksAllProvider";
 
 export const DashboardPage = () => {
   const { contextAllHooks } = useHookCourse();
   const {
-    isRegistration,
-    setIsRegistration,
+    // isRegistration,
+    // setIsRegistration,
     loading,
-    setLoading,
-    handleOnRegistro,
+    login
+    // setLoading,
+    // handleOnRegistro,
   } = contextAllHooks;
   return (
     <Row>
-      <Col xs={12} md={12} className=" ">
+      <Col xs={12} md={12} className="bg-dark ">
         {loading ? <Loading /> : <CredentialForm />}
       </Col>
     </Row>

@@ -1,24 +1,31 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+
+import { PrivateRouter } from "./components/PrivateRouter";
+import { Footer } from "./components/header/Footer";
+import { MainLayout } from "./components/routers/MainLayout";
+import { DashboardPage } from "./page/DashboardPage";
+import { HomeEstudiante } from "./page/HomeEstudiante";
+import { HomePage } from "./page/HomePage";
+import { PerfilStudyPage } from "./page/PerfilStudyPage";
+import { HooksAllProvider } from "./useContext/HooksAllProvider";
+
 import "./assets/css/app.css";
 
-import { HooksAllProvider } from "./useContext/HooksAllProvider";
-import { PrivateRouter } from "./components/PrivateRouter";
-import { HomePage, PerfilStudyPage, DashboardPage } from "./page";
-import { Footer } from "./components/header/Footer";
-import { Header } from "./components/header/Header";
-import { HomeEstudiante } from "./page";
+
+// import { MainApp } from "./components/routers/MainApp";
 function App() {
   return (
     <div className="app">
       <Router>
         <HooksAllProvider>
-          <Header />
-
+          {/* <Header /> */}
+<MainLayout>
           <Routes>
             <Route path="" element={<HomePage />} />
             
             <Route path="login" element={<DashboardPage />} />
             <Route path="study" element={<HomeEstudiante />} />
+            <Route path="/perfil" element={<PerfilStudyPage />} />
             <Route
               path="dashboard"
               element={
@@ -28,7 +35,8 @@ function App() {
               }
             />
           </Routes>
-        
+        {/* <MainApp/> */}
+        </MainLayout>
           <Footer />
         </HooksAllProvider>
       </Router>

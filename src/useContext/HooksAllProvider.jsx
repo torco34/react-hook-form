@@ -1,10 +1,10 @@
 import React, { createContext, useContext, useState } from "react";
+
 import {
   dataNameCourses,
-  dataTimes,
   dataNameTeachers,
+  dataTimes,
 } from "../server/DataApi";
-import { v4 as uuidv4 } from "uuid";
 const HooksContext = createContext();
 
 export const HooksAllProvider = ({ children }) => {
@@ -14,6 +14,7 @@ export const HooksAllProvider = ({ children }) => {
   const [dataNameTime, setDataNameTime] = useState(dataTimes);
   //
   //LOS QUE VAN PARA EL COMPONENTE  DEL PROFESOR "FieldsTeacher"
+  
 
   // guarda los curso seleccionado para agregar un profesor
   const [courseSelectedForTeacher, setCourseSelectedForTeacher] = useState([]);
@@ -21,7 +22,19 @@ export const HooksAllProvider = ({ children }) => {
   const [selectedName, setSelectedName] = useState([]);
   const [selectedTime, setSelectedTime] = useState([]);
 
-  //
+  // sesión de logeo con rutas protegidas y dos headers 20/07/24
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // Puedes guardar información del usuario aquí
+  const [user, setUser] = useState(null);
+  const login = (userInfo) => {
+    setIsAuthenticated(false);
+    setUser(userInfo);
+    // alert('Login')
+  };
+  const logout = () => {
+    setIsAuthenticated(true);
+    setUser(null);
+  };
   // HOOK DE PAGES
 
   const [showAppend, setShowAppend] = useState(false);
@@ -71,6 +84,12 @@ export const HooksAllProvider = ({ children }) => {
   
   };
   const contextAllHooks = {
+    // SECCIÓN DE  AUTENTICACIÓN LÓGICA EN EL HEADER
+    isAuthenticated,
+    login,
+    logout,
+    user,
+    // SECCIÓN DE CARD CREADA
     // HOOK DE CREDENTIAL FORM
     isRegistration,
     setIsRegistration,

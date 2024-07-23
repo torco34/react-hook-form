@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useHookCourse } from "../useContext/HooksAllProvider";
-import { StudyProgress } from "../components";
+import React from "react";
 
-import { BsFillPencilFill } from "react-icons/bs";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import { DeleteFilled } from "@ant-design/icons";
 import { Button } from "antd";
+import { BsFillPencilFill, BsThreeDotsVertical } from "react-icons/bs";
+
+import { StudyProgress } from "../components";
+import { useHookCourse } from "../useContext/HooksAllProvider";
 export const CursosPages = ({}) => {
   const { contextAllHooks } = useHookCourse();
   const {

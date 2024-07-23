@@ -1,23 +1,27 @@
-import { Form, Input, Button, Alert } from "antd";
-import { useState } from "react";
+import { Button, Form, Input } from "antd";
+import { Col, Row } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
-import { Row, Col } from "react-bootstrap";
-import "../assets/css/creadentialform.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import { useHookCourse } from "../useContext/HooksAllProvider";
+
+import "../assets/css/creadentialform.css";
 
 
 
 export const CredentialForm = ({}) => {
   const { contextAllHooks } = useHookCourse();
-  const { isRegistration, setLoading, handleOnRegistro } = contextAllHooks;
+  const { isRegistration, setLoading, logout, setIsAuthenticated, handleOnRegistro, login,  } = contextAllHooks;
   const navigate = useNavigate();
-
+ 
   const { control, handleSubmit, getValues } = useForm({});
 
   const onSubmit = async (data) => {
+ 
     try {
-      setLoading(true);
+      // setLoading(true);
+      // login()
+      logout()
       await new Promise((resolve) => setTimeout(resolve, 1500));
       localStorage.setItem("userData", JSON.stringify(data));
       navigate("/dashboard", {
@@ -59,7 +63,7 @@ export const CredentialForm = ({}) => {
                         <Input
                           {...field}
                           placeholder={
-                            isRegistration ? " Nombre y apellidos" : "Usuario "
+                            isRegistration ? "Nombre y apellidos" : "Usuario "
                           }
                           className="input-fields"
                         />
@@ -164,7 +168,7 @@ export const CredentialForm = ({}) => {
               </Button>
               <div className="submit-button ">
                 <Button type="primary" htmlType="submit">
-                  {isRegistration ? "Registrarse" : "Ingresar"}
+                  {isRegistration ? "Registrarsesssssss" : "Ingresar"}
                 </Button>
               </div>
             </Form>

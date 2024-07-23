@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import "../../assets/css/header.css";
-import { Navbar, Row, Col, Container } from "react-bootstrap";
-import logo from "../../assets/img/log.png";
-import { BsFillPersonFill } from "react-icons/bs";
+
+
 import { Button } from "antd";
+import { Col, Container, Navbar, Row } from "react-bootstrap";
+import { BsFillPersonFill } from "react-icons/bs";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+
+import logo from "../../assets/img/log.png";
+
+import "../../assets/css/header.css";
 
 export const Header = () => {
   const { state } = useLocation();
@@ -63,7 +66,7 @@ export const Header = () => {
           </Container>
         </Navbar.Brand>
       </Navbar>
-      <Outlet />
+      {/* <Outlet /> */}
     </>
   );
 };
