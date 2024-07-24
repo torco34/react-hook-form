@@ -1,7 +1,10 @@
+
 export const HomeEstudiante = () => {
     return (
         <div className="d-flex justify-content-center ">
-            este es el hom del estudiante
+         
+                <h1>Home Estudiante</h1>
+        
         </div>
     )
 }

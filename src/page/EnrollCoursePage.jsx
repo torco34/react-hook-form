@@ -1,11 +1,6 @@
-import { Row, Col } from "react-bootstrap";
-import "../assets/css/enrollCourserPage.css";
+import { Col, Row } from "react-bootstrap";
 
-import img0 from "../assets/img/ingle.jpeg";
-import img1 from "../assets/img/int.jpeg";
-import img2 from "../assets/img/computer.jpeg";
-import { StudyProgress } from "../components/StudyProgress";
-import Item from "antd/es/list/Item";
+import "../assets/css/enrollCourserPage.css";
 import { CursosPages } from "./CursosPages";
 
 export const EnrollCoursePage = () => {
@@ -21,4 +16,4 @@ export const EnrollCoursePage = () => {
       </Row>
     </div>
   );
-};
+}

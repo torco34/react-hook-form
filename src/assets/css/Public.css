@@ -1,0 +1,24 @@
+.headerStyle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #005C78;
+  color: white;
+  padding: 10px 20px;
+}
+.avatarContainerStyle{
+    display: flex;
+    align-items: center;
+}
+.linkStyle {
+    margin-left: 20px;
+    text-decoration: none; /* Elimina el subrayado del enlace */
+    color: white; /* Cambia el color del texto del enlace (puedes ajustar el color según tus necesidades) */
+
+ 
+  }
+  
+  .linkStyle:hover {
+    color: #0056b3; /* Cambia el color del texto cuando se pasa el cursor sobre el enlace */
+ 
+  }

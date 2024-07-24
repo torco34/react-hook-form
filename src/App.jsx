@@ -7,10 +7,10 @@ import { DashboardPage } from "./page/DashboardPage";
 import { HomeEstudiante } from "./page/HomeEstudiante";
 import { HomePage } from "./page/HomePage";
 import { PerfilStudyPage } from "./page/PerfilStudyPage";
+import { StudentProfile } from "./page/StudentProfile";
 import { HooksAllProvider } from "./useContext/HooksAllProvider";
 
 import "./assets/css/app.css";
-
 
 // import { MainApp } from "./components/routers/MainApp";
 function App() {
@@ -19,24 +19,24 @@ function App() {
       <Router>
         <HooksAllProvider>
           {/* <Header /> */}
-<MainLayout>
-          <Routes>
-            <Route path="" element={<HomePage />} />
-            
-            <Route path="login" element={<DashboardPage />} />
-            <Route path="study" element={<HomeEstudiante />} />
-            <Route path="/perfil" element={<PerfilStudyPage />} />
-            <Route
-              path="dashboard"
-              element={
-                <PrivateRouter>
-                  <PerfilStudyPage />
-                </PrivateRouter>
-              }
-            />
-          </Routes>
-        {/* <MainApp/> */}
-        </MainLayout>
+          <MainLayout>
+            <Routes>
+              <Route path="" element={<HomePage />} />
+
+              <Route path="login" element={<DashboardPage />} />
+              <Route path="study" element={<HomeEstudiante />} />
+              <Route path="profile" element={<StudentProfile />} />
+              <Route
+                path="dashboard"
+                element={
+                  <PrivateRouter>
+                    <PerfilStudyPage />
+                  </PrivateRouter>
+                }
+              />
+            </Routes>
+            {/* <MainApp/> */}
+          </MainLayout>
           <Footer />
         </HooksAllProvider>
       </Router>

@@ -7,6 +7,9 @@
   --lightBlue: #dde6ed;
   --red: #e74c3c;
 }
+
+
+
 .app {
   background-color: var(--lightBlue);
 

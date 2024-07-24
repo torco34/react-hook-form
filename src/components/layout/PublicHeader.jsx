@@ -1,34 +1,30 @@
 import React from 'react';
 
 import { Link, Outlet } from 'react-router-dom';
+
+import "../../assets/css/Public.css";
 export const PublicHeader = () => {
   return (
-    <header style={headerStyle}>
-    <h1>Bienvenidos </h1>
-    <nav  style={avatarContainerStyle}>
-      <ul style={navStyle}>
-      <Link to="" style={linkStyle}>Inicio ho</Link>
-        <Link to="/login" style={linkStyle}>Iniciar sesion</Link>
-        {/* <Link to="profile" style={linkStyle}>profile</Link> */}
+    <header  className='headerStyle'>
+   <div className='container headerStyle'>
+   <h1>Bienvenidos </h1>
+    <nav  className="avatarContainerStyle">
+      <ul  className='link'>
+      <Link to="" className='linkStyle'>Inicio</Link>
+      
+      <Link to="login" className='linkStyle btn btn-light ' >Registrarse</Link>
+        <Link to="login" className='linkStyle btn btn-light ' >Iniciar sesion</Link>
       </ul>
     </nav>
+
+   </div>
     <Outlet />
   </header>
   )
 }
-const headerStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '10px 20px',
-    backgroundColor: '#282c34',
-    color: 'white',
-  };
+
   
-  const avatarContainerStyle = {
-    display: 'flex',
-    alignItems: 'center',
-  };
+ 
   
   const avatarStyle = {
     width: '40px',
@@ -39,17 +35,15 @@ const headerStyle = {
   
   const nameStyle = {
     fontSize: '1.2em',
+    marginLe: '20px',
   };
   
   const navStyle = {
     display: 'flex',
+   margin: "30px",
     alignItems: 'center',
   };
   
-  const linkStyle = {
-    color: 'white',
-    textDecoration: 'none',
-    fontSize: '1em',
-  };
+
   
   

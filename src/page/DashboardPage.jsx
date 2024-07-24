@@ -16,7 +16,7 @@ export const DashboardPage = () => {
     // handleOnRegistro,
   } = contextAllHooks;
   return (
-    <Row>
+    <Row className="">
       <Col xs={12} md={12} className="bg-dark ">
         {loading ? <Loading /> : <CredentialForm />}
       </Col>
